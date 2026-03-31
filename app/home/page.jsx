@@ -1,0 +1,560 @@
+"use client";
+
+import { GrNext } from "react-icons/gr";
+import { GrPrevious } from "react-icons/gr";
+import { BiSolidMessageAlt } from "react-icons/bi";
+import { TbTruckDelivery } from "react-icons/tb";
+import { MdSecurity } from "react-icons/md";
+import { GoArrowSwitch } from "react-icons/go";
+import { MdSupportAgent } from "react-icons/md";
+import ProductCard from "../components/card/productCard";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { setProduct } from "../lib/redux/reduxSlice/productSlice";
+
+import firstBG from "../../public/background-image/background-image.png";
+import groceriesCollection from "../../public/discount-banner/groceries.jpg";
+import fashonCollection from "../../public/discount-banner/mobile accesories.jpg";
+import bestCollection from "../../public/discount-banner/best collection.jpg";
+
+import carBannerBgImage from "../../public/discount-banner/bg-carbg.jpg";
+
+import Image from "next/image";
+
+import beautyI from "../../public/category-images/Beauty & Personal Care.jpg";
+import electronics from "../../public/category-images/Electronics & Gadgets.jpg";
+import fashoni from "../../public/category-images/Fashion & Lifestyle.png";
+import groceries from "../../public/category-images/Groceries & Essentials.jpg";
+import homeLiving from "../../public/category-images/Home & Living.jpg";
+import sportsAtm from "../../public/category-images/Sports & Automotive.png";
+
+import { IoIosArrowRoundForward } from "react-icons/io";
+import { IoIosArrowRoundBack } from "react-icons/io";
+
+const page = () => {
+  const dispatch = useDispatch();
+
+  async function fetchProduct() {
+    try {
+      const data = await fetch("https://dummyjson.com/products?limit=0");
+      const fetchingData = await data.json();
+      dispatch(setProduct(fetchingData.products));
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    fetchProduct();
+  }, []);
+  const { product } = useSelector((state) => state.product);
+
+  const [getCategory, setGetCategory] = useState("allProduct");
+  const [categoryProducts, setCategoryProducts] = useState([]);
+
+  function showBestProduct() {
+    if (!product || product.length === 0) return;
+    if (getCategory === "allProduct") {
+      const allProducts = product.filter((items) => {
+        return (
+          items.category === "beauty" ||
+          items.category === "groceries" ||
+          items.category === "home-decoration" ||
+          items.category === "mobile-accessories" ||
+          items.category === "womens-jewellery" ||
+          items.rating > 4
+        );
+      });
+      setCategoryProducts(allProducts);
+    } else if (getCategory === "beauty") {
+      const beauty = product.filter((items) => items.category === "beauty");
+      setCategoryProducts(beauty);
+    } else if (getCategory === "groceries") {
+      const groceries = product.filter(
+        (items) => items.category === "groceries",
+      );
+      setCategoryProducts(groceries);
+    } else if (getCategory === "home-decoration") {
+      const homeDecoration = product.filter(
+        (items) => items.category === "home-decoration",
+      );
+      setCategoryProducts(homeDecoration);
+    } else if (getCategory === "mobile-accessories") {
+      const mobileAccessories = product.filter(
+        (items) => items.category === "mobile-accessories",
+      );
+      setCategoryProducts(mobileAccessories);
+    } else {
+      const womensJewellery = product.filter(
+        (items) => items.category === "womens-jewellery",
+      );
+      setCategoryProducts(womensJewellery);
+    }
+  }
+
+  useEffect(() => {
+    showBestProduct();
+  }, [getCategory, product]);
+
+  let mostLikedProduct;
+
+  function mostPopularProduct() {
+    const highRatingProduct = product.filter((item) => item.rating > 4);
+    mostLikedProduct = highRatingProduct;
+  }
+
+  const carForBanner = product.filter((item) => item.id === 170);
+  console.log(carForBanner.map((item) => item));
+
+  mostPopularProduct();
+
+  return (
+    <>
+      <main className="h-full w-full bg-white  ">
+        <section className="h-full w-full  ">
+          <div className="w-full  flex justify-center items-center relative">
+            <div className="w-full h-full absolute top-0 left-0  opacity-20 z-0">
+              <Image
+                src={firstBG}
+                alt="first background image"
+                className=" w-full h-full object-cover object-center"
+              />
+            </div>
+            <div className=" w-[90%] h-full py-10! z-10 ">
+              <div className="p-5!  flex flex-col lg:flex-row justify-between gap-10 items-center">
+                <div className="w-full  lg:w-[60%]  h-full flex justify-center items-center">
+                  <div className=" h-[80%] flex flex-col justify-center gap-3 w-full sm:w-[90%] lg:w-[80%] ">
+                    <h4 className="font-bold text-sm md:text-lg text-[#ffb524]">
+                      Smart Shopping Starts Here
+                    </h4>
+                    <p className="text-[#81c408] text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">
+                      Discover Quality Products Across Fashion, Electronics,
+                      Groceries, and Lifestyle Essentials
+                    </p>
+                    <div className="mt-5! w-full md:w-3/4 py-[5%]!">
+                      <div className=" border rounded-md bg-white border-[#ffb524] flex justify-between items-center ">
+                        <input
+                          type="text"
+                          placeholder="enter your Email"
+                          className="p-3! border-none outline-none"
+                        />
+                        <button className="border-none text-white font-bold transition duration-500 hover:bg-[#ffb524] outline-none py-3! px-3! rounded-md bg-[#81c408]">
+                          Subscribe Now
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="w-full  p-3! overflow-hidden lg:w-[40%]  h-full  flex justify-center items-center">
+                  <div className="w-full  h-[80%]  sm:w-[70%]  md:[w-50%] lg:w-[99%] max-w-full">
+                    <Swiper
+                      modules={[Navigation, Pagination, Autoplay]}
+                      spaceBetween={20}
+                      slidesPerView={1}
+                      autoplay={{ delay: 3000 }}
+                      speed={1000}
+                      loop={true}
+                      navigation={{
+                        nextEl: ".customNav-next",
+                        prevEl: ".customNav-prev",
+                      }}
+                      className="  relative  rounded-md    "
+                    >
+                      <SwiperSlide className=" relative  ">
+                        <div className=" w-full h-80  relative ">
+                          <Image
+                            src={groceries}
+                            alt="categories Images"
+                            className="w-full h-full object-cover object-center"
+                          />
+                          <button
+                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-lg md:text-2xl
+                         bottom-1/2 right-1/2  translate-x-1/2 translate-y-1/2 font-bold"
+                          >
+                            Groceries
+                          </button>
+                        </div>
+                      </SwiperSlide>
+                      <SwiperSlide className=" relative  ">
+                        <div className=" w-full h-80   ">
+                          <Image
+                            src={beautyI}
+                            alt="categories Images"
+                            className="w-full h-full object-cover object-center"
+                          />
+                          <button
+                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-lg md:text-2xl
+                         bottom-1/2 right-1/2  translate-x-1/2 translate-y-1/2 font-bold"
+                          >
+                            Beauty
+                          </button>
+                        </div>
+                      </SwiperSlide>
+                      <SwiperSlide className=" relative  ">
+                        <div className=" w-full h-80   ">
+                          <Image
+                            src={fashoni}
+                            alt="categories Images"
+                            className="w-full h-full object-cover object-center"
+                          />
+                          <button
+                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute  text-lg md:text-2xl
+                         bottom-1/2 right-1/2  translate-x-1/2 translate-y-1/2 font-bold"
+                          >
+                            Fashion
+                          </button>
+                        </div>
+                      </SwiperSlide>
+                      <SwiperSlide className=" relative  ">
+                        <div className=" w-full h-80   ">
+                          <Image
+                            src={electronics}
+                            alt="categories Images"
+                            className="w-full h-full object-cover object-center"
+                          />
+                          <button
+                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-lg md:text-2xl
+                         bottom-1/2 right-1/2  translate-x-1/2 translate-y-1/2 font-bold"
+                          >
+                            Gadgets
+                          </button>
+                        </div>
+                      </SwiperSlide>
+                      <SwiperSlide className=" relative  ">
+                        <div className=" w-full h-80   ">
+                          <Image
+                            src={homeLiving}
+                            alt="categories Images"
+                            className="w-full h-full object-cover object-center"
+                          />
+                          <button
+                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-lg md:text-2xl
+                         bottom-1/2 right-1/2  translate-x-1/2 translate-y-1/2 font-bold"
+                          >
+                            Home & Living
+                          </button>
+                        </div>
+                      </SwiperSlide>
+                      <SwiperSlide className=" relative  ">
+                        <div className=" w-full h-80  ">
+                          <Image
+                            src={sportsAtm}
+                            alt="categories Images"
+                            className="w-full h-full object-cover object-center"
+                          />
+                          <button
+                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-lg md:text-2xl
+                         bottom-1/2 right-1/2  translate-x-1/2 translate-y-1/2 font-bold"
+                          >
+                            AutoMotive
+                          </button>
+                        </div>
+                      </SwiperSlide>
+
+                      {/* custom Navigadion button */}
+                      <button
+                        className="customNav-prev border p-3! rounded-md
+                   bg-[#81c408] hover:bg-[#ffb524] text-[#ffb524] transition duration-500 hover:text-[#81c408]
+                    absolute bottom-1/2 left-3 translate-y-1/2 cursor-pointer z-10"
+                      >
+                        <GrPrevious />
+                      </button>
+                      <button
+                        className="customNav-next border p-3! rounded-md
+                   bg-[#81c408] hover:bg-[#ffb524] text-[#ffb524] transition duration-500 hover:text-[#81c408]
+                    absolute bottom-1/2 right-3 translate-y-1/2 cursor-pointer z-10 "
+                      >
+                        <GrNext />
+                      </button>
+                    </Swiper>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full  flex justify-center items-center py-20!  ">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-content-center gap-10 ">
+              <div className=" bg-[#F4F6F8] w-78 h-68 rounded-md flex justify-between items-center flex-col gap-4  p-5!">
+                <div className="text-[150px]  relative  text-[#ffb524]">
+                  <BiSolidMessageAlt />
+                  <div className="absolute  h-[80%]  flex justify-start items-center   right-1/2 translate-x-1/2 top-1 text-6xl text-white">
+                    <TbTruckDelivery />
+                  </div>
+                </div>
+                <div className="flex flex-col justify-center items-center gap-1">
+                  <h2 className="text-2xl text-gray-500">Free Shipping</h2>
+                  <p className="text-gray-500 text-lg">
+                    Free on order over $300
+                  </p>
+                </div>
+              </div>
+
+              <div className=" bg-[#F4F6F8] w-78 h-68  rounded-md flex justify-between items-center flex-col gap-4 p-5!">
+                <div className="text-[150px]  relative  text-[#ffb524]">
+                  <BiSolidMessageAlt />
+                  <div className="absolute  h-[80%]  flex justify-start items-center   right-1/2 translate-x-1/2 top-1 text-6xl text-white">
+                    <MdSecurity />
+                  </div>
+                </div>
+                <div className="flex flex-col justify-center items-center gap-1">
+                  <h2 className="text-2xl text-gray-500">Security Payment</h2>
+                  <p className="text-gray-500 text-lg">100% security payment</p>
+                </div>
+              </div>
+
+              <div className=" bg-[#F4F6F8] w-78 h-68 rounded-md flex justify-between items-center flex-col gap-4  p-5!">
+                <div className="text-[150px]  relative  text-[#ffb524]">
+                  <BiSolidMessageAlt />
+                  <div className="absolute  h-[80%]  flex justify-start items-center   right-1/2 translate-x-1/2 top-1 text-6xl text-white">
+                    <GoArrowSwitch />
+                  </div>
+                </div>
+                <div className="flex flex-col justify-center items-center gap-1">
+                  <h2 className="text-2xl text-gray-500">30 Day Return</h2>
+                  <p className="text-gray-500 text-lg">
+                    30 day money guarantee
+                  </p>
+                </div>
+              </div>
+
+              <div className=" bg-[#F4F6F8] w-78 h-68 rounded-md flex justify-between items-center flex-col gap-4  p-5!">
+                <div className="text-[150px]  relative  text-[#ffb524]">
+                  <BiSolidMessageAlt />
+                  <div className="absolute  h-[80%]  flex justify-start items-center   right-1/2 translate-x-1/2 top-1 text-6xl text-white">
+                    <MdSupportAgent />
+                  </div>
+                </div>
+                <div className="flex flex-col justify-center items-center gap-1">
+                  <h2 className="text-2xl text-gray-500">24/7 Support</h2>
+                  <p className="text-gray-500 text-lg">
+                    Support every time fast
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* <div className="w-full flex justify-center items-center ">
+            <div className="w-[90%] h-full flex  flex-col">
+              <div className=" py-4!">
+                <h2 className="py-5! text-xl md:text-3xl font-semibold text-gray-500">
+                  Our Best Product
+                </h2>
+                <div className="py-5!">
+                  <div className="flex justify-start w-full gap-5  items-center flex-wrap">
+                    {[
+                      {
+                        label: "all Product",
+                        value: "allProduct",
+                      },
+                      {
+                        label: "beauty",
+                        value: "beauty",
+                      },
+
+                      {
+                        label: "Groceries",
+                        value: "groceries",
+                      },
+                      {
+                        label: "Mobile Accessories",
+                        value: "mobile-accessories",
+                      },
+                      {
+                        label: "Home Decoration",
+                        value: "home-decoration",
+                      },
+                      {
+                        label: "Womens Jewellery",
+                        value: "womens-jewellery",
+                      },
+                    ].map((cate, idx) => {
+                      return (
+                        <div
+                          key={idx}
+                          onClick={() => setGetCategory(cate.value)}
+                          className={`${getCategory === cate.value ? "bg-[#ffb524] text-white" : "bg-[#F4F6F8]"}   px-3!   py-1! cursor-pointer
+                     text-gray-500 hover:text-gray-800 rounded-md capitalize`}
+                        >
+                          {cate.label}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              <div className=" w-full  my-5! border bg-white border-gray-300 rounded-md gap-5 flex flex-wrap justify-center items-center p-5! ">
+                {categoryProducts.map((item, idx) => {
+                  return <ProductCard key={idx} item={item} />;
+                })}
+              </div>
+            </div>
+          </div> */}
+
+          {/* <div className="py-5! w-full  relative flex   justify-center items-center">
+            <div className="w-[90%] flex h-[90%] justify-center flex-wrap items-center gap-10 ">
+              <div className="w-90 rounded-md border cursor-pointer relative border-gray-300 hover:border-none transition duration-300 hover:shadow-lg shadow-gray-400 overflow-hidden flex flex-col justify-center items-center h-90">
+                <div className="w-[80%]   h-[65%]">
+                  <Image
+                    src={bestCollection}
+                    alt="best collection cars"
+                    className="w-full h-full object-cover object-center"
+                  />
+                </div>
+
+                <div className="w-[70%] h-40 flex flex-col justify-center items-center bg-[#F4F6F8] rounded-md absolute bottom-2/4 translate-y-3/4 right-1/2 translate-x-1/2">
+                  <div className="text-xl font-semibold text-[#81c408]">
+                    Proemium Product
+                  </div>
+                  <div className="text-2xl font-bold text-gray-600 ">
+                    Up to 10% off{" "}
+                  </div>
+                </div>
+
+                <div className="w-full h-1/2 bg-[#45595B] "></div>
+              </div>
+
+              <div className="w-90 rounded-md relative bg- transition duration-300 hover:shadow-lg shadow-gray-400   overflow-hidden flex flex-col justify-center items-center h-90">
+                <div className="w-full   h-[65%]">
+                  <Image
+                    src={groceriesCollection}
+                    alt="best collection cars"
+                    className="w-full h-full object-cover object-center"
+                  />
+                </div>
+                <div className="w-[70%] flex flex-col justify-center items-center bg-[#ffb524] rounded-md  h-40  absolute bottom-2/4 translate-y-3/4 right-1/2 translate-x-1/2">
+                  <div className="text-xl font-semibold text-white">
+                    Exotic Vegitable
+                  </div>
+                  <div className="text-2xl font-bold text-gray-600">
+                    Discount 30${" "}
+                  </div>
+                </div>
+
+                <div className="w-full h-1/2 bg-[#81c408] "></div>
+              </div>
+              <div className="w-90 rounded-md relative transition cursor-pointer duration-300 hover:shadow-lg shadow-gray-400  overflow-hidden flex flex-col justify-center items-center h-90">
+                <div className="w-full  h-[65%]">
+                  <Image
+                    src={fashonCollection}
+                    alt="best collection cars"
+                    className="w-full h-full object-cover object-center"
+                  />
+                </div>
+                <div className="w-[70%] flex flex-col justify-center items-center bg-[#81c408] h-40 rounded-md absolute bottom-2/4 translate-y-3/4 right-1/2 translate-x-1/2">
+                  <div className="text-xl font-semibold text-white">
+                    Fashon{" "}
+                  </div>
+                  <div className="text-2xl font-bold text-gray-600">
+                    Free Delivery
+                  </div>
+                </div>
+                <div className="w-full h-1/2   bg-[#ffb524] "></div>
+              </div>
+            </div>
+          </div>
+
+          <div className=" w-full flex justify-center items-center">
+            <div className="h-full w-[90%]  ">
+              <div className="flex justify-between items-center">
+                <h2
+                  className="py-5! text-xl
+                 md:text-3xl font-semibold text-gray-500 capitalize "
+                >
+                  most popular product
+                </h2>
+                <div className=" flex justify-center items-center gap-5 md:gap-10 pr-5 md:pr-10!">
+                  <button
+                    className=" customArrow-prev cursor-pointer px-2! md:px-4! rounded-md text-[#81c408] border-[#ffb524] 
+                hover:border-[#ffb524] hover:text-white transition duration-500
+                 hover:bg-[#ffb524] py-1! border outline-none text-3xl"
+                  >
+                    <IoIosArrowRoundBack />
+                  </button>
+                  <button
+                    className=" customArrow-next cursor-pointer px-2! md:px-4! rounded-md text-[#81c408] border-[#ffb524]
+                     hover:border-[#ffb524] hover:text-white transition duration-500
+                      hover:bg-[#ffb524] py-1! border outline-none text-3xl"
+                  >
+                    <IoIosArrowRoundForward />
+                  </button>
+                </div>
+              </div>
+               
+              <div
+                className=" flex justify-center items-center p-2! lg:p-4!   border  bg-white border-gray-300 rounded-md
+                 "
+              >
+                <Swiper
+                  modules={[Navigation, Pagination, Autoplay]}
+                  slidesPerView="auto"
+                  spaceBetween={10}
+                  
+                  autoplay={{ delay: 3000 }}
+                  speed={1000}
+                  loop={true}
+                  navigation={{
+                    nextEl: ".customArrow-next",
+                    prevEl: ".customArrow-prev",
+                  }}
+                  className=" rounded-md w-full   "
+                >
+                  {mostLikedProduct.map((item, idx) => {
+                    return (
+                      <SwiperSlide className="w-88!  ">
+                        <ProductCard key={idx} item={item} />
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+              </div> 
+            </div>
+          </div>  */}
+
+          <div
+            className="w-full h-[80vh] md:[70vh] lg:h-[65vh]  mt-10!
+           flex justify-center items-center py-10! "
+          >
+            <div className="w-[90%] h-full border relative bg-[#ffb524] ">
+              <div
+                className=" w-30 h-30 lg:w-50 z-40 lg:h-50 absolute top-0 left-0
+                [clip-path:polygon(0_0,100%_0,100%_0,0_100%)] bg-[#ffb524]"
+              >
+                <h2
+                  className=" text-lg md:xl lg:text-4xl -rotate-45 font-bold
+                 text-white uppercase absolute top-7 left-2 lg:top-13 font-serif lg:left-1 "
+                >
+                  {carForBanner.map((item) => item.brand)}
+                </h2>
+              </div>
+
+              <div
+                className="w-[70%] lg:w-[75%] z-30 absolute top-0 left-0 h-[30%] lg:h-[60%]
+               [clip-path:polygon(0%_00%,100%_0,75%_100%,0%_100%)] bg-red-500"
+              ></div>
+
+              <div className="w-[50%] z-10 absolute right-0 top-0 bg-[#ffb524] h-full "></div>
+              <div
+                className=" w-30 h-30 lg:w-50 lg:h-50 
+                [clip-path:polygon(100%_100%,0_100%,0_100%,100%_0)] 
+                absolute bottom-0 right-0 z-30 bg-[#950101]"
+              ></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  );
+};
+
+export default page;
