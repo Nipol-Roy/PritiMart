@@ -7,6 +7,10 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { MdSecurity } from "react-icons/md";
 import { GoArrowSwitch } from "react-icons/go";
 import { MdSupportAgent } from "react-icons/md";
+import { GiSevenPointedStar } from "react-icons/gi";
+import { FaChevronLeft } from "react-icons/fa";
+import { FaChevronRight } from "react-icons/fa";
+
 import ProductCard from "../components/card/productCard";
 
 import "swiper/css";
@@ -35,6 +39,7 @@ import fashoni from "../../public/category-images/Fashion & Lifestyle.png";
 import groceries from "../../public/category-images/Groceries & Essentials.jpg";
 import homeLiving from "../../public/category-images/Home & Living.jpg";
 import sportsAtm from "../../public/category-images/Sports & Automotive.png";
+import fakeImage from "../../public/category-images/fakeUrl.png";
 
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { IoIosArrowRoundBack } from "react-icons/io";
@@ -103,7 +108,7 @@ const page = () => {
   useEffect(() => {
     showBestProduct();
   }, [getCategory, product]);
-
+  let carBannerImage;
   let mostLikedProduct;
 
   function mostPopularProduct() {
@@ -112,9 +117,10 @@ const page = () => {
   }
 
   const carForBanner = product.filter((item) => item.id === 170);
-  console.log(carForBanner.map((item) => item));
+  console.log(carForBanner);
 
   mostPopularProduct();
+  console.log(product.map((i) => i.category));
 
   return (
     <>
@@ -281,7 +287,106 @@ const page = () => {
             </div>
           </div>
 
-          <div className="w-full  flex justify-center items-center py-20!  ">
+          <div className="w-full mt-10! flex justify-center items-center relative">
+            <div className="w-[90%] h-40 relative  flex justify-center items-center">
+              <div className="w-full h-full   relative  ">
+                <Swiper
+                  modules={[Navigation]}
+                  spaceBetween={2}
+                  speed={1000}
+                  loop={true}
+                  breakpoints={{
+                    0: {
+                      slidesPerView: 1,
+                    },
+                    480: {
+                      slidesPerView: 2,
+                    },
+                    640: {
+                      slidesPerView: 3,
+                    },
+                    768: {
+                      slidesPerView: 4,
+                    },
+                    1024: {
+                      slidesPerView: 5,
+                    },
+                    1280: {
+                      slidesPerView: 6,
+                    },
+                  }}
+                  navigation={{
+                    nextEl: ".categoryNav-next",
+                    prevEl: ".categoryNav-prev",
+                  }}
+                >
+                  {[
+                    "beauty",
+                    "furniture",
+                    "fragrances",
+                    "groceries",
+                    "home-decoration",
+                    "kitchen-accessories",
+                    "laptops",
+                    "mens-shirts",
+                    "mens-shoes",
+                    "mens-watches",
+                    "mobile-accessories",
+                    "motorcycle",
+                    "skin-care",
+                    "smartphones",
+                    "sports-accessories",
+                    "sunglasses",
+                    "tablets",
+                    "tops",
+                    "vehicle",
+                    "womens-bags",
+                    "womens-dresses",
+                    "womens-jewellery",
+                    "womens-shoes",
+                    "womens-watches",
+                  ].map((item, idx) => {
+                    const productList = product.find(
+                      (prod) => prod.category === item,
+                    );
+                    console.log(productList?.images[0]);
+
+                    return (
+                      <SwiperSlide key={idx} className="  relative  p-1!">
+                        <div className="w-auto  hover:shadow-lg shadow-gray-500 transition-all duration-500 cursor-pointer h-full relative rounded-md overflow-hidden">
+                          <div className="bg-[#ffb524] absolute top-0 left-0 w-full h-full  opacity-30"></div>
+                          <h2 className="absolute text-[#ffb524] capitalize z-10 top-0 right-1/2 translate-x-1/2 p-2! w-full text-lg font-bold">
+                            {productList?.category}
+                          </h2>
+                          <div className="flex justify-center relative  items-center w-full h-full ">
+                            <div className="w-[60%] h-[90%] z-0  relative">
+                              <Image
+                                fill
+                                className="w-full h-full object-cover object-center"
+                                src={
+                                  productList?.images?.[0] || "/fallback.png"
+                                }
+                                alt="category list images"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+
+                <button className="categoryNav-prev cursor-pointer text-[#81c408] hover:text-[#ffb524] transition duration-500 z-10! absolute -left-4  bottom-1/2 translate-x-1/2 translate-y-1/2 p-2! border rounded-md text-3xl ">
+                  <FaChevronLeft />
+                </button>
+                <button className="categoryNav-next cursor-pointer text-[#81c408] hover:text-[#ffb524] transition duration-500 absolute z-10! right-8 bottom-1/2 translate-x-1/2 translate-y-1/2 p-2! border rounded-md text-3xl ">
+                  <FaChevronRight />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* <div className="w-full  flex justify-center items-center py-20!  ">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-content-center gap-10 ">
               <div className=" bg-[#F4F6F8] w-78 h-68 rounded-md flex justify-between items-center flex-col gap-4  p-5!">
                 <div className="text-[150px]  relative  text-[#ffb524]">
@@ -341,7 +446,7 @@ const page = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* <div className="w-full flex justify-center items-center ">
             <div className="w-[90%] h-full flex  flex-col">
@@ -399,9 +504,9 @@ const page = () => {
                 })}
               </div>
             </div>
-          </div> */}
+          </div>
 
-          {/* <div className="py-5! w-full  relative flex   justify-center items-center">
+          <div className="py-5! w-full  relative flex   justify-center items-center">
             <div className="w-[90%] flex h-[90%] justify-center flex-wrap items-center gap-10 ">
               <div className="w-90 rounded-md border cursor-pointer relative border-gray-300 hover:border-none transition duration-300 hover:shadow-lg shadow-gray-400 overflow-hidden flex flex-col justify-center items-center h-90">
                 <div className="w-[80%]   h-[65%]">
@@ -521,35 +626,51 @@ const page = () => {
             </div>
           </div>  */}
 
-          <div
-            className="w-full h-[80vh] md:[70vh] lg:h-[65vh]  mt-10!
-           flex justify-center items-center py-10! "
-          >
-            <div className="w-[90%] h-full border relative bg-[#ffb524] ">
-              <div
-                className=" w-30 h-30 lg:w-50 z-40 lg:h-50 absolute top-0 left-0
-                [clip-path:polygon(0_0,100%_0,100%_0,0_100%)] bg-[#ffb524]"
-              >
-                <h2
-                  className=" text-lg md:xl lg:text-4xl -rotate-45 font-bold
-                 text-white uppercase absolute top-7 left-2 lg:top-13 font-serif lg:left-1 "
-                >
-                  {carForBanner.map((item) => item.brand)}
-                </h2>
+          <div className="w-full my-10!  flex justify-center items-center">
+            <div className="w-[90%]  bg-[#F4F6F8]  rounded-md md:flex justify-between items-center overflow-hidden">
+              <div className="w-full h-[30vh]  bg-[#81c408] opacity-90  text-[#ffff] md:w-1/2  flex justify-center items-center  md:rounded-r-full">
+                <div className="w-full  md:w-[90%]   flex justify-between   p-5!  h-[90%] gap-3 md:gap-5 flex-col">
+                  <h2 className="uppercase  text-2xl font-extrabold w-70">
+                    get {Math.round(carForBanner[0]?.discountPercentage || 0)}%
+                    caseBack on shopping $
+                    {(
+                      (Math.round(carForBanner[0]?.discountPercentage || 0) /
+                        100) *
+                      carForBanner[0]?.price
+                    ).toFixed(1) || 0}
+                  </h2>
+                  <p className=" w-full xl:w-2/3  ">
+                    {carForBanner[0]?.description}
+                  </p>
+                  <button
+                    className="capitalize cursor-pointer bg-[#F4F6F8] text-gray-800 font-bold hover:border hover:border-white
+                   hover:bg-[#ffb524] hover:text-gray-900 transition duration-500 outline-none w-30 h-15 flex justify-center items-center rounded-md"
+                  >
+                    Shop Now
+                  </button>
+                </div>
               </div>
-
-              <div
-                className="w-[70%] lg:w-[75%] z-30 absolute top-0 left-0 h-[30%] lg:h-[60%]
-               [clip-path:polygon(0%_00%,100%_0,75%_100%,0%_100%)] bg-red-500"
-              ></div>
-
-              <div className="w-[50%] z-10 absolute right-0 top-0 bg-[#ffb524] h-full "></div>
-              <div
-                className=" w-30 h-30 lg:w-50 lg:h-50 
-                [clip-path:polygon(100%_100%,0_100%,0_100%,100%_0)] 
-                absolute bottom-0 right-0 z-30 bg-[#950101]"
-              ></div>
+              <div className=" w-full md:w-1/2 h-[30vh]">
+                <div className="w-full h-full relative ">
+                  <div className="  absolute text-[#ffb524]   left-5 text-[120px] lg:text-[150px] flex justify-center items-center">
+                    <GiSevenPointedStar />
+                    <h2 className="text-lg md:text-xl italic font-extrabold absolute text-white text-center bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2 uppercase">
+                      Big Discount
+                    </h2>
+                  </div>
+                  <Image
+                    className="w-full h-full object-center object-cover"
+                    src={carForBanner[0]?.images?.[1] || "/fallback.png"}
+                    alt="discount car banner"
+                    fill
+                  />
+                </div>
+              </div>
             </div>
+          </div>
+
+          <div className="border h-[60vh] w-full flex justify-center items-center">
+            <div className="w-[90%] h-full border"></div>
           </div>
         </section>
       </main>
@@ -558,3 +679,5 @@ const page = () => {
 };
 
 export default page;
+// green text-[#81c408]
+// golden bg-[#ffb524]
