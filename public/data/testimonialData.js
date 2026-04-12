@@ -79,3 +79,15 @@ export const testimonials = [
     date: "2025-02-05",
   },
 ];
+
+export const ratingResult = {
+    averageRating: 4.5,
+    totalReviews: 140,
+    ratingDistribution: [
+      { star: 5, count: 80, percentage: 57 },
+      { star: 4, count: 30, percentage: 21 },
+      { star: 3, count: 15, percentage: 11 },
+      { star: 2, count: 10, percentage: 7 },
+      { star: 1, count: 5, percentage: 4 },
+    ],
+  };

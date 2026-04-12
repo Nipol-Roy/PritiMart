@@ -17,10 +17,10 @@ const navbar = () => {
   return (
     <>
       
-        <div className="flex bg-[#45595B]   md:bg-[#FFB524]  justify-center items-center  ">
+        <div className="flex   md:bg-[#FFB524]  justify-center items-center  ">
         <div
           className=" bg-[#81C408] px-3! md:px-5! py-4! text-white
-         rounded-tl-4xl rounded-bl-2xl rounded-tr-2xl rounded-br-4xl
+         md:rounded-tl-4xl md:rounded-bl-2xl md:rounded-tr-2xl md:rounded-br-4xl
           flex justify-between items-center w-full md:w-[90%]"
         >
           <div className="flex justify-center items-center gap-2">

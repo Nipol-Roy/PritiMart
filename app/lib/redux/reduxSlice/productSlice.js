@@ -8,6 +8,7 @@ const initialState ={
 const productSlice = createSlice({
     name: "product",
     initialState,
+    loading: false,
     reducers:{
         setProduct(state,action){
             state.product = action.payload

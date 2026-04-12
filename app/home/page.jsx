@@ -39,7 +39,6 @@ import groceriesCollection from "../../public/discount-banner/groceries.jpg";
 import fashonCollection from "../../public/discount-banner/mobile accesories.jpg";
 import bestCollection from "../../public/discount-banner/best collection.jpg";
 
-
 import Image from "next/image";
 
 import beautyI from "../../public/category-images/Beauty & Personal Care.jpg";
@@ -48,28 +47,19 @@ import fashoni from "../../public/category-images/Fashion & Lifestyle.png";
 import groceries from "../../public/category-images/Groceries & Essentials.jpg";
 import homeLiving from "../../public/category-images/Home & Living.jpg";
 import sportsAtm from "../../public/category-images/Sports & Automotive.png";
-
+import { fetchProduct } from "../lib/api/fetchProduct";
 
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
 const page = () => {
-  const dispatch = useDispatch();
-
-  async function fetchProduct() {
-    try {
-      const data = await fetch("https://dummyjson.com/products?limit=0");
-      const fetchingData = await data.json();
-      dispatch(setProduct(fetchingData.products));
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  useEffect(() => {
-    fetchProduct();
-  }, []);
+  const dispatch = useDispatch()
   const { product } = useSelector((state) => state.product);
+  useEffect(() => {
+    if (!product || product.length === 0) {
+      fetchProduct(dispatch);
+    }
+  }, [product]);
 
   const [getCategory, setGetCategory] = useState("allProduct");
   const [categoryProducts, setCategoryProducts] = useState([]);
@@ -117,6 +107,7 @@ const page = () => {
   useEffect(() => {
     showBestProduct();
   }, [getCategory, product]);
+
   let carBannerImage;
   let mostLikedProduct;
 
@@ -368,10 +359,10 @@ const page = () => {
                             {productList?.category}
                           </h2>
                           <div className="flex justify-center relative  items-center w-full h-full ">
-                            <div className="w-[40%] h-[90%] p-3!  z-0  relative">
+                            <div className="w-[80%] scale-90 h-full p-10! z-0  relative">
                               <Image
                                 fill
-                                className="w-full h-full object-cover object-center"
+                                className=" object-cover object-center"
                                 src={
                                   productList?.images?.[0] || "/fallback.png"
                                 }
@@ -768,7 +759,6 @@ const page = () => {
                   className=" rounded-md w-full  "
                 >
                   {testimonials.map((data, idx) => {
-                    console.log(data);
                     return (
                       <SwiperSlide
                         key={idx}
@@ -859,5 +849,3 @@ const page = () => {
 };
 
 export default page;
-// green text-[#81c408]
-// golden bg-[#ffb524]
