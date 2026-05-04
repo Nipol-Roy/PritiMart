@@ -29,6 +29,7 @@ import ProductCard from "@/app/components/card/productCard";
 import { ratingResult } from "@/public/data/testimonialData";
 
 import bkashLogo from "../../../public/Images/BKash_Logo.png";
+import imageNotFount from "../../../public/Images/personImageDemo.jpg";
 
 const page = () => {
   const paramsItem = useParams();
@@ -68,7 +69,6 @@ const page = () => {
 
   const [addWish, setAddWish] = useState(false);
 
-  
   return (
     <div className="w-full  flex justify-center items-start p-5! ">
       <div className="w-full sm:w-[90%] ">
@@ -199,52 +199,52 @@ const page = () => {
               </div>
               <div className="w-full gap-2 p-1! justify-center items-start  grid grid-cols-2 lg:grid-cols-3 bg-[#F4F6F8] rounded-md ">
                 <div className=" rounded-md p-1! flex flex-col justify-center items-center">
-                  <div className="text-lg font-bold text-gray-500">
+                  <div className=" text-[15px] md:text-lg font-bold text-gray-500">
                     Discount
                   </div>
-                  <div className="text-gray-400">
+                  <div className="text-gray-400 text-sm md:text-[15px]">
                     {visitProduct?.discountPercentage}%
                   </div>
                 </div>
 
                 <div className=" rounded-md p-1! flex flex-col justify-center items-center ">
-                  <div className="text-lg font-bold text-gray-500">
+                  <div className="text-[15px] md:text-lg  font-bold text-gray-500">
                     Warranty
                   </div>
-                  <div className="text-gray-400">
+                  <div className="text-gray-400 text-sm md:text-[15px]">
                     {visitProduct?.warrantyInformation}
                   </div>
                 </div>
 
                 <div className=" rounded-md p-1! flex flex-col justify-center items-center ">
-                  <div className="text-lg font-bold  text-gray-500">
+                  <div className="text-[15px] md:text-lg  font-bold  text-gray-500">
                     Stock Status
                   </div>
-                  <div className="text-gray-400">
+                  <div className="text-gray-400 text-sm md:text-[15px]">
                     {visitProduct?.availabilityStatus}
                   </div>
                 </div>
                 <div className=" rounded-md p-1! flex flex-col justify-center items-center ">
-                  <div className="text-lg font-bold text-gray-500">
+                  <div className="text-[15px] md:text-lg  font-bold text-gray-500">
                     Product ID
                   </div>
-                  <div className="text-gray-400">
+                  <div className="text-gray-400 text-sm md:text-[15px]">
                     {visitProduct?.meta?.barcode}
                   </div>
                 </div>
                 <div className=" rounded-md p-1! flex flex-col justify-center items-center ">
-                  <div className="text-lg font-bold text-gray-500">
+                  <div className="text-[15px] md:text-lg  font-bold text-gray-500">
                     Return Policy
                   </div>
-                  <div className="text-gray-400">
+                  <div className="text-gray-400 text-sm md:text-[15px]">
                     {visitProduct?.returnPolicy}
                   </div>
                 </div>
                 <div className=" rounded-md p-1! flex flex-col justify-center items-center ">
-                  <div className="text-lg font-bold text-gray-500">
+                  <div className="text-[15px] md:text-lg  font-bold text-gray-500">
                     Shipping
                   </div>
-                  <div className="text-gray-400">
+                  <div className="text-gray-400 text-sm md:text-[15px]">
                     {visitProduct?.shippingInformation}
                   </div>
                 </div>
@@ -253,7 +253,9 @@ const page = () => {
                 <div className="text-lg font-bold text-gray-500">
                   Description
                 </div>
-                <div>{visitProduct?.description}</div>
+                <div className="text-gray-400 text-sm md:text-[17px]">
+                  {visitProduct?.description}
+                </div>
               </div>
             </div>
           </div>
@@ -325,7 +327,6 @@ const page = () => {
                 </div>
                 <div className=" w-full h-full md:w-[60%] p-2! gap-2">
                   {ratingResult.ratingDistribution.map((item, idx) => {
-                    console.log(item.percentage);
                     return (
                       <div
                         key={idx}
@@ -333,7 +334,11 @@ const page = () => {
                       >
                         <div className="flex  w-[35%] text-[#ffb524] justify-center items-center text-xl">
                           {[...Array(5)].map((_, i) => {
-                            return i < item.star ? <FaStar /> : <FaRegStar />;
+                            return (
+                              <span key={i}>
+                                {i < item.star ? <FaStar /> : <FaRegStar />}
+                              </span>
+                            );
                           })}
                         </div>
 
@@ -349,11 +354,69 @@ const page = () => {
                 </div>
               </div>
             </div>
+
             <div>
               <h2 className="text-lg text-gray-400 py-3! border-b border-gray-200">
                 Product Reviews
               </h2>
-              <div>now Start Product review</div>
+              <div>
+                <div>
+                  {visitProduct?.reviews?.map((review, idx) => {
+                    return (
+                      <div
+                        key={idx}
+                        className="flex flex-col my-10! md:w-[70%] lg:w-[60%] xl:w-1/2 "
+                      >
+                        <div className="flex justify-start items-center gap-2">
+                          <div className="w-10 h-10 border  rounded-full relative">
+                            <Image
+                              fill
+                              className="object-cover scale-110  md:scale-105 object-center"
+                              src={review.image || imageNotFount}
+                            />
+                          </div>
+                          <div className="font-bold text-sm md:text-lg">
+                            {review.reviewerName}
+                          </div>
+                        </div>
+                        <div className="flex">
+                          {Array.from({ length: 5 }).map((_, i) => (
+                            <div className="text-xl ">
+                              <MdOutlineStarPurple500
+                                key={i}
+                                className={
+                                  i < review.rating
+                                    ? "text-yellow-400"
+                                    : "text-gray-300"
+                                }
+                              />
+                            </div>
+                          ))}
+                        </div>
+                        <div className=" py-2!">
+                          {" "}
+                          <span className=" p-1! rounded-md bg-[#F4F6F8]">
+                            {new Date(review?.date).toLocaleDateString(
+                              "en-GB",
+                              {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric",
+                              },
+                            )}
+                          </span>
+                        </div>
+                        <div className="py-1! text-sm md:text-lg text-gray-800">
+                          {review.comment} Lorem ipsum dolor sit amet
+                          consectetur adipisicing elit. Voluptates dolorem odit
+                          facilis veniam dignissimos quasi porro deleniti
+                          consectetur rem voluptatum?
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         </div>
