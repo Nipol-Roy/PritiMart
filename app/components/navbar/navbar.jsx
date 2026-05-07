@@ -69,7 +69,7 @@ const navbar = () => {
         <div className="flex justify-center   bg-white items-center px-5! sm:px-2! lg:px-5! py-1! ">
           <div className="flex justify-between  items-center w-full md:w-[90%] ">
             <div className="text-xl  md:text-2xl flex justify-start flex-col  transition duration-500 lg:text-4xl w-1/2 md:w-[40%] capitalize font-extrabold text-[#81C408]">
-              <Link href="/">Priti Mart</Link>
+              <Link href="/">Priti Shop</Link>
               <span className="text-sm text-[#FFB524] font-medium text-left">Fresh Products</span>
             </div>
             <div
@@ -129,7 +129,7 @@ const navbar = () => {
           >
             <div className=" ">
               <div className="text-xl border-b  w-full flex justify-between items-center px-4! py-5!  capitalize font-extrabold text-[#81C408]">
-                <Link href="/">Priti Mart</Link>
+                <Link href="/">Priti Shop</Link>
                 <div
                   onClick={() => setIsMenu(!isMenu)}
                   className="text-2xl hover:bg-[#81C408] hover:text-[#FFB524] p-2! rounded-md hover:scale-115 transition duration-500"

@@ -23,7 +23,7 @@ const footer = () => {
 
           <div className="lg:w-1/4 w-full ">
             <div className="text-2xl  sm:text-4xl    transition duration-500   capitalize font-extrabold text-[#81C408]">
-              <Link href="/">Priti Mart</Link>
+              <Link href="/">Priti Shop</Link>
 
               <div className="text-sm text-[#FFB524] font-medium text-left">
                 Fresh Products
@@ -234,7 +234,7 @@ const footer = () => {
               <FaCopyright />
             </span>
             <Link href="/" className="text-[#81C408] font-bold">
-              Priti Mart <span className="text-white text-sm">,</span>
+              Priti Shop <span className="text-white text-sm">,</span>
             </Link>
             <span className="text-white">All right reserved.</span>
           </div>

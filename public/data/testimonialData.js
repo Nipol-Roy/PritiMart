@@ -72,7 +72,7 @@ export const testimonials = [
     role: "Verified Buyer",
     location: "Barisal, Bangladesh",
     image: reviewerImagesSix,
-    rating: 5,
+    rating: 4,
     review:
       "Fast delivery and authentic product. This is one of the best online shopping experiences I've had.",
     product: "Bluetooth Speaker",
