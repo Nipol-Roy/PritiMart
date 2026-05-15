@@ -36,7 +36,7 @@ export default function ProductCard({ item }) {
   const [addWish, setAddWish] = useState(false);
 
   return (
-    <div className=" w-93    p-3!  hover:shadow-lg  transition duration-500 shadow-gray-400 bg-[#f4f6f8] rounded-md flex flex-col justify-between items-center relative gap-2">
+    <div className=" w-80 sm:w-88   p-3!  hover:shadow-lg  transition duration-500 shadow-gray-400 bg-[#f4f6f8] rounded-md flex flex-col justify-between items-center relative gap-2">
       <div className=" w-full h-60 bg-white border border-gray-200 relative">
         <Swiper
           modules={[Pagination]}
@@ -81,28 +81,28 @@ export default function ProductCard({ item }) {
       <div className="w-full h-36">
         <div className="w-full h-26  flex flex-col gap-2 relative">
           <div className=" flex justify-start items-center ">
-            <h2 className="text-xl line-clamp-1 text-gray-700 font-semibold">
+            <h2 className="text-lg sm:text-xl line-clamp-1 text-gray-700 font-semibold">
               {item.title}
             </h2>
           </div>
           <div className="w-full flex justify-start items-center  relative">
-            <div className="text-[#81c408] flex gap-1 text-md   font-bold border-r-2 border-gray-200 pr-2!">
+            <div className="text-[#81c408] flex gap-1 text-[12px] sm:text-sm md:text-md   font-bold border-r-2 border-gray-200 pr-2!">
               $
               {(
                 item.price -
                 (item.discountPercentage / 100) * item.price
               ).toFixed(2)}{" "}
               /
-              <span className="text-sm line-through  flex justify-center items-end">
-                {item.price}
+              <span className="text-[12px] sm:text-sm line-through  flex justify-center items-end">
+                {Math.floor(item.price)}.9
               </span>
             </div>
 
-            <div className="px-2! text-gray-500 text-sm font-semibold border-r-2 border-gray-200">
+            <div className="px-2! text-gray-500 text-[12px] sm:text-sm font-semibold border-r-2 border-gray-200">
               {" "}
               {item.stock || 0} Stock
             </div>
-            <div className=" px-1! capitalize text-gray-500 text-sm font-semibold ">
+            <div className=" px-1! capitalize text-gray-500 text-[12px] sm:text-sm font-semibold ">
               {item.tags[1]}
             </div>
           </div>
@@ -111,7 +111,7 @@ export default function ProductCard({ item }) {
               <div className="text-[#ffb524] text-md">
                 <MdOutlineStar />
               </div>
-              <div className="text-gray-500 text-sm font-semibold">
+              <div className="text-gray-500 text-[12px] sm:text-sm font-semibold">
                 {item.rating.toFixed(1)} /5.0
               </div>
             </div>
@@ -125,11 +125,11 @@ export default function ProductCard({ item }) {
                   <AiFillCheckCircle />
                 )}
               </div>
-              <div className="text-sm text-gray-500 font-semibold">
+              <div className="text-[12px] sm:text-sm text-gray-500 font-semibold">
                 {item.availabilityStatus}
               </div>
             </div>
-            <div className="pl-3!  text-gray-500 text-sm font-semibold">
+            <div className="pl-3!  text-gray-500 text-[12px] sm:text-sm font-semibold">
               {item.brand || "No Brand"}
             </div>
           </div>

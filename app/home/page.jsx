@@ -53,7 +53,7 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
 const page = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { product } = useSelector((state) => state.product);
   useEffect(() => {
     if (!product || product.length === 0) {
@@ -134,8 +134,8 @@ const page = () => {
                 className=" w-full h-full object-cover object-center"
               />
             </div>
-            <div className=" w-[90%] h-full py-10! z-10 ">
-              <div className="p-5!  flex flex-col lg:flex-row justify-between gap-10 items-center">
+            <div className=" w-[90%] h-full py-5! z-10 ">
+              <div className="sm:p-5!  flex flex-col lg:flex-row justify-between gap-5 items-center">
                 <div className="w-full  lg:w-[60%]  h-full flex justify-center items-center">
                   <div className=" h-[80%] flex flex-col justify-center gap-3 w-full sm:w-[90%] lg:w-[80%] ">
                     <h4 className="font-bold text-sm md:text-lg text-[#ffb524]">
@@ -145,14 +145,18 @@ const page = () => {
                       Discover Quality Products Across Fashion, Electronics,
                       Groceries, and Lifestyle Essentials
                     </p>
-                    <div className="mt-5! w-full md:w-3/4 py-[5%]!">
-                      <div className=" border rounded-md bg-white border-[#ffb524] flex justify-between items-center ">
+                    <div className="my-10! h-10 sm:h-13 flex justify-center relative items-center rounded-md  border bg-white border-[#ffb524] w-full md:w-3/4 ">
+                      <div className=" border-none w-full h-full relative  flex justify-between items-center ">
                         <input
                           type="text"
                           placeholder="enter your Email"
-                          className="p-3! border-none outline-none"
+                          className="w-full h-full border-none px-5! text-[12px] sm:text-sm md:text-lg outline-none"
                         />
-                        <button className="border-none text-white font-bold transition duration-500 hover:bg-[#ffb524] outline-none py-3! px-3! rounded-md bg-[#81c408]">
+                        <button
+                          className="border-none text-[12px] sm:text-sm  md:text-lg h-full  flex justify-center items-center
+                        w-50 border border-black text-white font-bold transition
+                         duration-500 hover:bg-[#ffb524] outline-none rounded-md bg-[#81c408]"
+                        >
                           Subscribe Now
                         </button>
                       </div>
@@ -182,8 +186,8 @@ const page = () => {
                             className="w-full h-full object-cover object-center"
                           />
                           <button
-                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-lg md:text-2xl
-                         bottom-1/2 right-1/2  translate-x-1/2 translate-y-1/2 font-bold"
+                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
+                         bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
                           >
                             Groceries
                           </button>
@@ -197,8 +201,8 @@ const page = () => {
                             className="w-full h-full object-cover object-center"
                           />
                           <button
-                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-lg md:text-2xl
-                         bottom-1/2 right-1/2  translate-x-1/2 translate-y-1/2 font-bold"
+                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
+                         bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
                           >
                             Beauty
                           </button>
@@ -212,8 +216,8 @@ const page = () => {
                             className="w-full h-full object-cover object-center"
                           />
                           <button
-                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute  text-lg md:text-2xl
-                         bottom-1/2 right-1/2  translate-x-1/2 translate-y-1/2 font-bold"
+                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute  text-sm sm:text-lg md:text-xl
+                         bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
                           >
                             Fashion
                           </button>
@@ -227,8 +231,8 @@ const page = () => {
                             className="w-full h-full object-cover object-center"
                           />
                           <button
-                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-lg md:text-2xl
-                         bottom-1/2 right-1/2  translate-x-1/2 translate-y-1/2 font-bold"
+                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
+                         bottom-1/2 right-1/2 cursor-pointer  translate-x-1/2 translate-y-1/2 font-bold"
                           >
                             Gadgets
                           </button>
@@ -242,10 +246,10 @@ const page = () => {
                             className="w-full h-full object-cover object-center"
                           />
                           <button
-                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-lg md:text-2xl
-                         bottom-1/2 right-1/2  translate-x-1/2 translate-y-1/2 font-bold"
+                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
+                         bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
                           >
-                            Home & Living
+                            Living
                           </button>
                         </div>
                       </SwiperSlide>
@@ -257,8 +261,8 @@ const page = () => {
                             className="w-full h-full object-cover object-center"
                           />
                           <button
-                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-lg md:text-2xl
-                         bottom-1/2 right-1/2  translate-x-1/2 translate-y-1/2 font-bold"
+                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
+                         bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
                           >
                             AutoMotive
                           </button>
@@ -268,14 +272,14 @@ const page = () => {
                       {/* custom Navigadion button */}
                       <button
                         className="customNav-prev border p-3! rounded-md
-                   bg-[#81c408] hover:bg-[#ffb524] text-[#ffb524] transition duration-500 hover:text-[#81c408]
+                   bg-[#81c408] hover:bg-[#ffb524] text-white transition duration-500 
                     absolute bottom-1/2 left-3 translate-y-1/2 cursor-pointer z-10"
                       >
                         <GrPrevious />
                       </button>
                       <button
                         className="customNav-next border p-3! rounded-md
-                   bg-[#81c408] hover:bg-[#ffb524] text-[#ffb524] transition duration-500 hover:text-[#81c408]
+                   bg-[#81c408] hover:bg-[#ffb524] text-white transition duration-500 
                     absolute bottom-1/2 right-3 translate-y-1/2 cursor-pointer z-10 "
                       >
                         <GrNext />
@@ -288,7 +292,7 @@ const page = () => {
           </div>
 
           <div className="w-full mt-10! flex justify-center items-center relative">
-            <div className="w-[90%] h-40 relative  flex justify-center items-center">
+            <div className="w-[90%] h-60 relative  flex justify-center items-center">
               <div className="w-full h-full   relative  ">
                 <Swiper
                   modules={[Navigation]}
@@ -352,14 +356,20 @@ const page = () => {
                     // console.log(productList?.images[0]);
 
                     return (
-                      <SwiperSlide key={idx} className="  relative  p-1!">
-                        <div className="w-auto hover:shadow-lg shadow-gray-500 transition-all duration-500 cursor-pointer h-full relative rounded-md overflow-hidden">
+                      <SwiperSlide key={idx} className="   relative  p-1!">
+                        <div
+                          className="w-auto hover:shadow-lg shadow-gray-500 transition-all
+                         duration-500 cursor-pointer h-full relative rounded-md overflow-hidden"
+                        >
                           <div className="bg-[#ffb524] absolute top-0 left-0 w-full h-full  opacity-30"></div>
-                          <h2 className="absolute text-[#ffb524] capitalize z-10 top-0 right-1/2 translate-x-1/2 p-2! w-full text-lg font-bold">
+                          <h2
+                            className="absolute text-[#ffb524] capitalize z-10 top-0
+                           right-1/2 translate-x-1/2 p-2! w-full text-lg font-bold"
+                          >
                             {productList?.category}
                           </h2>
                           <div className="flex justify-center relative  items-center w-full h-full ">
-                            <div className="w-[80%] scale-90 h-full p-10! z-0  relative">
+                            <div className="w-[80%] scale-70 h-full p-10! z-0  relative">
                               <Image
                                 fill
                                 className=" object-cover object-center"
@@ -389,11 +399,19 @@ const page = () => {
           {/* nice discount */}
 
           <div className="w-full  flex justify-center items-center py-20!  ">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-content-center gap-10 ">
-              <div className=" bg-[#F4F6F8] w-78 h-68 rounded-md flex justify-between items-center flex-col gap-4  p-5!">
+            <div
+              className=" w-[90%] justify-items-center-safe gap-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4
+               "
+            >
+              <div
+                className="  bg-[#F4F6F8] w-full h-full md:w-78 md:h-68 rounded-md flex justify-between items-center flex-col gap-4  p-5!"
+              >
                 <div className="text-[150px]  relative  text-[#ffb524]">
                   <BiSolidMessageAlt />
-                  <div className="absolute  h-[80%]  flex justify-start items-center   right-1/2 translate-x-1/2 top-1 text-6xl text-white">
+                  <div
+                    className="absolute  h-[80%]  flex justify-start items-center  
+                     right-1/2 translate-x-1/2 top-1 text-6xl text-white"
+                  >
                     <TbTruckDelivery />
                   </div>
                 </div>
@@ -405,7 +423,7 @@ const page = () => {
                 </div>
               </div>
 
-              <div className=" bg-[#F4F6F8] w-78 h-68  rounded-md flex justify-between items-center flex-col gap-4 p-5!">
+              <div className=" bg-[#F4F6F8] w-full h-full md:w-78 md:h-68  rounded-md flex justify-between items-center flex-col gap-4 p-5!">
                 <div className="text-[150px]  relative  text-[#ffb524]">
                   <BiSolidMessageAlt />
                   <div className="absolute  h-[80%]  flex justify-start items-center   right-1/2 translate-x-1/2 top-1 text-6xl text-white">
@@ -418,7 +436,7 @@ const page = () => {
                 </div>
               </div>
 
-              <div className=" bg-[#F4F6F8] w-78 h-68 rounded-md flex justify-between items-center flex-col gap-4  p-5!">
+              <div className=" bg-[#F4F6F8] w-full h-full md:w-78 md:h-68 rounded-md flex justify-between items-center flex-col gap-4  p-5!">
                 <div className="text-[150px]  relative  text-[#ffb524]">
                   <BiSolidMessageAlt />
                   <div className="absolute  h-[80%]  flex justify-start items-center   right-1/2 translate-x-1/2 top-1 text-6xl text-white">
@@ -433,7 +451,7 @@ const page = () => {
                 </div>
               </div>
 
-              <div className=" bg-[#F4F6F8] w-78 h-68 rounded-md flex justify-between items-center flex-col gap-4  p-5!">
+              <div className=" bg-[#F4F6F8] w-full h-full md:w-78 md:h-68 rounded-md flex justify-between items-center flex-col gap-4  p-5!">
                 <div className="text-[150px]  relative  text-[#ffb524]">
                   <BiSolidMessageAlt />
                   <div className="absolute  h-[80%]  flex justify-start items-center   right-1/2 translate-x-1/2 top-1 text-6xl text-white">
@@ -629,9 +647,9 @@ const page = () => {
 
           <div className="w-full my-10!  flex justify-center items-center">
             <div className="w-[90%]  bg-[#ffb6246b]  rounded-md md:flex justify-between items-center overflow-hidden">
-              <div className="w-full h-[30vh]   bg-[#ffb524]   text-[#ffff] md:w-1/2  flex justify-center items-center  md:rounded-r-full">
+              <div className="w-full h-[35vh] sm:h-[30vh]   bg-[#ffb524]   text-[#ffff] md:w-1/2  flex justify-center items-center  md:rounded-r-full">
                 <div className="w-full  md:w-[90%]   flex justify-between   p-5!  h-[90%] gap-3 md:gap-5 flex-col">
-                  <h2 className="uppercase  text-2xl font-extrabold w-70">
+                  <h2 className="uppercase text-lg sm:text-2xl font-extrabold w-70">
                     get {Math.round(carForBanner[0]?.discountPercentage || 0)}%
                     caseBack on shopping $
                     {(
@@ -640,20 +658,20 @@ const page = () => {
                       carForBanner[0]?.price
                     ).toFixed(1) || 0}
                   </h2>
-                  <p className=" w-full xl:w-2/3  ">
+                  <p className=" w-full xl:w-2/3 text-sm sm:text-[16px]  ">
                     {carForBanner[0]?.description}
                   </p>
                   <button
-                    className="capitalize cursor-pointer bg-[#F4F6F8] text-gray-800 font-bold hover:border hover:border-white
-                   hover:bg-[#ffb524] hover:text-gray-900 transition duration-500 outline-none w-30 h-15 flex justify-center items-center rounded-md"
+                    className="capitalize cursor-pointer bg-[#F4F6F8] text-gray-800 font-bold hover:border border-white hover:text-white
+                   hover:bg-[#ffb524] transition duration-500 outline-none w-30 h-10  flex justify-center items-center rounded-md"
                   >
                     Shop Now
                   </button>
                 </div>
               </div>
-              <div className=" w-full md:w-1/2 h-[30vh] ">
+              <div className=" w-full md:w-1/2 h-[35vh] sm:h-[30vh] ">
                 <div className="w-full h-full relative ">
-                  <div className="  absolute text-[#ffb524]   left-5 text-[120px] lg:text-[150px] flex justify-center items-center">
+                  <div className="  absolute text-[#ffb524]  left-0 sm:left-5 text-[120px] lg:text-[150px] flex justify-center items-center">
                     <GiSevenPointedStar />
                     <h2 className="text-lg md:text-xl scale-80 italic font-extrabold absolute text-white text-center bottom-1/2 right-1/2 translate-x-1/2 translate-y-1/2 uppercase">
                       Big Discount
@@ -675,37 +693,45 @@ const page = () => {
                 <div className="text-7xl text-[#ffb524]">
                   <IoPeopleSharp />
                 </div>
-                <div className="text-3xl w-40 uppercase font-semibold text-[#81c408] text-center">
+                <div className=" text-xl md:text-2xl xl:text-3xl w-40 uppercase font-semibold text-[#81c408] text-center">
                   Satisfied customers
                 </div>
-                <div className="text-3xl font-semibold text-gray-500">1962</div>
+                <div className="text-xl md:text-2xl xl:text-3xl font-semibold text-gray-500">
+                  1962
+                </div>
               </div>
               <div className="h-60  rounded-md bg-white flex flex-col gap-3 justify-center items-center">
                 <div className="text-7xl text-[#ffb524]">
                   <RiServiceFill />
                 </div>
-                <div className="text-3xl w-40 uppercase font-semibold text-[#81c408] text-center">
+                <div className="text-xl md:text-2xl xl:text-3xl w-40 uppercase font-semibold text-[#81c408] text-center">
                   quality of service
                 </div>
-                <div className="text-3xl font-semibold text-gray-500">98%</div>
+                <div className="text-xl md:text-2xl xl:text-3xl font-semibold text-gray-500">
+                  98%
+                </div>
               </div>
               <div className="h-60  rounded-md bg-white flex flex-col gap-5 justify-center items-center">
                 <div className="text-7xl text-[#ffb524]">
                   <PiCertificateFill />
                 </div>
-                <div className="text-3xl w-40 uppercase font-semibold text-[#81c408] text-center">
+                <div className="text-xl md:text-2xl xl:text-3xl w-40 uppercase font-semibold text-[#81c408] text-center">
                   Quality Certificates
                 </div>
-                <div className="text-3xl font-semibold text-gray-500">32</div>
+                <div className="text-xl md:text-2xl xl:text-3xl font-semibold text-gray-500">
+                  32
+                </div>
               </div>
               <div className="h-60  rounded-md bg-white flex flex-col gap-5 justify-center items-center">
                 <div className="text-7xl text-[#ffb524]">
                   <FaStore />
                 </div>
-                <div className="text-3xl w-40 uppercase font-semibold text-[#81c408] text-center">
+                <div className="text-xl md:text-2xl xl:text-3xl w-40 uppercase font-semibold text-[#81c408] text-center">
                   Available products
                 </div>
-                <div className="text-3xl font-semibold text-gray-500">789</div>
+                <div className="text-xl md:text-2xl xl:text-3xl font-semibold text-gray-500">
+                  789
+                </div>
               </div>
             </div>
           </div>

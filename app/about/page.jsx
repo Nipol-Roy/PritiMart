@@ -26,6 +26,8 @@ import "swiper/css/pagination";
 import Image from "next/image";
 import aboutImage from "../../public/aboutPage-Image/ChatGPT Image May 5, 2026, 12_42_49 AM.png";
 import historyImage from "../../public/aboutPage-Image/historyImage.png";
+import aboutBanner from "../../public/aboutPage-Image/about-pageBanner.png";
+
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
@@ -413,7 +415,7 @@ const page = () => {
           </div>
         </div>
 
-        <div className="w-full rounded-md text-white md:my-10!  border">
+        <div className="w-full rounded-md text-white md:my-5!  border">
           <div className="grid grid-cols-1 p-5! gap-2  md:grid-cols-2 xl:grid-cols-4">
             <div className=" h-25 md:h-20 border rounded-md  bg-[#FFB524] border-gray-200 flex justify-center items-center gap-6">
               <div className="text-4xl md:text-6xl">
@@ -457,8 +459,35 @@ const page = () => {
           </div>
         </div>
 
-
-        <div className="w-full h-50 border"> banner</div>
+        <div className="w-full my-10! bg-[#82c4081a] p-2! rounded-md">
+          <div className="flex justify-between items-center ">
+            <div className="h-20 md:h-40 w-20 md:w-50  relative">
+              <Image
+                src={aboutBanner}
+                alt="about banner "
+                fill
+                className="object-center rounded-md object-cover"
+              />
+            </div>
+            <div className="h-30 w-[50%] flex justify-center items-center flex-col">
+              <p className="text-[9px] text-center md:text-[16px] text-[#81C408]">
+                Start your Shopping journey with Priti Shop.
+              </p>
+              <h2 className="text-[13px] text-[#FFB524] md:text-xl lg:text-2xl xl:text-3xl text-center font-bold">
+                Great Products. Great Prices. Great Experience
+              </h2>
+            </div>
+            <Link href="/product"
+              className="w-[20%] gap-2  md:gap-3 xl:gap-5 sm:w-[15%] md:w-[18%] h-7 md:h-10 border-none bg-[#81C408] flex justify-center 
+            items-center text-[10px] md:text-lg cursor-pointer hover:scale-105 transition-all duration-300 rounded-md text-white"
+            >
+              <span>Shop Now</span>
+              <span>
+                <FaArrowRightLong />
+              </span>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

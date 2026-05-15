@@ -50,16 +50,19 @@ const navbar = () => {
               </span>
             </div>
           </div>
-          <div className="flex justify-center text-sm items-center gap-1 ">
-            <div className="underline transition duration-500 hover:text-[#FFB524] cursor-pointer capitalize">
+          <div className="flex justify-center text-[12px] sm:text-sm items-center gap-2 ">
+            <div className="underline transition duration-500 hover:text-[#FFB524] 
+            cursor-pointer capitalize">
               privacy Policy
-            </div>{" "}
+            </div>
             /
-            <div className="underline transition duration-500 hover:text-[#FFB524] cursor-pointer capitalize">
+            <div className="underline transition duration-500 hover:text-[#FFB524]
+             cursor-pointer capitalize">
               Terms Of Use
-            </div>{" "}
+            </div>
             /
-            <div className="underline transition duration-500 hover:text-[#FFB524] cursor-pointer capitalize">
+            <div className="underline transition duration-500 hover:text-[#FFB524]
+             cursor-pointer capitalize">
               Sales and Refunds
             </div>
           </div>
@@ -80,30 +83,36 @@ const navbar = () => {
             </div>
 
             <div className="hidden w-full    md:flex justify-center items-center gap-5 md:gap-7 lg:gap-9">
-              <Link className="text-lg transition-all duration-300 hover:scale-115  text-gray-500 hover:text-[#FFB524]" href="/">
+              <Link className="text-lg text-[#81C408] font-bold transition-all duration-300 hover:scale-115  hover:text-[#FFB524]" href="/">
                 Home
               </Link>
-              <Link className="text-lg transition-all duration-300 hover:scale-115  text-gray-500 hover:text-[#FFB524]" href="/about">
+              <Link className="text-lg text-[#81C408] font-bold transition-all duration-300 hover:scale-115  hover:text-[#FFB524]" href="/about">
                 About
               </Link>
-              <Link className="text-lg transition-all duration-300 hover:scale-115  text-gray-500 hover:text-[#FFB524]" href="/product">
+              <Link className="text-lg text-[#81C408] font-bold transition-all duration-300 hover:scale-115  hover:text-[#FFB524]" href="/product">
                 Product
               </Link>
-              <Link className="text-lg transition-all duration-300 hover:scale-115  text-gray-500 hover:text-[#FFB524]" href="/contact">
+              <Link className="text-lg text-[#81C408] font-bold transition-all duration-300 hover:scale-115  hover:text-[#FFB524]" href="/contact">
                 Contact
               </Link>
             </div>
             <div className="hidden md:flex  W-1/2    md:w-[40%] justify-end items-center ">
               <div className="flex justify-center items-center gap-5">
-                <div className="text-2xl p-2! rounded-md border text-[#81C408] cursor-pointer hover:scale-115 hover:bg-[#81C408] hover:text-[#FFB524] transition duration-500">
+                <div className="text-2xl p-2! rounded-md border text-[#81C408] cursor-pointer
+                 hover:scale-115 hover:bg-[#81C408] hover:text-white transition duration-500">
                   <CiSearch />
                 </div>
-                <div className="text-2xl relative p-2! rounded-md border cursor-pointer hover:scale-115 text-[#81C408] hover:bg-[#81C408] hover:text-[#FFB524] transition duration-500">
+                <div className="text-2xl relative p-2! rounded-md border cursor-pointer
+                 hover:scale-115 text-[#81C408] hover:bg-[#81C408] hover:text-white
+                  transition duration-500">
                   <MdShoppingCart />
-                  <span className="orderCount h-6 w-6 text-lg bg-[#FFB524]   text-white absolute flex justify-center items-center rounded-full -top-2 -right-2  ">5</span>
+                  <span className="orderCount h-6 w-6 text-lg bg-[#FFB524]   text-white absolute
+                   flex justify-center items-center rounded-full -top-2 -right-2  ">5</span>
 
                 </div>
-                <div className="text-2xl rounded-md border p-2! hover:scale-115 cursor-pointer  text-[#81C408] hover:bg-[#81C408] hover:text-[#FFB524] transition duration-500">
+                <div className="text-2xl rounded-md border p-2! hover:scale-115 cursor-pointer
+                  text-[#81C408] hover:bg-[#81C408] hover:text-white transition
+                   duration-500">
                   <BsFillPersonFill />
                 </div>
               </div>
@@ -140,25 +149,25 @@ const navbar = () => {
 
               <div className="w-full   flex flex-col justify-center  items-start text-[#81C408] ">
                 <Link
-                  className="text-lg px-5! py-3! w-full transition duration-500 sm:text-left text-center border-b hover:bg-[#81C408] hover:text-[#FFB524] "
+                  className="text-lg font-bold px-5! py-3! w-full transition duration-500 sm:text-left text-center border-b hover:bg-[#81C408] hover:text-[#FFB524] "
                   href="/"
                 >
                   Home
                 </Link>
                 <Link
-                  className="text-lg px-5! py-3! sm:text-left transition duration-500 text-center border-b  w-full hover:bg-[#81C408] hover:text-[#FFB524]"
+                  className="text-lg font-bold px-5! py-3! sm:text-left transition duration-500 text-center border-b  w-full hover:bg-[#81C408] hover:text-[#FFB524]"
                   href="/about"
                 >
                   About
                 </Link>
                 <Link
-                  className="text-lg px-5! py-3! sm:text-left transition duration-500 text-center border-b  w-full hover:bg-[#81C408] hover:text-[#FFB524]"
+                  className="text-lg font-bold px-5! py-3! sm:text-left transition duration-500 text-center border-b  w-full hover:bg-[#81C408] hover:text-[#FFB524]"
                   href="/product"
                 >
                   Product
                 </Link>
                 <Link
-                  className="text-lg px-5! py-3! sm:text-left transition duration-500 text-center border-b  w-full hover:bg-[#81C408] hover:text-[#FFB524]"
+                  className="text-lg font-bold px-5! py-3! sm:text-left transition duration-500 text-center border-b  w-full hover:bg-[#81C408] hover:text-[#FFB524]"
                   href="/contact"
                 >
                   Contact
