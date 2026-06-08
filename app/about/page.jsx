@@ -1,10 +1,9 @@
 "use client";
 
 import { FaArrowRightLong } from "react-icons/fa6";
-import { FaAward } from "react-icons/fa";
-import { FaShippingFast } from "react-icons/fa";
+
 import { SiSpringsecurity } from "react-icons/si";
-import { BiSupport } from "react-icons/bi";
+
 import { FaHeart } from "react-icons/fa";
 import { TbTargetArrow } from "react-icons/tb";
 import { FaEye } from "react-icons/fa";
@@ -26,13 +25,14 @@ import "swiper/css/pagination";
 import Image from "next/image";
 import aboutImage from "../../public/aboutPage-Image/ChatGPT Image May 5, 2026, 12_42_49 AM.png";
 import historyImage from "../../public/aboutPage-Image/historyImage.png";
-import aboutBanner from "../../public/aboutPage-Image/about-pageBanner.png";
 
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
 import { fetchProduct } from "../lib/api/fetchProduct";
+import CustomerServices from "../components/services/customerServices";
+import GetShop from "../components/services/GetShop";
 
 const page = () => {
   const happyCustomer = 10000;
@@ -71,9 +71,9 @@ const page = () => {
 
   return (
     <div className=" w-full  bg-[#F9FAF7] flex justify-center items-center py-5!">
-      <div className="  h-full w-[90%] flex flex-col gap-5">
-        <div className="  w-full flex justify-between items-center flex-col md:flex-row relative">
-          <div className="flex flex-col w-full md:w-1/2 xl:w-1/3 gap-5!  h-[40vh] md:h-[60vh]">
+      <div className="  h-full w-[90%] flex flex-col gap-1">
+        <div className="  w-full flex justify-between items-center flex-col gap-4 md:flex-row relative">
+          <div className="flex flex-col w-full md:w-1/2 xl:w-1/3   ">
             <div className="">
               <div className="text-[35px] md:text-[45px] font-bold text-[#FFB524] pt-5!">
                 Welcome to
@@ -82,8 +82,8 @@ const page = () => {
                 Priti Shop
               </div>
             </div>
-            <div>
-              <p className="text-[16px] md:text-xl pr-3!">
+            <div className="py-10! ">
+              <p className="text-[16px] md:text-xl">
                 Priti Shop is an online shopping platform designed to make your
                 everyday shopping simple, affordable, and reliable. We bring
                 together a wide range of quality products in one place, so you
@@ -91,7 +91,7 @@ const page = () => {
               </p>
             </div>
 
-            <div className=" h-30 flex items-center ">
+            <div className=" pb-3!  flex items-center ">
               <Link
                 href="/product"
                 className="w-45 md:w-50 rounded-md flex justify-center gap-5! items-center cursor-pointer
@@ -113,81 +113,8 @@ const page = () => {
             />
           </div>
         </div>
-        <div className=" flex flex-col md:flex-row -mt-15! bg-white rounded-2xl z-20 w-full">
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 w-full p-3! gap-3">
-            <div className="border border-gray-200  rounded-md h-35 flex w-full justify-center items-center ">
-              <div className="flex gap-3 justify-start items-center  px-5!  w-full ">
-                <div className=" p-4! rounded-full text-2xl md:text-4xl text-[#81C408] bg-[#87ad4136]">
-                  <FaAward />
-                </div>
-                <div className="flex flex-col">
-                  <h2 className=" text-xl font-bold text-[#FFB524]">
-                    Quality Products
-                  </h2>
-                  <p className=" text-sm md:text-lg ">
-                    Carefully selected Products you can trust.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="border border-gray-200  rounded-md h-35 flex w-full justify-center items-center ">
-              <div className="flex gap-3 justify-start items-center  px-5! w-full ">
-                <div className=" p-4! rounded-full text-2xl md:text-4xl  text-[#81C408] bg-[#87ad4136]">
-                  <FaShippingFast />
-                </div>
-                <div className="flex flex-col">
-                  <h2 className="text-xl font-bold text-[#FFB524]">
-                    Fast Delivery
-                  </h2>
-                  <p className="text-sm md:text-lg ">
-                    Quick and reliable delivery at your doorstep.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div
-              className=" border border-gray-200 rounded-md h-35 flex w-full 
-            justify-center items-center "
-            >
-              <div className="flex  gap-3 justify-start items-center  px-5!  w-full ">
-                <div
-                  className=" p-4! rounded-full text-2xl md:text-4xl  text-[#81C408]
-                 bg-[#87ad4136]"
-                >
-                  <SiSpringsecurity />
-                </div>
-                <div className="flex flex-col">
-                  <h2 className="text-xl  font-bold text-[#FFB524]">
-                    Secure Shopping
-                  </h2>
-                  <p className="text-sm md:text-lg ">
-                    100% secure payment and data protection.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div
-              className="border border-gray-200 rounded-md h-35 flex w-full 
-            justify-center items-center "
-            >
-              <div className="flex  gap-3 justify-start items-center  px-5!  w-full">
-                <div
-                  className=" p-4! rounded-full text-2xl md:text-4xl  text-[#81C408]
-                 bg-[#87ad4136]"
-                >
-                  <BiSupport />
-                </div>
-                <div className="flex flex-col">
-                  <h2 className="text-xl font-bold text-[#FFB524]">
-                    Customer Support{" "}
-                  </h2>
-                  <p className="text-sm md:text-lg">
-                    We're here to help you anytime.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="z-10 -mt-15!">
+          <CustomerServices />
         </div>
 
         <div className="w-full py-10! flex flex-col md:flex-row justify-between items-center ">
@@ -459,35 +386,7 @@ const page = () => {
           </div>
         </div>
 
-        <div className="w-full my-10! bg-[#82c4081a] p-2! rounded-md">
-          <div className="flex justify-between items-center ">
-            <div className="h-20 md:h-40 w-20 md:w-50  relative">
-              <Image
-                src={aboutBanner}
-                alt="about banner "
-                fill
-                className="object-center rounded-md object-cover"
-              />
-            </div>
-            <div className="h-30 w-[50%] flex justify-center items-center flex-col">
-              <p className="text-[9px] text-center md:text-[16px] text-[#81C408]">
-                Start your Shopping journey with Priti Shop.
-              </p>
-              <h2 className="text-[13px] text-[#FFB524] md:text-xl lg:text-2xl xl:text-3xl text-center font-bold">
-                Great Products. Great Prices. Great Experience
-              </h2>
-            </div>
-            <Link href="/product"
-              className="w-[20%] gap-2  md:gap-3 xl:gap-5 sm:w-[15%] md:w-[18%] h-7 md:h-10 border-none bg-[#81C408] flex justify-center 
-            items-center text-[10px] md:text-lg cursor-pointer hover:scale-105 transition-all duration-300 rounded-md text-white"
-            >
-              <span>Shop Now</span>
-              <span>
-                <FaArrowRightLong />
-              </span>
-            </Link>
-          </div>
-        </div>
+        <GetShop />
       </div>
     </div>
   );
