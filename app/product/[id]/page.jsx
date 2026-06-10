@@ -427,6 +427,4 @@ const page = () => {
 
 export default page;
 
-// green text-[#81c408]
-// golden bg-[#ffb524]
-// gray bg-[#F4F6F8]
+

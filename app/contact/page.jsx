@@ -19,10 +19,10 @@ const contact = () => {
     <div className="w-full flex justify-center items-center ">
       <div className="w-[90%]  ">
         <div
-          className="w-full bg-[#FEFBEE] relative  flex flex-col md:flex-row
-         justify-between items-center lg:px-10!"
+          className="w-full bg-[#FEFBEE] relative py-10! flex flex-col md:flex-row
+         justify-between items-center "
         >
-          <div className="w-full md:w-1/2    p-2!  ">
+          <div className="w-full md:w-2/3    p-2!  ">
             <h3 className="text-sm font-bold uppercase mt-10! text-[#FFB524]">
               Get in touch
             </h3>
@@ -33,20 +33,21 @@ const contact = () => {
                 From You!
               </div>
             </div>
-            <p className="text-[17px] lg:w-[70%]  py-5! text-gray-500">
+            <p className="text-[16px] md:text-xl lg:w-[70%]  py-5! text-gray-500">
               Have a question, suggestion, or need support? We'er here to help
-              and respond as quickly as we can.
+              and respond as quickly as we can. Lorem ipsum dolor sit, amet consectetur 
+              adipisicing elit. Beatae, sed? Lorem ipsum dolor sit amet.
             </p>
-            <button
-              className=" capitalize py-2! rounded-md px-5! flex justify-center items-center
+            <label htmlFor="fullName"
+              className=" capitalize py-2! rounded-md w-50! flex justify-center items-center
                gap-2 transition-all duration-300  hover:scale-105
-             bg-[#FFB524] border-none outline-none text-white font-bold text-[15px]"
+             bg-[#FFB524] border-none outline-none text-white font-bold text-sm md:text-lg"
             >
               send Message
               <span className="text-3xl">
                 <IoIosSend />
               </span>
-            </button>
+            </label>
           </div>
           <div className="h-[40vh] w-full md:w-1/2 xl:w-1/3  relative">
             <Image
@@ -145,9 +146,10 @@ const contact = () => {
                       htmlFor="fullName"
                       className=" text-[16px] font-extrabold text-gray-600"
                     >
-                      Full Name
+                      Full Name <span className="text-red-400" title="This Field is Required">*</span>
                     </label>
                     <input
+                    required
                       type="text"
                       id="fullName"
                       name="fullName"
@@ -160,9 +162,10 @@ const contact = () => {
                       htmlFor="email"
                       className=" text-[16px] font-extrabold text-gray-600"
                     >
-                      Email
+                      Email <span className="text-red-400" title="This Field is Required">*</span>
                     </label>
                     <input
+                    required
                       type="email"
                       name="email"
                       id="email"
@@ -172,12 +175,13 @@ const contact = () => {
 
                   <div className=" flex flex-col gap-1">
                     <label
-                      htmlFor="email"
+                      htmlFor="phoneNumber"
                       className=" text-[16px] font-extrabold text-gray-600"
                     >
                       Phone
                     </label>
                     <input
+
                       type="number"
                       name="phoneNumber"
                       id="phoneNumber"
@@ -190,9 +194,10 @@ const contact = () => {
                       htmlFor="message"
                       className=" text-[16px] font-extrabold text-gray-600"
                     >
-                      Message
+                      Message <span className="text-red-400" title="This Field is Required">*</span>
                     </label>
                     <textarea
+                    required
                     rows={3}
                       name="message"
                       className="border-2 w-full bg-[#F1F7F0] rounded-md border-gray-300 px-4! outline-none py-2!"
