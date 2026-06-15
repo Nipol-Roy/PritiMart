@@ -36,7 +36,7 @@ export default function ProductCard({ item }) {
   const [addWish, setAddWish] = useState(false);
 
   return (
-    <div className=" w-80 sm:w-88   p-3!  hover:shadow-lg  transition duration-500 shadow-gray-400 bg-[#f4f6f8] rounded-md flex flex-col justify-between items-center relative gap-2">
+    <div className=" w-77 sm:w-85   p-3!  hover:shadow-lg  transition duration-500 shadow-gray-400 bg-[#f4f6f8] rounded-md flex flex-col justify-between items-center relative gap-2">
       <div className=" w-full h-60 bg-white border border-gray-200 relative">
         <Swiper
           modules={[Pagination]}

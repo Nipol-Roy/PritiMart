@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  category: ["phone", 'furniture'],
+  category: [],
   priceRange: {
     min: 0,
-    max: 500,
-    targetPrice: 5000,
+    max: 0,
+    targetPrice: 0,
   },
-  rating: ["3"],
-  discount: ["30"],
-  availability: ["outOfStock"],
-  brand: ["Calvin Klein"],
+  rating: [],
+  discount: [],
+  availability: [],
+  brand: [],
 };
 
 const productFilterSlice = createSlice({
@@ -34,18 +34,16 @@ const productFilterSlice = createSlice({
       }
     },
     setPriceRange(state, action) {
-      const {type, value} = action.payload;
-      if(type === "target"){
-        state.priceRange.targetPrice = Number(value)
+      const { type, value } = action.payload;
+      if (type === "target") {
+        state.priceRange.targetPrice = Number(value);
       }
-      if(type === "min"){
-        state.priceRange.min = Number(value)
+      if (type === "min") {
+        state.priceRange.min = Number(value);
       }
-      if(type == "max"){
-        state.priceRange.max = Number(value)
+      if (type == "max") {
+        state.priceRange.max = Number(value);
       }
-
-
     },
     setRating(state, action) {
       const value = action.payload;
@@ -73,6 +71,18 @@ const productFilterSlice = createSlice({
         state.availability.push(value);
       }
     },
+    setClearFilters(state, action) {
+      state.category = [];
+      state.priceRange = {
+        min: 0,
+        max: 0,
+        targetPrice: 0,
+      };
+      state.rating = [];
+      state.discount = [];
+      state.availability = [];
+      state.brand = [];
+    },
   },
 });
 
@@ -83,6 +93,7 @@ export const {
   setDiscount,
   setPriceRange,
   setRating,
+  setClearFilters
 } = productFilterSlice.actions;
 
 export default productFilterSlice.reducer;
