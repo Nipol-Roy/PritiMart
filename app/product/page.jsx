@@ -16,6 +16,8 @@ import { VscDash } from "react-icons/vsc";
 import { IoStarSharp } from "react-icons/io5";
 import { IoStarHalf } from "react-icons/io5";
 import { IoStarOutline } from "react-icons/io5";
+import { AiOutlineClose } from "react-icons/ai";
+import { FiFilter } from "react-icons/fi";
 
 import {
   setCategorys,
@@ -160,6 +162,7 @@ const page = () => {
               src={bannerImage}
               fill
               className="object-cover object-center"
+              alt="banner image"
             />
           </div>
         </div>
@@ -174,8 +177,9 @@ const page = () => {
             All Product
           </button>
 
-          {categoryProduct.map((item) => (
-            <button
+          {categoryProduct.map((item , idx) => (
+            <button 
+            key={idx}
               onClick={() => setOnButton(item)}
               className={`py-1! outline-none text-[#81c408] hover:bg-[#81c408]
            hover:text-white font-semibold cursor-pointer rounded-md text-[12px] md:text-sm transition-all duration-300
@@ -186,23 +190,23 @@ const page = () => {
           ))}
         </div>
 
-        <div className="w-full relative h-full border py-3! flex flex-col md:flex-row justify-between ">
+        <div className="w-full relative border-t border-gray-400 h-full py-3! flex flex-col md:flex-row justify-between ">
           <div className="md:hidden  ">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="border px-5! py-1! text-sm font-bold rounded-md
-             bg-[#81c408] text-white border-white cursor-pointer mb-5!"
+              className="border px-5! py-2! text-sm font-bold rounded-md
+             bg-[#81c408] text-white border-white cursor-pointer mb-5! flex justify-center items-center flex-row"
             >
-              Filter
+              {
+                showFilters ? <span className="text-xl"><AiOutlineClose /></span> : <span className="text-sm flex gap-2 justify-center items-center ">Filter <FiFilter /> </span>
+              }
             </button>
           </div>
 
           <div
-            className={`w-full h-full justify-center items-center  md:w-70  border z-10 p-1! 
-                ${showFilters ? "flex " : "hidden"} md:flex`}
-          >
-            <div className="   bg-white rounded-md flex-col gap-2 p-3! w-[80%]
-              "
+            className={`w-full h-full justify-center items-center sticky top-15 bg-white  md:w-80 xl:w-70   z-10 p-1! 
+                ${showFilters ? "flex " : "hidden"} md:flex`}>
+            <div className=" border border-gray-500 bg-white rounded-md flex gap-2 flex-col  p-3! w-[80%] md:w-full"
             >
               <div className="flex flex-col gap-3!  w-full">
                 <div
@@ -218,8 +222,8 @@ const page = () => {
                 <div
                   className={` flex-col ${showCategory ? "flex" : "hidden"}`}
                 >
-                  {allCategory.map((item) => (
-                    <div className="flex gap-2 cursor-pointer ">
+                  {allCategory.map((item,idx) => (
+                    <div key={idx} className="flex gap-2 cursor-pointer ">
                       <input
                         onChange={(e) => {
                           dispatch(setCategorys(e.target.value));
@@ -607,8 +611,8 @@ const page = () => {
                   </span>
                 </div>
                 <div className={` flex-col ${showBrand ? "flex" : "hidden"}`}>
-                  {allbrand.map((item) => (
-                    <div className="flex gap-2 cursor-pointer ">
+                  {allbrand.map((item,idx) => (
+                    <div key={idx} className="flex gap-2 cursor-pointer ">
                       <input
                         type="checkbox"
                         checked={brand.includes(item)}
@@ -665,7 +669,4 @@ const page = () => {
 
 export default page;
 
-// green text-[#81c408]
-// golden bg-[#ffb524]
-// gray bg-[#F4F6F8]
-// w-[80%] sm:w-70
+

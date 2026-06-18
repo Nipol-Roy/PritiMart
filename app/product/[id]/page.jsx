@@ -30,6 +30,9 @@ import { ratingResult } from "@/public/data/testimonialData";
 
 import bkashLogo from "../../../public/Images/BKash_Logo.png";
 import imageNotFount from "../../../public/Images/personImageDemo.jpg";
+import { toggleWish, setWishList } from "@/app/lib/redux/reduxSlice/wishlistSlice";
+
+
 
 const page = () => {
   const paramsItem = useParams();
@@ -54,8 +57,8 @@ const page = () => {
     }
   }, [visitProduct]);
 
-  console.log(visitProduct);
-  console.log(ratingResult);
+  console.log(visitProduct?.id);
+  // console.log(ratingResult);
 
   const relatedProduct = product.filter(
     (item) => item.category === visitProduct?.category,
@@ -67,7 +70,28 @@ const page = () => {
     (items) => items.id !== visitProduct.id,
   );
 
-  const [addWish, setAddWish] = useState(false);
+
+
+  const wishId = useSelector((state) => state.wishSlice.wishId);
+
+  const isWished = wishId.includes(visitProduct?.id)
+
+   const handleWishList = (product) =>{
+      dispatch(toggleWish(product.id));
+   }
+
+   useEffect(()=>{
+    const saved = JSON.parse(localStorage.getItem("wishList")) || []
+    dispatch(setWishList(saved))
+   },[dispatch])
+
+   useEffect(()=>{
+    localStorage.setItem("wishList", JSON.stringify(wishId))
+   },[wishId])
+
+
+
+
 
   return (
     <div className="w-full  flex justify-center items-start p-5! ">
@@ -85,10 +109,10 @@ const page = () => {
                   <IoArrowUndoSharp />
                 </Link>
                 <div
-                  onClick={() => setAddWish(!addWish)}
+                  onClick={() => handleWishList(visitProduct)}
                   className="text-2xl hover:scale-105 transition-all  duration-300 cursor-pointer text-[#ffb524]"
                 >
-                  {addWish ? <FaHeart /> : <FaRegHeart />}
+                  {isWished  ? <FaHeart /> : <FaRegHeart />}
                 </div>
               </div>
             </div>
@@ -426,5 +450,3 @@ const page = () => {
 };
 
 export default page;
-
-

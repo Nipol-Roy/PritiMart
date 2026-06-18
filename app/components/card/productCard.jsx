@@ -62,13 +62,14 @@ export default function ProductCard({ item }) {
                        className="w-full  h-full flex  justify-center items-start  relative ]">
                     <div
                      
-                      className=" hover:scale-110  transition duration-500  w-[65%] h-full  relative  flex overflow-hidden justify-center items-start p-2! "
+                      className=" hover:scale-110  transition duration-500  w-[70%] h-full  relative  flex overflow-hidden justify-center items-start p-2! "
                     >
                       <Image
-                        fill
+                        sizes="640px"
                         className=" scale-80    object-cover object-center"
                         src={`${images}`}
                         alt="product image"
+                        fill
                       />
                     </div>
                   </Link>
