@@ -6,27 +6,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProduct } from "../lib/api/fetchProduct";
 import { useEffect } from "react";
 
-
 const page = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-const {product} =  useSelector((state)=> state.product);
-console.log(product)
+  const { product } = useSelector((state) => state.product);
 
-useEffect(()=>{
-  if(!product || product.length === 0){
-    fetchProduct(dispatch)
-  }
-})
+  useEffect(() => {
+    if (!product || product.length === 0) {
+      fetchProduct(dispatch);
+    }
+  }, [product, dispatch]);
 
-
-const wishId = useSelector((state) => state.wishSlice.wishId);
-console.log(wishId)
-
-const savedProducts = product.filter((item)=> item.id === wishId)
-console.log(savedProducts)
+  const wishId = useSelector((state) => state.wishSlice.wishId);
 
 
+  const savedProducts = product?.filter((item) => wishId.includes(item.id));
+  console.log(savedProducts);
 
   return (
     <div className="h-screen w-full flex justify-center items-center">
@@ -41,7 +36,7 @@ console.log(savedProducts)
                 My Wishlist
               </h2>
               <p className="text-sm xl:text-lg">
-                You have <span>10</span> items in your wishlist
+                You have <span className="font-bold">( {wishId.length} )</span> items in your wishlist
               </p>
             </div>
           </div>
@@ -60,7 +55,7 @@ console.log(savedProducts)
           </div>
         </div>
 
-        <div className="w-full h-full border rounded-md border-gray-200 p-2!">
+        <div className="w-full h-full rounded-md  border-gray-200 border p-2!">
           <div className="p-2!  md:px-5! border-b border-gray-400 flex justify-between items-center">
             <div className="flex flex-row gap-2 font-semibold text-sm md:text-[16px]">
               <input
@@ -81,8 +76,20 @@ console.log(savedProducts)
             </button>
           </div>
 
-          <div>Product Lists</div>
+          <div className=" h-full m-3! rounded-md">
+            <div>
+              {
+                savedProducts.map((item, idx)=>(
+                  <div key={idx} className="border w-full p-5!">
 
+                  </div>
+                ))
+              }
+            </div>
+
+
+
+            </div>
         </div>
       </div>
     </div>

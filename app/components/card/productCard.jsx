@@ -9,31 +9,33 @@ import { MdOutlineStar, MdVerifiedUser } from "react-icons/md";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { FaCartPlus } from "react-icons/fa6";
-import { TbRosetteDiscountCheckFilled } from "react-icons/tb";
-import { PiFlagBannerThin } from "react-icons/pi";
 
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector,useDispatch } from "react-redux";
+import { toggleWish } from "@/app/lib/redux/reduxSlice/wishlistSlice";
 
 export default function ProductCard({ item }) {
-  // const mainPrice = item.price
-  // const discountPercentage = item.discountPercentage.toFixed(1)
-  // const discountPrice = ((discountPercentage / 100) * mainPrice).toFixed(2)
-  //  const rating = item
+  const dispatch = useDispatch()
+  
+ const wishId = useSelector((state) => state.wishSlice.wishId);
 
-  //  console.log(rating)
-  // console.log(discountPrice)
-  // console.log(discountPercentage)
-  // console.log(mainPrice)
-  // href={`/product/${item.id}`}
+ const handleWhis = ()=>{
+  if(item?.id){
+    dispatch(toggleWish(item.id))
+  }
+ }
 
-  // const
+ const isWished =  wishId.includes(item.id) ;
 
-  const [addWish, setAddWish] = useState(false);
+ useEffect(() => {
+  localStorage.setItem("wishList", JSON.stringify(wishId));
+}, [wishId]);
+
 
   return (
     <div className=" w-77 sm:w-85   p-3!  hover:shadow-lg  transition duration-500 shadow-gray-400 bg-[#f4f6f8] rounded-md flex flex-col justify-between items-center relative gap-2">
@@ -52,10 +54,10 @@ export default function ProductCard({ item }) {
               <SwiperSlide key={idx} className="">
                 <div className="w-full   h-full flex  justify-center items-start  relative ]">
                   <div
-                    onClick={() => setAddWish(!addWish)}
+                    onClick={() => handleWhis()}
                     className="text-2xl hover:scale-105 z-50 transition-all absolute top-3 right-3  duration-300 cursor-pointer text-[#ffb524]"
                   >
-                    {addWish ? <FaHeart /> : <FaRegHeart />}
+                    {isWished ? <FaHeart /> : <FaRegHeart />}
                   </div>
                   <Link
                       href={`/product/${item.id}`}

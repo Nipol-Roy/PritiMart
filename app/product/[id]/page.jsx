@@ -6,7 +6,7 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import { IoArrowUndoSharp } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
-import { MdOutlineStarPurple500 } from "react-icons/md";
+import { MdOutlineStarPurple500, MdToll } from "react-icons/md";
 import { IoStarHalf } from "react-icons/io5";
 import { IoStarOutline } from "react-icons/io5";
 import { FaRegStar } from "react-icons/fa6";
@@ -30,9 +30,10 @@ import { ratingResult } from "@/public/data/testimonialData";
 
 import bkashLogo from "../../../public/Images/BKash_Logo.png";
 import imageNotFount from "../../../public/Images/personImageDemo.jpg";
-import { toggleWish, setWishList } from "@/app/lib/redux/reduxSlice/wishlistSlice";
-
-
+import {
+  toggleWish,
+  setWishList,
+} from "@/app/lib/redux/reduxSlice/wishlistSlice";
 
 const page = () => {
   const paramsItem = useParams();
@@ -70,28 +71,18 @@ const page = () => {
     (items) => items.id !== visitProduct.id,
   );
 
-
-
   const wishId = useSelector((state) => state.wishSlice.wishId);
 
-  const isWished = wishId.includes(visitProduct?.id)
+  const handleWishList = (product) => {
+    if (!product?.id) return;
+    dispatch(toggleWish(product.id));
+  };
 
-   const handleWishList = (product) =>{
-      dispatch(toggleWish(product.id));
-   }
+  const isWished = visitProduct?.id ? wishId.includes(visitProduct.id) : false;
 
-   useEffect(()=>{
-    const saved = JSON.parse(localStorage.getItem("wishList")) || []
-    dispatch(setWishList(saved))
-   },[dispatch])
-
-   useEffect(()=>{
-    localStorage.setItem("wishList", JSON.stringify(wishId))
-   },[wishId])
-
-
-
-
+  useEffect(() => {
+    localStorage.setItem("wishList", JSON.stringify(wishId));
+  }, [wishId]);
 
   return (
     <div className="w-full  flex justify-center items-start p-5! ">
@@ -112,7 +103,7 @@ const page = () => {
                   onClick={() => handleWishList(visitProduct)}
                   className="text-2xl hover:scale-105 transition-all  duration-300 cursor-pointer text-[#ffb524]"
                 >
-                  {isWished  ? <FaHeart /> : <FaRegHeart />}
+                  {isWished ? <FaHeart /> : <FaRegHeart />}
                 </div>
               </div>
             </div>
