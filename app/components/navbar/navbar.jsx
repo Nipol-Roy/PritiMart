@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 const navbar = () => {
   const [isMenu, setIsMenu] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const [showWish , setShowWish] = useState(false)
+
   const wishId = useSelector((state) => state.wishSlice.wishId);
 
   return (
@@ -144,7 +144,7 @@ const navbar = () => {
                <Link href="/wishList"
                onClick={()=> setShowWish( !showWish)}
 
-                  className={` ${showWish ? "bg-[#FFB524] text-white" : "" } text-xl xl:text-2xl relative p-1.5! md:p-2! rounded-md border cursor-pointer
+                  className={`  text-white" text-xl xl:text-2xl relative p-1.5! md:p-2! rounded-md border cursor-pointer
                  hover:scale-115 text-[#81C408] hover:bg-[#81C408] hover:text-white
                   transition duration-500`}
                 >

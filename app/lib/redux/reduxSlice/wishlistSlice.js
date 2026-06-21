@@ -5,7 +5,7 @@ const getInitialWish = ()=>{
         const saved = localStorage.getItem("wishList");
         return saved ? JSON.parse(saved) : []
     }
-    
+    return []
 }
 
 const initialState = {
@@ -26,9 +26,13 @@ const wishSlice = createSlice({
         state.wishId.push(id);
       }
     },
+    clearWishlist(state){
+        state.wishId = []
+    }
 
   },
+  
 });
 
-export const { toggleWish, setWishList } = wishSlice.actions;
+export const { toggleWish, setWishList,clearWishlist } = wishSlice.actions;
 export default wishSlice.reducer;
