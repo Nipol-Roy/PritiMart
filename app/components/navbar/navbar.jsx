@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { CiMenuBurger } from "react-icons/ci";
 import { MdClose } from "react-icons/md";
@@ -21,6 +21,7 @@ const navbar = () => {
   const [showSearch, setShowSearch] = useState(false);
 
   const wishId = useSelector((state) => state.wishSlice.wishId);
+  // console.log(wishId.length)
 
   return (
     <>

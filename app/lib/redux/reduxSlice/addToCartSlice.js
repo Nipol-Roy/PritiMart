@@ -13,9 +13,24 @@ const addToCartSlice = createSlice({
     name: "addToCart",
     initialState:{
         cartList: getAddToCart() ,
-        quantity:[]
+       
     },
     reducers:{
+        addToCartProduct(state , action){
+            const products = action.payload;
+
+            if(!state.cartList.includes(products)){
+                state.cartList.push( products)
+            }
+        },
+        removeProduct(state, action){
+            if(state.cartList.includes(action.payload.id)){
+                state.cartList.filter((item)=> item !== action.payload.id)
+            }
+        }
 
     }
 })
+
+export const {addToCartProduct, removeProduct} = addToCartSlice.actions;
+export default addToCartSlice.reducer

@@ -7,35 +7,59 @@ import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProduct } from "../lib/api/fetchProduct";
 import { useEffect } from "react";
+import { setAddCount } from "../lib/redux/reduxSlice/productCountSlice";
 
 import Image from "next/image";
 import Link from "next/link";
-import { toggleWish,clearWishlist } from "../lib/redux/reduxSlice/wishlistSlice";
+import {
+  toggleWish,
+  clearWishlist,
+} from "../lib/redux/reduxSlice/wishlistSlice";
+import { addToCartProduct } from "../lib/redux/reduxSlice/addToCartSlice";
 
 const page = () => {
   const dispatch = useDispatch();
 
   const { product } = useSelector((state) => state.product);
-
   useEffect(() => {
     if (!product || product.length === 0) {
       fetchProduct(dispatch);
     }
   }, [product, dispatch]);
 
+  const { cartList } = useSelector((state) => state.addToCart);
+  console.log(cartList);
+
   const wishId = useSelector((state) => state.wishSlice.wishId);
 
   const savedProducts = product?.filter((item) => wishId.includes(item.id));
-  
 
   const handleRemoveAll = () => {
-  dispatch(clearWishlist());
-  localStorage.removeItem("wishList");
-};
+    dispatch(clearWishlist());
+    localStorage.removeItem("wishList");
+  };
 
-  useEffect(() => {
+ 
+
+  const handleCart = (carts) => {
+    if (!carts) return;
+
+    dispatch(addToCartProduct(carts));
+    dispatch(toggleWish(carts.id));
+    dispatch(setAddCount(carts));
+  };
+  
+  const handleToggleWish = (itemId) => {
+    dispatch(toggleWish(itemId));
+  };
+   useEffect(() => {
     localStorage.setItem("wishList", JSON.stringify(wishId));
   }, [wishId]);
+
+  useEffect(() => {
+    localStorage.setItem("addToCartList", JSON.stringify(cartList));
+  }, [cartList]);
+
 
   return (
     <div className=" w-full flex justify-center items-center">
@@ -93,60 +117,67 @@ const page = () => {
           </div>
 
           <div className=" h-full min-h-[70vh] mt-3! rounded-md p-2!  md:px-5!">
-            <div className={`${savedProducts.length == 0 ? "flex" : "hidden"} border-t border-gray-200  justify-center items-center font-bold text-lg text-gray-400 w-full h-[80vh]`}>
-            <Link href="/product" className="text-lg border px-3! rounded-md cursor-pointer py-2!">Shop Now</Link>
+            <div
+              className={`${savedProducts.length == 0 ? "flex" : "hidden"} border-t border-gray-200  justify-center items-center font-bold text-lg text-gray-400 w-full h-[80vh]`}
+            >
+              <Link
+                href="/product"
+                className="text-lg border px-3! rounded-md cursor-pointer py-2!"
+              >
+                Shop Now
+              </Link>
             </div>
-            <div>
-              {savedProducts.map((item, idx) => {
-                const discountPercentage = item.discountPercentage / 100;
-                const discountPrice = (
-                  item.price -
-                  item.price * discountPercentage.toFixed(2)
-                ).toFixed(2);
-                return (
-                  <div
-                    key={idx}
-                    className=" w-full  flex gap-2 py-2! border-t border-gray-200"
-                  >
-                    <div className="w-full  py-1! flex gap-3 justify-start items-center ">
-                      <div className="flex justify-start items-center  gap-5">
-                        <input type="checkbox" className="pr-2! cursor-pointer" />
-                        <Link
-                          href={`/product/${item.id}`}
-                          className="relative w-17.5 h-17.5 border border-gray-200 rounded-md bg-gray-100"
-                        >
-                          <Image
-                            width={70}
-                            height={70}
-                            className=" scale-80    object-cover object-center"
-                            src={item?.images[0]}
-                            alt="product image"
-                          />
-                        </Link>
-                      </div>
-                      <div className="flex flex-col relative md:flex-row justify-center items-start md:justify-between md:items-center  w-full">
-                        <div className=" w-full  h-full md:px-2! px-1! flex  justify-start gap-10 items-center ">
-                          <div className=" w-50">
-                            <h2 className="text-[12px] md:text-[16px] w-full font-bold text-[#81c408] line-clamp-1">
-                              {item.title}
-                            </h2>
-                            <div className="w-full  flex justify-start items-center gap-4 text-gray-600">
-                              <div className="text-[12px] md:text-sm font-semibold line-clamp-1  ">
-                                {item.category}
-                              </div>
-                              <div
-                                className={`text-[12px] md:text-sm line-clamp-1 font-semibold ${!item.brand ? "hidden" : "flex justify-start items-center"}`}
-                              >
-                                #{item.brand}
-                              </div>
+
+            {savedProducts.map((item, idx) => {
+              const discountPercentage = item.discountPercentage / 100;
+              const discountPrice = (
+                item.price -
+                item.price * discountPercentage.toFixed(2)
+              ).toFixed(2);
+              return (
+                <div
+                  key={idx}
+                  className=" w-full  flex gap-2 py-2! border-t border-gray-200"
+                >
+                  <div className="w-full  py-1! flex gap-3 justify-start items-center ">
+                    <div className="flex justify-start items-center  gap-5">
+                      <input type="checkbox" className="pr-2! cursor-pointer" />
+                      <Link
+                        href={`/product/${item.id}`}
+                        className="relative w-17.5 h-17.5 border border-gray-200 rounded-md bg-gray-100"
+                      >
+                        <Image
+                          width={70}
+                          height={70}
+                          className=" scale-80    object-cover object-center"
+                          src={item?.images[0]}
+                          alt="product image"
+                        />
+                      </Link>
+                    </div>
+                    <div className="flex flex-col relative md:flex-row justify-center items-start md:justify-between md:items-center  w-full">
+                      <div className=" w-full  h-full md:px-2! px-1! flex  justify-start gap-10 items-center ">
+                        <div className=" w-50">
+                          <h2 className="text-[12px] md:text-[16px] w-full font-bold text-[#81c408] line-clamp-1">
+                            {item.title}
+                          </h2>
+                          <div className="w-full  flex justify-start items-center gap-4 text-gray-600">
+                            <div className="text-[12px] md:text-sm font-semibold line-clamp-1  ">
+                              {item.category}
                             </div>
-                            <div className="text-[#ffb524] text-[12px] md:text-sm  flex justify-between md:justify-start items-center gap-1 md:gap-4 w-full">
-                              <div className="font-bold">${discountPrice}</div>
-                              <div className="line-through font-bold">
-                                ${item.price}
-                              </div>
-                              <div
-                                className={`h-full  px-1! text-[13px] text-[#81c408]  rounded-md md:hidden flex   items-center  justify-center 
+                            <div
+                              className={`text-[12px] md:text-sm line-clamp-1 font-semibold ${!item.brand ? "hidden" : "flex justify-start items-center"}`}
+                            >
+                              #{item.brand}
+                            </div>
+                          </div>
+                          <div className="text-[#ffb524] text-[12px] md:text-sm  flex justify-between md:justify-start items-center gap-1 md:gap-4 w-full">
+                            <div className="font-bold">${discountPrice}</div>
+                            <div className="line-through font-bold">
+                              ${item.price}
+                            </div>
+                            <div
+                              className={`h-full  px-1! text-[13px] text-[#81c408]  rounded-md md:hidden flex   items-center  justify-center 
                                       ${
                                         item.availabilityStatus == "In Stock"
                                           ? " text-[#82c408d7]"
@@ -156,14 +187,14 @@ const page = () => {
                                             : " text-gray-700"
                                       }
                                   `}
-                              >
-                                {item.availabilityStatus}
-                              </div>
+                            >
+                              {item.availabilityStatus}
                             </div>
                           </div>
+                        </div>
 
-                          <div
-                            className={`h-full w-35 py-1! text-sm  rounded-md md:flex  hidden    items-center  justify-center 
+                        <div
+                          className={`h-full w-35 py-1! text-sm  rounded-md md:flex  hidden    items-center  justify-center 
                                ${
                                  item.availabilityStatus == "In Stock"
                                    ? " text-[#82c408d7]"
@@ -171,32 +202,39 @@ const page = () => {
                                      ? " text-[#ffb524]"
                                      : " text-gray-700"
                                }`}
-                          >
-                            {item.availabilityStatus}
-                          </div>
+                        >
+                          {item.availabilityStatus}
                         </div>
+                      </div>
 
-                        <div className=" md:w-1/3 h-10 pr-3! w-full flex gap-5 justify-between sm:justify-end items-center">
-                          <button
-                            disabled={item.availabilityStatus == "Out of Stock"}
-                            className="text-sm disabled:bg-gray-500  disabled:cursor-not-allowed bg-[#82c408d7]
+                      <div className=" md:w-1/3 h-10 pr-3! w-full flex gap-5 justify-between sm:justify-end items-center">
+                        <Link
+                          href="/cart"
+                          onClick={() =>
+                            handleCart({
+                              id: item.id,
+                              price: discountPrice,
+                              quantity: 1,
+                            })
+                          }
+                          disabled={item.availabilityStatus == "Out of Stock"}
+                          className="text-sm disabled:bg-gray-500 flex justify-center items-center disabled:cursor-not-allowed bg-[#82c408d7]
                            text-white outline-none cursor-pointer  px-3! h-8  rounded-md"
-                          >
-                            Add To Bucket
-                          </button>
-                          <button
-                            onClick={() => dispatch(toggleWish(item.id))}
-                            className="outline-none cursor-pointer h-8 text-2xl text-red-500"
-                          >
-                            <MdDelete />
-                          </button>
-                        </div>
+                        >
+                          Add To Bucket
+                        </Link>
+                        <button
+                          onClick={() => handleToggleWish(item.id)}
+                          className="outline-none cursor-pointer h-8 text-2xl text-red-500"
+                        >
+                          <MdDelete />
+                        </button>
                       </div>
                     </div>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -205,14 +243,3 @@ const page = () => {
 };
 
 export default page;
-
-// green text-[#81c408]
-// golden bg-[#ffb524]
-// gray bg-[#F4F6F8]
-
-//  ${
-//                                  item.availabilityStatus == "In Stock"
-//                                    ? "bg-[#708842f3] text-white"
-//                                    : item.availabilityStatus == "Low Stock"
-//                                      ? "bg-[#ffb524] text-white"
-//                                      : "bg-gray-300 text-gray-700" }

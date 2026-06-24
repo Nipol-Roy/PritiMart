@@ -16,26 +16,27 @@ import { FaHeart } from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toggleWish } from "@/app/lib/redux/reduxSlice/wishlistSlice";
 
 export default function ProductCard({ item }) {
-  const dispatch = useDispatch()
-  
- const wishId = useSelector((state) => state.wishSlice.wishId);
+  const dispatch = useDispatch();
 
- const handleWhis = ()=>{
-  if(item?.id){
-    dispatch(toggleWish(item.id))
-  }
- }
+  const wishId = useSelector((state) => state.wishSlice.wishId);
 
- const isWished =  wishId.includes(item.id) ;
+  const handleWhis = () => {
+    if (item?.id) {
+      dispatch(
+        toggleWish(item.id),
+      );
+    }
+  };
 
- useEffect(() => {
-  localStorage.setItem("wishList", JSON.stringify(wishId));
-}, [wishId]);
+  const isWished = wishId?.includes(item.id);
 
+  useEffect(() => {
+    localStorage.setItem("wishList", JSON.stringify(wishId));
+  }, [wishId]);
 
   return (
     <div className=" w-77 sm:w-85   p-3!  hover:shadow-lg  transition duration-500 shadow-gray-400 bg-[#f4f6f8] rounded-md flex flex-col justify-between items-center relative gap-2">
@@ -60,12 +61,10 @@ export default function ProductCard({ item }) {
                     {isWished ? <FaHeart /> : <FaRegHeart />}
                   </div>
                   <Link
-                      href={`/product/${item.id}`}
-                       className="w-full  h-full flex  justify-center items-start  relative ]">
-                    <div
-                     
-                      className=" hover:scale-110  transition duration-500  w-[70%] h-full  relative  flex overflow-hidden justify-center items-start p-2! "
-                    >
+                    href={`/product/${item.id}`}
+                    className="w-full  h-full flex  justify-center items-start  relative ]"
+                  >
+                    <div className=" hover:scale-110  transition duration-500  w-[70%] h-full  relative  flex overflow-hidden justify-center items-start p-2! ">
                       <Image
                         sizes="640px"
                         className=" scale-80    object-cover object-center"
