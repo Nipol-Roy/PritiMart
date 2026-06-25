@@ -35,6 +35,7 @@ import {
   toggleWish,
   setWishList,
 } from "@/app/lib/redux/reduxSlice/wishlistSlice";
+import { addToCartProduct } from "@/app/lib/redux/reduxSlice/addToCartSlice";
 
 const page = () => {
   const paramsItem = useParams();
@@ -84,6 +85,7 @@ const page = () => {
   useEffect(() => {
     localStorage.setItem("wishList", JSON.stringify(wishId));
   }, [wishId]);
+
 
   return (
     <div className="w-full  flex justify-center items-start p-5! ">
@@ -198,17 +200,34 @@ const page = () => {
                 </div>
               </div>
 
-              <div className="py-5! w-full  flex justify-between md:justify-start gap-5 items-center ">
+              <div className=" w-full py-2! flex justify-start  items-center ">
                 <button
-                  className="w-full z-20! border py-2! bg-[#81c408] flex justify-center items-center gap-2
-                           cursor-pointer hover:bg-[#ffb524] hover:text-white transition
-                             duration-500 text-white font-semibold rounded-md  disabled:bg-gray-500 disabled:cursor-not-allowed"
+                  onClick={() =>
+                    dispatch(
+                      addToCartProduct({
+                        id: visitProduct.id,
+                        price:
+                          (
+                            visitProduct?.price -
+                            (visitProduct?.discountPercentage / 100) *
+                              visitProduct?.price
+                          ).toFixed(2) || 0,
+                        quantity: 1,
+                      }),
+                    )
+                  }
+                  className=" z-20! px-3! border  py-2! bg-[#81c408] flex justify-start
+                   items-center gap-2 cursor-pointer hover:bg-[#ffb524] hover:text-white
+                    transition duration-500 text-white font-semibold rounded-md 
+                     disabled:bg-gray-500 disabled:cursor-not-allowed"
                   disabled={visitProduct?.availabilityStatus === "Out of Stock"}
                 >
                   <span className="text-xl ">
                     <FaCartPlus />
                   </span>
-                  Add to Bucket
+                  <Link href="/cart" className="w-full h-full">
+                    Add To Bucket
+                  </Link>
                 </button>
               </div>
               <div className="w-full gap-2 p-1! justify-center items-start  grid grid-cols-2 lg:grid-cols-3 bg-[#F4F6F8] rounded-md ">
@@ -387,6 +406,7 @@ const page = () => {
                               fill
                               className="object-cover scale-110  md:scale-105 object-center"
                               src={review.image || imageNotFount}
+                              alt="porduct page image"
                             />
                           </div>
                           <div className="font-bold text-sm md:text-lg">

@@ -18,6 +18,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleWish } from "@/app/lib/redux/reduxSlice/wishlistSlice";
+import { addToCartProduct } from "@/app/lib/redux/reduxSlice/addToCartSlice";
 
 export default function ProductCard({ item }) {
   const dispatch = useDispatch();
@@ -26,9 +27,7 @@ export default function ProductCard({ item }) {
 
   const handleWhis = () => {
     if (item?.id) {
-      dispatch(
-        toggleWish(item.id),
-      );
+      dispatch(toggleWish(item.id));
     }
   };
 
@@ -138,15 +137,31 @@ export default function ProductCard({ item }) {
         </div>
 
         <button
+          onClick={() =>
+            dispatch(
+              addToCartProduct({
+                id: item.id,
+                price:
+                  (
+                    item?.price -
+                    (item?.discountPercentage / 100) * item?.price
+                  ).toFixed(2) || 0,
+                quantity: 1,
+              }),
+            )
+          }
           className="w-full z-20! border py-2! bg-[#81c408] flex justify-center items-center gap-2
            cursor-pointer hover:bg-[#ffb524] hover:text-white transition
              duration-500 text-white font-semibold rounded-md  disabled:bg-gray-500 disabled:cursor-not-allowed"
           disabled={item.availabilityStatus === "Out of Stock"}
         >
-          <span className="text-xl ">
+          
+          <Link href="/cart" className="w-full h-full flex justify-center items-center gap-1 text-sm md:gap-2">
+          <span className="text-lg ">
             <FaCartPlus />
           </span>
-          Add to Bucket
+            Add To Bucket
+          </Link>
         </button>
       </div>
     </div>

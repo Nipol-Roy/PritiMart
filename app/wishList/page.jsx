@@ -204,33 +204,33 @@ const page = () => {
                         </div>
                       </div>
 
-                      <div className=" md:w-1/3 h-10 pr-3! w-full flex gap-5 justify-between sm:justify-end items-center">
+                      <div className="  w-full flex gap-5 justify-between sm:justify-end items-center">
                         <button
-                        onClick={() =>
-                              handleCart({
-                                id: item.id,
-                                price: discountPrice,
-                                quantity: 1,
-                              })
-                            }
-                          className="w-full z-20! relative border py-2! bg-[#81c408] flex justify-center items-center gap-2
+                          onClick={() =>
+                            handleCart({
+                              id: item.id,
+                              price: discountPrice,
+                              quantity: 1,
+                            })
+                          }
+                          className=" z-20! relative  border w-30 md:w-40  bg-[#81c408] flex justify-center items-center 
                            cursor-pointer hover:bg-[#ffb524] hover:text-white transition
                              duration-500 text-white font-semibold rounded-md  disabled:bg-gray-500 disabled:cursor-not-allowed"
                           disabled={item?.availabilityStatus === "Out of Stock"}
                         >
-                          <Link
-                            href="/cart"
-                            className="w-full h-full"
-                            
-                          >
-                            Add To Bucket
-                          </Link>
+                          <span className="text-sm flex justify-center md:py-2! py-1! items-center w-full h-full gap-1 md:gap-2">
+                            <FaCartPlus />
+
+                            <Link href="/cart" className=" ">
+                              Add To Bucket
+                            </Link>
+                          </span>
                         </button>
                         <button
                           onClick={() => handleToggleWish(item.id)}
-                          className="outline-none cursor-pointer h-8 text-2xl text-red-500"
+                          className="outline-none cursor-pointer   text-red-500"
                         >
-                          <MdDelete />
+                          <MdDelete className="text-xl" />
                         </button>
                       </div>
                     </div>
