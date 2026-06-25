@@ -9,6 +9,7 @@ import { FaHeart } from "react-icons/fa6";
 import { MdOutlineStarPurple500, MdToll } from "react-icons/md";
 import { IoStarHalf } from "react-icons/io5";
 import { IoStarOutline } from "react-icons/io5";
+import { FaCartPlus } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa6";
 
@@ -199,17 +200,15 @@ const page = () => {
 
               <div className="py-5! w-full  flex justify-between md:justify-start gap-5 items-center ">
                 <button
-                  className=" w-40 py-3! text-white hover:text-[#ffb524] 
-                 text-lg font-bold capitalize transition-all duration-500 bg-[#81c408]
-                   flex justify-center items-center  rounded-md border"
-                >
-                  add To bucket
-                </button>
-                <button
+                  className="w-full z-20! border py-2! bg-[#81c408] flex justify-center items-center gap-2
+                           cursor-pointer hover:bg-[#ffb524] hover:text-white transition
+                             duration-500 text-white font-semibold rounded-md  disabled:bg-gray-500 disabled:cursor-not-allowed"
                   disabled={visitProduct?.availabilityStatus === "Out of Stock"}
-                  className="w-40 py-3! bg-[#ffb524] text-white disabled:bg-gray-400 disabled:hover:text-white disabled:cursor-not-allowed capitalize font-bold transition-all duration-500 hover:text-[#81c408] text-lg flex justify-center items-center rounded-md cursor-pointer border"
                 >
-                  Buy now
+                  <span className="text-xl ">
+                    <FaCartPlus />
+                  </span>
+                  Add to Bucket
                 </button>
               </div>
               <div className="w-full gap-2 p-1! justify-center items-start  grid grid-cols-2 lg:grid-cols-3 bg-[#F4F6F8] rounded-md ">

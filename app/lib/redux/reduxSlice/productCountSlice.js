@@ -15,28 +15,14 @@ const productCountSlice = createSlice({
   name: "countSlice",
   initialState,
   reducers: {
-    setAddCount(state, action) {
+    removeCart(state, action) {
       const id = action.payload;
-
-      const exist = state.countList.find((item) => item.id === id);
-
-      if (exist) {
-        exist.quantity += 1;
-      } else {
-        state.countList.push(id);
-      }
+      state.countList = state.countList.filter((item) => item.id !== id);
     },
-
-    setRemoveCount(state, action) {
-      const id = action.payload;
-      const exist = state.countList.find((item) => item.id === id);
-
-      if (exist && exist.quantity > 1) {
-        exist.quantity -= 1;
-      }
-    },
+   
   },
 });
 
-export const { setAddCount, setRemoveCount } = productCountSlice.actions;
+export const { setAddCount, setRemoveCount, removeCart } =
+  productCountSlice.actions;
 export default productCountSlice.reducer;

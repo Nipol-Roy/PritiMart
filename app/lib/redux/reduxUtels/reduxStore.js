@@ -3,7 +3,7 @@ import productSlice from "../reduxSlice/productSlice";
 import productfilterSlice from "../reduxSlice/productFilterSlice"
 import wishCartSlice from "../reduxSlice/wishlistSlice"
 import addToCartSlice from "../reduxSlice/addToCartSlice"
-import productCountSlice from "../reduxSlice/productCountSlice"
+
 
 
 export const store = configureStore({
@@ -13,6 +13,6 @@ export const store = configureStore({
         productFilter: productfilterSlice,
         wishSlice: wishCartSlice,
         addToCart: addToCartSlice,
-        addCount : productCountSlice
+        
     }
 })

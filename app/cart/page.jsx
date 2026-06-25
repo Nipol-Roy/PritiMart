@@ -11,19 +11,21 @@ import { fetchProduct } from "../lib/api/fetchProduct";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { removeCart } from "../lib/redux/reduxSlice/productCountSlice";
 import {
+  removeProduct,
   setAddCount,
   setRemoveCount,
-} from "../lib/redux/reduxSlice/productCountSlice";
+} from "../lib/redux/reduxSlice/addToCartSlice";
 
 const page = () => {
   const dispatch = useDispatch();
   const { cartList } = useSelector((state) => state.addToCart);
-  const { countList } = useSelector((state) => state.addCount);
+
   const { product } = useSelector((state) => state.product);
 
   const [discount, setDiscount] = useState(50);
-  const [shipping, setShipping] = useState(30);
+  const [shipping, setShipping] = useState(40);
   const [taxORvat, setTaxORvat] = useState(40);
   const [others, setOthers] = useState(10);
   useEffect(() => {
@@ -36,25 +38,39 @@ const page = () => {
     cartList.some((cart) => cart.id == item.id),
   );
 
-  const subTotal = countList
+  const finalShippingCharg = shipping * cartList.length;
+
+  const subTotal = cartList
     .reduce((sum, item) => {
       return sum + Number(item.price) * item.quantity;
     }, 0)
     .toFixed(2);
 
-  const finalShippingCharg = shipping * cartList.length;
+  const totalOrder = cartList.reduce(
+    (some, item) => some + Number(item.quantity),
+    0,
+  );
+  console.log(totalOrder);
 
-  console.log(subTotal);
+  console.log(cartList);
 
-  const totalAmount = (
-    Number(subTotal) +
-    Number(finalShippingCharg) +
-    Number(taxORvat) +
-    Number(others) -
-    Number(discount)
-  ).toFixed(2);
+  const totalAmount =
+    (
+      Number(subTotal) +
+      Number(finalShippingCharg) +
+      Number(taxORvat) +
+      Number(others) -
+      Number(discount)
+    ).toFixed(2) || 0;
 
-  console.log(totalAmount);
+  useEffect(() => {
+    localStorage.setItem("addToCartList", JSON.stringify(cartList));
+    if (cartList.length === 0) {
+      setTaxORvat(0);
+      setDiscount(0);
+      setOthers(0);
+    }
+  }, [cartList, subTotal]);
 
   return (
     <div className="w-full  flex justify-center items-center">
@@ -74,12 +90,13 @@ const page = () => {
           "
           >
             <h2 className=" p-2! md:p-3! text-sm md:text-lg font-semibold border-b border-gray-200">
-              Porduct (Image & Details) ({countList.length})
+              Porduct (Image & Details) ({totalOrder})
             </h2>
 
-            <div className=" h-full min-h-[70vh] mt-3! rounded-md p-2!  md:px-5!">
+            <div className=" h-full min-h-[40vh] mt-3! rounded-md p-2!  md:px-5!">
               <div
-                className={`${cartProducts.length == 0 ? "flex" : "hidden"} border-t border-gray-200  justify-center items-center font-bold text-lg text-gray-400 w-full h-[80vh]`}
+                className={`${cartProducts.length == 0 ? "flex" : "hidden"} border-t border-gray-200
+                  justify-center items-center font-bold text-lg text-gray-400 w-full min-h-[40vh]`}
               >
                 <Link
                   href="/product"
@@ -90,13 +107,12 @@ const page = () => {
               </div>
 
               {cartProducts.map((item, idx) => {
-                const count =
-                  countList?.find((items) => items.id === item.id)?.quantity ??
-                  0;
-                const countPrice =
-                  countList?.find((items) => items.id === item.id)?.price ?? 0;
-                const calculatePrice = countPrice * count;
-                const total = Number(calculatePrice.toFixed(2));
+                const cartItem = cartList.find((items) => items.id === item.id);
+
+                const count = cartItem?.quantity ?? 0;
+                const countPrice = cartItem?.price ?? 0;
+
+                const total = Number((countPrice * count).toFixed(2));
                 return (
                   <div
                     key={idx}
@@ -142,7 +158,10 @@ const page = () => {
                             ${countPrice}
                           </div>
                           <div className="flex justify-center items-center gap-1 ">
-                            <button className="outline-none cursor-pointer p-1! border text-sm md:text-[14px] lg:text-lg border-gray-200 rounded-md">
+                            <button
+                              onClick={() => dispatch(setRemoveCount(item.id))}
+                              className="outline-none cursor-pointer p-1! border text-sm md:text-[14px] lg:text-lg border-gray-200 rounded-md"
+                            >
                               <FiMinus />
                             </button>
                             <div className="outline-none w-13 lg:w-15 text-sm md:text-[14px] lg:text-lg  border border-gray-200 rounded-md flex justify-center items-center">
@@ -159,7 +178,10 @@ const page = () => {
                             ${total}
                           </div>
                         </div>
-                        <div className=" absolute top-0 right-2 font-bold cursor-pointer text-lg">
+                        <div
+                          onClick={() => dispatch(removeProduct(item.id))}
+                          className=" absolute top-0 right-2 font-bold cursor-pointer text-lg"
+                        >
                           <IoCloseSharp />
                         </div>
                       </div>

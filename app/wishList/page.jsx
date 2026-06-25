@@ -39,8 +39,6 @@ const page = () => {
     localStorage.removeItem("wishList");
   };
 
- 
-
   const handleCart = (carts) => {
     if (!carts) return;
 
@@ -48,18 +46,17 @@ const page = () => {
     dispatch(toggleWish(carts.id));
     dispatch(setAddCount(carts));
   };
-  
+
   const handleToggleWish = (itemId) => {
     dispatch(toggleWish(itemId));
   };
-   useEffect(() => {
+  useEffect(() => {
     localStorage.setItem("wishList", JSON.stringify(wishId));
   }, [wishId]);
 
   useEffect(() => {
     localStorage.setItem("addToCartList", JSON.stringify(cartList));
   }, [cartList]);
-
 
   return (
     <div className=" w-full flex justify-center items-center">
@@ -208,21 +205,27 @@ const page = () => {
                       </div>
 
                       <div className=" md:w-1/3 h-10 pr-3! w-full flex gap-5 justify-between sm:justify-end items-center">
-                        <Link
-                          href="/cart"
-                          onClick={() =>
-                            handleCart({
-                              id: item.id,
-                              price: discountPrice,
-                              quantity: 1,
-                            })
-                          }
-                          disabled={item.availabilityStatus == "Out of Stock"}
-                          className="text-sm disabled:bg-gray-500 flex justify-center items-center disabled:cursor-not-allowed bg-[#82c408d7]
-                           text-white outline-none cursor-pointer  px-3! h-8  rounded-md"
+                        <button
+                        onClick={() =>
+                              handleCart({
+                                id: item.id,
+                                price: discountPrice,
+                                quantity: 1,
+                              })
+                            }
+                          className="w-full z-20! relative border py-2! bg-[#81c408] flex justify-center items-center gap-2
+                           cursor-pointer hover:bg-[#ffb524] hover:text-white transition
+                             duration-500 text-white font-semibold rounded-md  disabled:bg-gray-500 disabled:cursor-not-allowed"
+                          disabled={item?.availabilityStatus === "Out of Stock"}
                         >
-                          Add To Bucket
-                        </Link>
+                          <Link
+                            href="/cart"
+                            className="w-full h-full"
+                            
+                          >
+                            Add To Bucket
+                          </Link>
+                        </button>
                         <button
                           onClick={() => handleToggleWish(item.id)}
                           className="outline-none cursor-pointer h-8 text-2xl text-red-500"
@@ -243,3 +246,5 @@ const page = () => {
 };
 
 export default page;
+
+import { FaCartPlus } from "react-icons/fa";

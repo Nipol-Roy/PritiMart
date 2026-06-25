@@ -19,8 +19,11 @@ import { useSelector } from "react-redux";
 const navbar = () => {
   const [isMenu, setIsMenu] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const { cartList } = useSelector((state) => state.addToCart);
 
   const wishId = useSelector((state) => state.wishSlice.wishId);
+
+  const totalOrder = cartList.reduce((some,item)=> some + Number(item.quantity),0)
   // console.log(wishId.length)
 
   return (
@@ -139,7 +142,7 @@ const navbar = () => {
                     className="orderCount h-5 w-5 text-sm bg-[#FFB524]   text-white absolute
                    flex justify-center items-center rounded-full -top-2 -right-2  "
                   >
-                    5
+                    {totalOrder}
                   </span>
                 </Link>
                <Link href="/wishList"
