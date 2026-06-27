@@ -19,6 +19,12 @@ const productFilterSlice = createSlice({
   reducers: {
     setCategorys(state, action) {
       const value = action.payload;
+
+      if (Array.isArray(value)) {
+        state.category = value;
+        return;
+      }
+
       if (state.category.includes(value)) {
         state.category = state.category.filter((item) => item !== value);
       } else {
@@ -93,7 +99,7 @@ export const {
   setDiscount,
   setPriceRange,
   setRating,
-  setClearFilters
+  setClearFilters,
 } = productFilterSlice.actions;
 
 export default productFilterSlice.reducer;

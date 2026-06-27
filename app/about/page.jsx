@@ -33,6 +33,7 @@ import { useEffect, useState } from "react";
 import { fetchProduct } from "../lib/api/fetchProduct";
 import CustomerServices from "../components/services/customerServices";
 import GetShop from "../components/services/GetShop";
+import { setCategorys } from "../lib/redux/reduxSlice/productFilterSlice";
 
 const page = () => {
   const happyCustomer = 10000;
@@ -43,7 +44,7 @@ const page = () => {
   const dispatch = useDispatch();
 
   const { product } = useSelector((state) => state.product);
-  console.log(product);
+  // console.log(product);
 
   useEffect(() => {
     if (!product || product.length == 0) {
@@ -67,7 +68,7 @@ const page = () => {
       return acc;
     }, {}),
   );
-  console.log(findCategory);
+  // console.log(findCategory);
 
   return (
     <div className=" w-full  bg-[#F9FAF7] flex justify-center items-center py-5!">
@@ -321,8 +322,10 @@ const page = () => {
                       key={idx}
                       className="flex cursor-pointer flex-col justify-between h-full w-full items-center  relative"
                     >
-                      <div className="h-[80%] w-full flex bg-[#a9d4593f] justify-center items-center rounded-md">
-                        <div className=" h-full w-[80%]  relative">
+                      <Link href="/product"
+                      onClick={()=> dispatch(setCategorys(item?.category))}
+                       className="h-[80%]  w-full flex bg-[#a9d4593f] justify-center items-center rounded-md">
+                        <div className="  h-full w-[80%]  relative">
                           <Image
                             src={item?.images[0]}
                             alt="category image"
@@ -330,7 +333,7 @@ const page = () => {
                             className="object-cover object-center"
                           />
                         </div>
-                      </div>
+                      </Link>
                       <div className=" text-[#FFB524] h-[20%] w-full  flex justify-center items-center font-semibold text-lg">
                         {item.category}
                       </div>

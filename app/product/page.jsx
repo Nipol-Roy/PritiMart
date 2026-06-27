@@ -129,6 +129,8 @@ const page = () => {
     );
   });
 
+  console.log(category);
+
   const [showFilters, setShowFilters] = useState(false);
 
   return (
@@ -177,10 +179,10 @@ const page = () => {
             All Product
           </button>
 
-          {categoryProduct.map((item , idx) => (
-            <button 
-            key={idx}
-              onClick={() => setOnButton(item)}
+          {categoryProduct.map((item, idx) => (
+            <button
+              key={idx}
+              onClick={() => (setOnButton(item), dispatch(setCategorys([])))}
               className={`py-1! outline-none text-[#81c408] hover:bg-[#81c408]
            hover:text-white font-semibold cursor-pointer rounded-md text-[12px] md:text-sm transition-all duration-300
             px-3! border ${onButton == item ? "bg-[#ffb524] text-white hover:bg-[#ffb524] hover:text-white" : ""}`}
@@ -197,22 +199,28 @@ const page = () => {
               className="border px-5! py-2! text-sm font-bold rounded-md
              bg-[#81c408] text-white border-white cursor-pointer mb-5! flex justify-center items-center flex-row"
             >
-              {
-                showFilters ? <span className="text-xl"><AiOutlineClose /></span> : <span className="text-sm flex gap-2 justify-center items-center ">Filter <FiFilter /> </span>
-              }
+              {showFilters ? (
+                <span className="text-xl">
+                  <AiOutlineClose />
+                </span>
+              ) : (
+                <span className="text-sm flex gap-2 justify-center items-center ">
+                  Filter <FiFilter />{" "}
+                </span>
+              )}
             </button>
           </div>
 
           <div
-            className={`w-full h-full justify-center items-center sticky top-15 bg-white  md:w-80 xl:w-70   z-10 p-1! 
-                ${showFilters ? "flex " : "hidden"} md:flex`}>
-            <div className=" border border-gray-500 bg-white rounded-md flex gap-2 flex-col  p-3! w-[80%] md:w-full"
-            >
-              <div className="flex flex-col gap-3!  w-full">
+            className={`w-full h-full justify-center items-center  bg-white  md:w-80 xl:w-80   z-10 p-1! 
+                ${showFilters ? "flex " : "hidden"} md:flex`}
+          >
+            <div className=" border border-gray-500 bg-white rounded-md flex gap-2 flex-col  p-3! w-[80%] md:w-full">
+              <div className="flex flex-col gap-3! px-3! py-2!  w-full border border-gray-400 rounded-md">
                 <div
                   onClick={() => setShowCategory(!showCategory)}
-                  className="text-lg w-full cursor-pointer font-semibold border
-                 border-gray-400 rounded-md flex justify-between px-3! items-center"
+                  className="text-[16px]   w-full cursor-pointer font-semibold 
+                  flex justify-between  items-center"
                 >
                   Category
                   <span className="text-xl cursor-pointer">
@@ -222,7 +230,7 @@ const page = () => {
                 <div
                   className={` flex-col ${showCategory ? "flex" : "hidden"}`}
                 >
-                  {allCategory.map((item,idx) => (
+                  {allCategory.map((item, idx) => (
                     <div key={idx} className="flex gap-2 cursor-pointer ">
                       <input
                         onChange={(e) => {
@@ -281,7 +289,7 @@ const page = () => {
                       type="range"
                       min={0}
                       max={10000}
-                      value={priceRange.targetPrice}
+                      value={priceRange.targetPrice || priceRange.max}
                       className="w-full cursor-pointer "
                     />
                   </div>
@@ -321,7 +329,7 @@ const page = () => {
                           setOnButton("AllButton");
                         }}
                         placeholder="$0"
-                        value={priceRange.max}
+                        value={priceRange.max || priceRange.targetPrice}
                         className="outline-none px-2!  w-full "
                       />
                     </div>
@@ -333,7 +341,7 @@ const page = () => {
                 className=" border  
                  border-gray-400 flex  rounded-md flex-col gap-2"
               >
-                <div className="text-lg w-full font-semibold rounded-md flex justify-between px-3! items-center">
+                <div className="text-[16px] py-2!  w-full font-semibold rounded-md flex justify-between px-3! items-center">
                   Rating
                   <span className="text-xl ">
                     <IoIosArrowUp />
@@ -438,7 +446,7 @@ const page = () => {
                       <IoStarOutline />
                       <IoStarOutline />
 
-                      <div className="text-[12px] text-sm px-1!">
+                      <div className="text-[12px]  px-1!">
                         (2 & below)
                       </div>
                     </label>
@@ -447,7 +455,7 @@ const page = () => {
               </div>
 
               <div className=" border border-gray-400 flex  rounded-md flex-col ">
-                <div className="text-lg w-full font-semibold  rounded-md flex justify-between px-3! items-center">
+                <div className="text-[16px] py-2!  w-full font-semibold  rounded-md flex justify-between px-3! items-center">
                   Discount
                   <span className="text-xl ">
                     <IoIosArrowUp />
@@ -467,7 +475,10 @@ const page = () => {
                       className="cursor-pointer"
                       value={10}
                     />
-                    <label htmlFor="discountOne" className="cursor-pointer">
+                    <label
+                      htmlFor="discountOne"
+                      className="cursor-pointer text-sm  "
+                    >
                       10% and above
                     </label>
                   </div>
@@ -483,7 +494,7 @@ const page = () => {
                       className="cursor-pointer"
                       value={20}
                     />
-                    <label htmlFor="discountTwo" className="cursor-pointer">
+                    <label htmlFor="discountTwo" className="text-sm cursor-pointer">
                       20% and above
                     </label>
                   </div>
@@ -499,7 +510,7 @@ const page = () => {
                       className="cursor-pointer"
                       value={30}
                     />
-                    <label htmlFor="discountThree" className="cursor-pointer">
+                    <label htmlFor="discountThree" className=" text-sm cursor-pointer">
                       30% and above
                     </label>
                   </div>
@@ -515,7 +526,7 @@ const page = () => {
                       }}
                       className="cursor-pointer"
                     />
-                    <label htmlFor="discountFour" className="cursor-pointer">
+                    <label htmlFor="discountFour" className=" text-sm cursor-pointer">
                       40% and above
                     </label>
                   </div>
@@ -528,7 +539,7 @@ const page = () => {
                 className=" border  
                  border-gray-400 flex  rounded-md flex-col gap-1"
               >
-                <div className="text-lg w-full font-semibold  rounded-md flex justify-between px-3! items-center">
+                <div className="text-[16px] py-2!  w-full font-semibold  rounded-md flex justify-between px-3! items-center">
                   Availability
                   <span className="text-xl ">
                     <IoIosArrowUp />
@@ -550,7 +561,7 @@ const page = () => {
                     />
                     <label
                       htmlFor="inStock"
-                      className=" font-semibold cursor-pointer"
+                      className="text-sm font-semibold cursor-pointer"
                     >
                       In Stock
                     </label>
@@ -569,7 +580,7 @@ const page = () => {
                     />
                     <label
                       htmlFor="lowStock"
-                      className=" font-semibold cursor-pointer"
+                      className="text-sm font-semibold cursor-pointer"
                     >
                       Low Stock
                     </label>
@@ -589,7 +600,7 @@ const page = () => {
                     />
                     <label
                       htmlFor="outOfStock"
-                      className="cursor-pointer font-semibold"
+                      className="cursor-pointer text-sm font-semibold"
                     >
                       Out of Stock
                     </label>
@@ -597,13 +608,13 @@ const page = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-3! w-full">
+              <div className="flex flex-col gap-3! px-3! py-2!  w-full border border-gray-400 rounded-md">
                 <div
                   onClick={() => {
                     setShowBrand(!showBrand);
                   }}
-                  className="text-lg w-full cursor-pointer font-semibold border
-                 border-gray-400 rounded-md flex justify-between px-3! items-center"
+                  className="text-[16px]  w-full cursor-pointer font-semibold  rounded-md flex 
+                  justify-between  items-center"
                 >
                   Brand
                   <span className="text-xl cursor-pointer">
@@ -611,7 +622,7 @@ const page = () => {
                   </span>
                 </div>
                 <div className={` flex-col ${showBrand ? "flex" : "hidden"}`}>
-                  {allbrand.map((item,idx) => (
+                  {allbrand.map((item, idx) => (
                     <div key={idx} className="flex gap-2 cursor-pointer ">
                       <input
                         type="checkbox"
@@ -643,15 +654,25 @@ const page = () => {
                 </div>
               </div>
 
-              <div
-                onClick={() => {
-                  dispatch(setClearFilters());
-                }}
-                className="text-lg w-full cursor-pointer font-semibold border hover:bg-[#81c408]
+              <div className="flex justify-center gap-2 items-center py-2!">
+                <button
+                  onClick={() => {
+                    dispatch(setClearFilters());
+                  }}
+                  className="text-[16px]  w-1/2 py-1! cursor-pointer font-semibold border hover:bg-[#ffb524]
                  hover:border-white hover:text-white transition-all duration-300
                  border-gray-400 rounded-md flex justify-center px-3! items-center"
-              >
-                Clean All
+                >
+                  Clean All
+                </button>
+                <button
+                  onClick={() => setShowFilters(false)}
+                  className="text-[16px]  w-1/2 py-1! cursor-pointer font-semibold border hover:bg-[#81c408]
+                 hover:border-white hover:text-white transition-all duration-300
+                 border-gray-400 rounded-md flex justify-center px-3! items-center"
+                >
+                  Apply
+                </button>
               </div>
             </div>
           </div>
@@ -668,5 +689,3 @@ const page = () => {
 };
 
 export default page;
-
-

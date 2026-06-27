@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { CiMenuBurger } from "react-icons/ci";
 import { MdClose } from "react-icons/md";
@@ -13,9 +13,6 @@ import { CiSearch } from "react-icons/ci";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-
-
-
 const navbar = () => {
   const [isMenu, setIsMenu] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
@@ -23,41 +20,43 @@ const navbar = () => {
 
   const wishId = useSelector((state) => state.wishSlice.wishId);
 
-  const totalOrder = cartList.reduce((some,item)=> some + Number(item.quantity),0)
+  const totalOrder = cartList.reduce(
+    (some, item) => some + Number(item.quantity),
+    0,
+  );
   // console.log(wishId.length)
 
   return (
     <>
-      <div className="flex   md:bg-[#FFB524]  justify-center items-center  ">
+      <div className="flex    justify-center items-center  ">
         <div
-          className=" bg-[#81C408] px-3! md:px-5! py-4! text-white
-         md:rounded-tl-4xl md:rounded-bl-2xl md:rounded-tr-2xl md:rounded-br-4xl
+          className=" bg-[#81C408] px-3! md:px-5! py-4! text-white rounded-md
           flex justify-between items-center w-full md:w-[90%]"
         >
           <div className="flex justify-center items-center gap-2">
             <div className="flex justify-center items-center gap-3">
-              <span
+              <Link href="/contact"
                 title="Dhaka, Bangladesh"
                 className="cursor-pointer  text-xl text-[#FFB524]"
               >
                 <FaLocationDot />
-              </span>{" "}
+              </Link>{" "}
               <span className="text-sm hidden sm:inline cursor-pointer">
                 Dhaka, Bangladesh
               </span>
             </div>
             <div className="flex justify-center items-center gap-2">
-              <span
+              <Link href="/contact"
                 title="Email@Example.com"
                 className=" cursor-pointer  text-xl text-[#FFB524]"
               >
                 <MdEmail />
-              </span>{" "}
+              </Link>{" "}
               <span
-                title="Email@Example.com"
+                title="email@example.com"
                 className="cursor-pointer text-sm hidden sm:inline"
               >
-                Nipol@Example.com
+                email@example.com
               </span>
             </div>
           </div>
@@ -84,12 +83,11 @@ const navbar = () => {
             </div>
           </div>
         </div>
-        
       </div>
       <nav className=" z-50 sticky top-0  shadow  ">
-        <div className="flex justify-center   bg-white items-center px-5! sm:px-2! lg:px-5! py-1! ">
+        <div className="flex justify-center px-3!  bg-white items-center  py-1! ">
           <div className="flex justify-between  items-center w-full md:w-[90%] ">
-            <div className="text-xl  md:text-2xl flex justify-start flex-col  transition duration-500 lg:text-4xl w-1/2 md:w-[40%] capitalize font-extrabold text-[#81C408]">
+            <div className="text-xl  md:text-2xl flex justify-start flex-col  transition duration-500  w-1/2 md:w-[40%] capitalize font-extrabold text-[#81C408]">
               <Link href="/">Priti Shop</Link>
               <span className="text-sm text-[#FFB524] font-medium text-left">
                 Fresh Products
@@ -125,14 +123,15 @@ const navbar = () => {
             <div className="flex  W-1/2    md:w-[40%] justify-end items-center ">
               <div className="flex justify-center items-center gap-3">
                 <div
-                onClick={()=> setShowSearch(!showSearch)}
+                  onClick={() => setShowSearch(!showSearch)}
                   className={`text-[21px] xl:text-2xl p-1.5! md:p-2! rounded-md border text-[#81C408]
                    cursor-pointer hover:scale-115 hover:bg-[#81C408] hover:text-white transition
-                    duration-500 ${showSearch ? "bg-[#FFB524] text-white" : "" }`}
+                    duration-500 ${showSearch ? "bg-[#FFB524] text-white" : ""}`}
                 >
                   <CiSearch />
                 </div>
-                <Link href="/cart"
+                <Link
+                  href="/cart"
                   className="text-xl xl:text-2xl relative p-1.5! md:p-2! rounded-md border cursor-pointer
                  hover:scale-115 text-[#81C408] hover:bg-[#81C408] hover:text-white
                   transition duration-500"
@@ -145,9 +144,9 @@ const navbar = () => {
                     {totalOrder}
                   </span>
                 </Link>
-               <Link href="/wishList"
-               onClick={()=> setShowWish( !showWish)}
-
+                <Link
+                  href="/wishList"
+                  onClick={() => setShowWish(!showWish)}
                   className={`  text-white" text-xl xl:text-2xl relative p-1.5! md:p-2! rounded-md border cursor-pointer
                  hover:scale-115 text-[#81C408] hover:bg-[#81C408] hover:text-white
                   transition duration-500`}
@@ -161,7 +160,8 @@ const navbar = () => {
                     {wishId.length}
                   </span>
                 </Link>
-                <Link href="/profile"
+                <Link
+                  href="/profile"
                   className="text-xl xl:text-2xl rounded-md  hidden md:flex border p-1.5! md:p-2! hover:scale-115 cursor-pointer
                   text-[#81C408] hover:bg-[#81C408] hover:text-white transition
                    duration-500"
@@ -200,7 +200,7 @@ const navbar = () => {
               <div className="text-xl border-b  w-full flex justify-between items-center px-4! py-5!  capitalize font-extrabold text-[#81C408]">
                 <Link href="/">Priti Shop</Link>
                 <div
-                  onClick={() => setIsMenu(!isMenu)}
+                  onClick={() => setIsMenu(false)}
                   className="text-2xl hover:bg-[#81C408] hover:text-[#FFB524] p-2! rounded-md hover:scale-115 transition duration-500"
                 >
                   <MdClose />
@@ -209,24 +209,44 @@ const navbar = () => {
 
               <div className="w-full   flex flex-col justify-center  items-start text-[#81C408] ">
                 <Link
+                  onClick={(e) => {
+                    e.stopPropagation();
+
+                    setIsMenu(false);
+                  }}
                   className="text-lg font-bold px-5! py-3! w-full transition duration-500 sm:text-left text-center border-b hover:bg-[#81C408] hover:text-[#FFB524] "
                   href="/"
                 >
                   Home
                 </Link>
                 <Link
+                  onClick={(e) => {
+                    e.stopPropagation();
+
+                    setIsMenu(false);
+                  }}
                   className="text-lg font-bold px-5! py-3! sm:text-left transition duration-500 text-center border-b  w-full hover:bg-[#81C408] hover:text-[#FFB524]"
                   href="/about"
                 >
                   About
                 </Link>
                 <Link
+                  onClick={(e) => {
+                    e.stopPropagation();
+
+                    setIsMenu(false);
+                  }}
                   className="text-lg font-bold px-5! py-3! sm:text-left transition duration-500 text-center border-b  w-full hover:bg-[#81C408] hover:text-[#FFB524]"
                   href="/product"
                 >
                   Product
                 </Link>
                 <Link
+                  onClick={(e) => {
+                    e.stopPropagation();
+
+                    setIsMenu(false);
+                  }}
                   className="text-lg font-bold px-5! py-3! sm:text-left transition duration-500 text-center border-b  w-full hover:bg-[#81C408] hover:text-[#FFB524]"
                   href="/contact"
                 >
@@ -234,28 +254,28 @@ const navbar = () => {
                 </Link>
               </div>
 
-              <div className="flex justify-center items-center gap-5 transition-all duration-500 py-5! text-[#81C408]">
-                {/* <div
-                  className="text-2xl p-2! transition-all duration-500 
-                hover:scale-115 border rounded-md hover:bg-[#81C408] hover:text-[#FFB524]"
+              <div className="flex  justify-center items-center gap-5 transition-all duration-500 py-5! text-[#81C408]">
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+
+                    setIsMenu(false);
+                  }}
+                  className="text-2xl  p-2! transition-all duration-500 hover:scale-115 border rounded-md hover:bg-[#81C408] hover:text-[#FFB524]"
                 >
-                  <CiSearch />
-                </div>
-                <div className="text-2xl p-2! transition-all duration-500 hover:scale-115 border rounded-md hover:bg-[#81C408] hover:text-[#FFB524]">
-                  <MdShoppingCart />
-                </div> */}
-                <div className="text-2xl p-2! transition-all duration-500 hover:scale-115 border rounded-md hover:bg-[#81C408] hover:text-[#FFB524]">
                   <BsFillPersonFill />
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className={`w-full  absolute top-15 left-0   justify-center items-center   gap-2 ${showSearch ? "flex " : "hidden"}`}>
-         <div className="flex flex-col w-full gap-2 md:w-[90%] bg-white border p-3!">
-           <div className="h-10 border">search</div>
-          <div className="border w-full h-10">results</div>
-         </div>
+        <div
+          className={`w-full  absolute top-15 left-0   justify-center items-center   gap-2 ${showSearch ? "flex " : "hidden"}`}
+        >
+          <div className="flex flex-col w-full gap-2 md:w-[90%] bg-white border p-3!">
+            <div className="h-10 border">search</div>
+            <div className="border w-full h-10">results</div>
+          </div>
         </div>
       </nav>
     </>

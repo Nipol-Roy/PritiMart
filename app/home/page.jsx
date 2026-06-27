@@ -33,6 +33,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { setProduct } from "../lib/redux/reduxSlice/productSlice";
+import { setCategorys } from "../lib/redux/reduxSlice/productFilterSlice";
 
 import firstBG from "../../public/background-image/background-image.png";
 import groceriesCollection from "../../public/discount-banner/groceries.jpg";
@@ -51,6 +52,7 @@ import { fetchProduct } from "../lib/api/fetchProduct";
 
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import Link from "next/link";
 
 const page = () => {
   const dispatch = useDispatch();
@@ -121,6 +123,8 @@ const page = () => {
 
   mostPopularProduct();
   // console.log(product.map((i) => i.category));
+  const { discount } = useSelector((state) => state.productFilter);
+  console.log(discount);
 
   return (
     <>
@@ -134,35 +138,40 @@ const page = () => {
                 className=" w-full h-full object-cover object-center"
               />
             </div>
-            <div className=" w-[90%] h-full py-5! z-10 ">
+            <div className=" w-[90%] h-full py-5! z-10  ">
               <div className="sm:p-5!  flex flex-col lg:flex-row justify-between gap-5 items-center">
-                <div className="w-full  lg:w-[60%]  h-full flex justify-center items-center">
-                  <div className=" h-[80%] flex flex-col justify-center gap-3 w-full sm:w-[90%] lg:w-[80%] ">
+                <div className="w-full lg:w-[60%]  h-full ">
+                  <div className=" h-[80%]  p-3!  gap-6 w-full lg:w-[90%] xl:w-[70%] flex flex-col justify-center items-center lg:items-start  ">
                     <h4 className="font-bold text-sm md:text-lg text-[#ffb524]">
                       Smart Shopping Starts Here
                     </h4>
-                    <p className="text-[#81c408] text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">
+                    <p className="text-[#81c408]  text-xl sm:text-xl md:text-2xl lg:text-3xl font-bold">
                       Discover Quality Products Across Fashion, Electronics,
                       Groceries, and Lifestyle Essentials
                     </p>
-                    <div className="my-10! h-10 sm:h-13 flex justify-center relative items-center rounded-md  border bg-white border-[#ffb524] w-full md:w-3/4 ">
-                      <div className=" border-none w-full h-full relative  flex justify-between items-center ">
-                        <input
-                          type="text"
-                          placeholder="enter your Email"
-                          className="w-full h-full border-none px-5! text-[12px] sm:text-sm md:text-lg outline-none"
-                        />
-                        <button
-                          className="border-none text-[12px] sm:text-sm  md:text-lg h-full  flex justify-center items-center
+
+                    <div
+                      className="  h-10 sm:h-13  w-full relative rounded-md  sm:w-[95%]
+                    md:w-[90%] lg:w-[85%] border
+                     bg-white border-[#ffb524]   flex justify-between items-center "
+                    >
+                      <input
+                        type="text"
+                        placeholder="enter your Email"
+                        className="w-full h-full border-none px-5! text-[12px] sm:text-sm md:text-lg 
+                        outline-none"
+                      />
+                      <button
+                        className="border-none text-[12px] sm:text-sm  md:text-[16px]  h-full  flex justify-center items-center
                         w-50 border border-black text-white font-bold transition
                          duration-500 hover:bg-[#ffb524] outline-none rounded-md bg-[#81c408]"
-                        >
-                          Subscribe Now
-                        </button>
-                      </div>
+                      >
+                        Subscribe Now
+                      </button>
                     </div>
                   </div>
                 </div>
+
                 <div className="w-full  p-3! overflow-hidden lg:w-[40%]  h-full  flex justify-center items-center">
                   <div className="w-full  h-[80%]  sm:w-[70%]  md:[w-50%] lg:w-[99%] max-w-full">
                     <Swiper
@@ -185,12 +194,23 @@ const page = () => {
                             alt="categories Images"
                             className="w-full h-full object-cover object-center"
                           />
-                          <button
-                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
+                          <Link href="/product" className="w-full h-full">
+                            <button
+                              onClick={() =>
+                                dispatch(
+                                  setCategorys([
+                                    "groceries",
+                                    "kitchen-accessories",
+                                    "sports-accessories",
+                                  ]),
+                                )
+                              }
+                              className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
-                          >
-                            Groceries
-                          </button>
+                            >
+                              Groceries
+                            </button>
+                          </Link>
                         </div>
                       </SwiperSlide>
                       <SwiperSlide className=" relative  ">
@@ -200,12 +220,23 @@ const page = () => {
                             alt="categories Images"
                             className="w-full h-full object-cover object-center"
                           />
-                          <button
-                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
+                          <Link href="/product" className="w-full h-full">
+                            <button
+                              onClick={() =>
+                                dispatch(
+                                  setCategorys([
+                                    "beauty",
+                                    "fragrances",
+                                    "skin-care",
+                                  ]),
+                                )
+                              }
+                              className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
-                          >
-                            Beauty
-                          </button>
+                            >
+                              Beauty
+                            </button>
+                          </Link>
                         </div>
                       </SwiperSlide>
                       <SwiperSlide className=" relative  ">
@@ -215,12 +246,32 @@ const page = () => {
                             alt="categories Images"
                             className="w-full h-full object-cover object-center"
                           />
-                          <button
-                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute  text-sm sm:text-lg md:text-xl
+                          <Link href="/product" className="w-full h-full">
+                            <button
+                              onClick={() =>
+                                dispatch(
+                                  setCategorys([
+                                    "tops",
+                                    "womens-bags",
+                                    "womens-dresses",
+                                    "womens-jewellery",
+                                    "womens-shoes",
+                                    "womens-watches",
+                                    "sunglasses",
+                                    "skin-care",
+                                    "mens-watches",
+                                    "mens-shoes",
+                                    "mens-shirts",
+                                    "fragrances",
+                                  ]),
+                                )
+                              }
+                              className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute  text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
-                          >
-                            Fashion
-                          </button>
+                            >
+                              Fashion
+                            </button>
+                          </Link>
                         </div>
                       </SwiperSlide>
                       <SwiperSlide className=" relative  ">
@@ -230,12 +281,27 @@ const page = () => {
                             alt="categories Images"
                             className="w-full h-full object-cover object-center"
                           />
-                          <button
-                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
+                          <Link href="/product" className="w-full h-full">
+                            <button
+                              onClick={() =>
+                                dispatch(
+                                  setCategorys([
+                                    "laptops",
+                                    "mens-watches",
+                                    "mobile-accessories",
+                                    "smartphones",
+                                    "sunglasses",
+                                    "womens-watches",
+                                    "tablets",
+                                  ]),
+                                )
+                              }
+                              className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer  translate-x-1/2 translate-y-1/2 font-bold"
-                          >
-                            Gadgets
-                          </button>
+                            >
+                              Gadgets
+                            </button>
+                          </Link>
                         </div>
                       </SwiperSlide>
                       <SwiperSlide className=" relative  ">
@@ -245,12 +311,22 @@ const page = () => {
                             alt="categories Images"
                             className="w-full h-full object-cover object-center"
                           />
-                          <button
-                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
+                          <Link href="/product" className="w-full h-full">
+                            <button
+                              onClick={() =>
+                                dispatch(
+                                  setCategorys([
+                                    "furniture",
+                                    "home-decoration",
+                                  ]),
+                                )
+                              }
+                              className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
-                          >
-                            Living
-                          </button>
+                            >
+                              Living
+                            </button>
+                          </Link>
                         </div>
                       </SwiperSlide>
                       <SwiperSlide className=" relative  ">
@@ -260,26 +336,35 @@ const page = () => {
                             alt="categories Images"
                             className="w-full h-full object-cover object-center"
                           />
-                          <button
-                            className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
+                          <Link href="/product" className="w-full h-full">
+                            <button
+                              onClick={() =>
+                                dispatch(
+                                  setCategorys(["motorcycle", "vehicle"]),
+                                )
+                              }
+                              className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
-                          >
-                            AutoMotive
-                          </button>
+                            >
+                              AutoMotive
+                            </button>
+                          </Link>
                         </div>
                       </SwiperSlide>
 
                       {/* custom Navigadion button */}
                       <button
-                        className="customNav-prev border p-3! rounded-md
-                   bg-[#81c408] hover:bg-[#ffb524] text-white transition duration-500 
+                        className="customNav-prev  border p-3! rounded-md text-xl
+                   border-[#ffb524] hover:bg-[#ffb524] text-[#ffb524] hover:text-white 
+                    transition duration-500 
                     absolute bottom-1/2 left-3 translate-y-1/2 cursor-pointer z-10"
                       >
                         <GrPrevious />
                       </button>
                       <button
-                        className="customNav-next border p-3! rounded-md
-                   bg-[#81c408] hover:bg-[#ffb524] text-white transition duration-500 
+                        className="customNav-next border p-3! rounded-md text-xl
+                   border-[#ffb524] hover:bg-[#ffb524] text-[#ffb524] hover:text-white 
+                    transition duration-500 
                     absolute bottom-1/2 right-3 translate-y-1/2 cursor-pointer z-10 "
                       >
                         <GrNext />
@@ -353,11 +438,11 @@ const page = () => {
                     const productList = product.find(
                       (prod) => prod.category === item,
                     );
-                    // console.log(productList?.images[0]);
 
                     return (
                       <SwiperSlide key={idx} className="   relative  p-1!">
                         <div
+                          onClick={() => dispatch(setCategorys(item))}
                           className="w-auto hover:shadow-lg shadow-gray-500 transition-all
                          duration-500 cursor-pointer h-full relative rounded-md overflow-hidden"
                         >
@@ -368,9 +453,13 @@ const page = () => {
                           >
                             {productList?.category}
                           </h2>
-                          <div className="flex justify-center relative  items-center w-full h-full ">
+                          <Link
+                            href="/product"
+                            className="flex justify-center relative   items-center w-full h-full "
+                          >
                             <div className="w-[80%] scale-70 h-full p-10! z-0  relative">
                               <Image
+                                sizes="200px"
                                 fill
                                 className=" object-cover object-center"
                                 src={
@@ -379,7 +468,7 @@ const page = () => {
                                 alt="category list images"
                               />
                             </div>
-                          </div>
+                          </Link>
                         </div>
                       </SwiperSlide>
                     );
@@ -396,16 +485,12 @@ const page = () => {
             </div>
           </div>
 
-          {/* nice discount */}
-
           <div className="w-full  flex justify-center items-center py-20!  ">
             <div
               className=" w-[90%] justify-items-center-safe gap-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4
                "
             >
-              <div
-                className="  bg-[#F4F6F8] w-full h-full md:w-78 md:h-68 rounded-md flex justify-between items-center flex-col gap-4  p-5!"
-              >
+              <div className="  bg-[#F4F6F8] w-full h-full md:w-78 md:h-68 rounded-md flex justify-between items-center flex-col gap-4  p-5!">
                 <div className="text-[150px]  relative  text-[#ffb524]">
                   <BiSolidMessageAlt />
                   <div
@@ -537,14 +622,18 @@ const page = () => {
                   />
                 </div>
 
-                <div className="w-[70%] h-40 flex flex-col justify-center items-center bg-[#F4F6F8] rounded-md absolute bottom-2/4 translate-y-3/4 right-1/2 translate-x-1/2">
+                <Link
+                  href="/product"
+                  onClick={() => dispatch(setCategorys("vehicle"))}
+                  className="w-[70%] h-40 flex flex-col justify-center items-center bg-[#F4F6F8] rounded-md absolute bottom-2/4 translate-y-3/4 right-1/2 translate-x-1/2"
+                >
                   <div className="text-xl font-semibold text-[#81c408]">
                     Premium Product
                   </div>
                   <div className="text-2xl font-bold text-gray-600 ">
                     Up to 10% off{" "}
                   </div>
-                </div>
+                </Link>
 
                 <div className="w-full h-1/2 bg-[#45595B] "></div>
               </div>
@@ -557,14 +646,18 @@ const page = () => {
                     className="w-full h-full object-cover object-center"
                   />
                 </div>
-                <div className="w-[70%] flex flex-col justify-center items-center bg-[#ffb524] rounded-md  h-40  absolute bottom-2/4 translate-y-3/4 right-1/2 translate-x-1/2">
+                <Link
+                  href="/product"
+                  onClick={() => dispatch(setCategorys("groceries"))}
+                  className="w-[70%] flex flex-col justify-center items-center bg-[#ffb524] rounded-md  h-40  absolute bottom-2/4 translate-y-3/4 right-1/2 translate-x-1/2"
+                >
                   <div className="text-xl font-semibold text-white">
                     Exotic Vegetable
                   </div>
                   <div className="text-2xl font-bold text-gray-600">
                     Discount 30${" "}
                   </div>
-                </div>
+                </Link>
 
                 <div className="w-full h-1/2 bg-[#81c408] "></div>
               </div>
@@ -576,14 +669,35 @@ const page = () => {
                     className="w-full h-full object-cover object-center"
                   />
                 </div>
-                <div className="w-[70%] flex flex-col justify-center items-center bg-[#81c408] h-40 rounded-md absolute bottom-2/4 translate-y-3/4 right-1/2 translate-x-1/2">
+                <Link
+                  href="/product"
+                  onClick={() =>
+                    dispatch(
+                      setCategorys([
+                        "tops",
+                        "womens-bags",
+                        "womens-dresses",
+                        "womens-jewellery",
+                        "womens-shoes",
+                        "womens-watches",
+                        "sunglasses",
+                        "skin-care",
+                        "mens-watches",
+                        "mens-shoes",
+                        "mens-shirts",
+                        "fragrances",
+                      ]),
+                    )
+                  }
+                  className="w-[70%] flex flex-col justify-center items-center bg-[#81c408] h-40 rounded-md absolute bottom-2/4 translate-y-3/4 right-1/2 translate-x-1/2"
+                >
                   <div className="text-xl font-semibold text-white">
                     Fashion
                   </div>
                   <div className="text-2xl font-bold text-gray-600">
                     Free Delivery
                   </div>
-                </div>
+                </Link>
                 <div className="w-full h-1/2   bg-[#ffb524] "></div>
               </div>
             </div>
