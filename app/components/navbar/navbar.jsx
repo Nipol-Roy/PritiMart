@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 
 const navbar = () => {
   const [isMenu, setIsMenu] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
+  const [showSearch, setShowSearch] = useState(true);
   const { cartList } = useSelector((state) => state.addToCart);
 
   const wishId = useSelector((state) => state.wishSlice.wishId);
@@ -30,12 +30,13 @@ const navbar = () => {
     <>
       <div className="flex    justify-center items-center  ">
         <div
-          className=" bg-[#81C408] px-3! md:px-5! py-4! text-white rounded-md
-          flex justify-between items-center w-full md:w-[90%]"
+          className=" bg-[#81C408] px-3! md:px-5! py-4! text-white
+          flex justify-between items-center w-full "
         >
           <div className="flex justify-center items-center gap-2">
             <div className="flex justify-center items-center gap-3">
-              <Link href="/contact"
+              <Link
+                href="/contact"
                 title="Dhaka, Bangladesh"
                 className="cursor-pointer  text-xl text-[#FFB524]"
               >
@@ -46,7 +47,8 @@ const navbar = () => {
               </span>
             </div>
             <div className="flex justify-center items-center gap-2">
-              <Link href="/contact"
+              <Link
+                href="/contact"
                 title="Email@Example.com"
                 className=" cursor-pointer  text-xl text-[#FFB524]"
               >
@@ -270,9 +272,11 @@ const navbar = () => {
           </div>
         </div>
         <div
-          className={`w-full  absolute top-15 left-0   justify-center items-center   gap-2 ${showSearch ? "flex " : "hidden"}`}
+          className={`w-full h-full   fixed top-28 right-0 bg-[#0303036c]  justify-center items-start   gap-2 ${showSearch ? "flex " : "hidden"}`}
         >
-          <div className="flex flex-col w-full gap-2 md:w-[90%] bg-white border p-3!">
+          <div className="w-full h-full absolute top-0 left-0 "></div>
+
+          <div className="flex flex-col  z-5 w-full md:w-[80%] lg:w-[50%]  gap-2  bg-white border p-3!">
             <div className="h-10 border">search</div>
             <div className="border w-full h-10">results</div>
           </div>

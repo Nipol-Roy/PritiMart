@@ -17,7 +17,7 @@ import paypalCard from "../../../public/Images/paypal.webp";
 const footer = () => {
   return (
     <div className=" bg-[#45595B] w-full flex justify-center  flex-col items-center ">
-      <div className="py-10! md:py-20! border-b border-[#FFB524] w-[90%]">
+      <div className="py-10! md:py-20! border-b border-[#FFB524] w-[95%]">
         <div className=" flex flex-col lg:flex-row justify-between items-center gap-7 w-full">
           {/* space */}
 
