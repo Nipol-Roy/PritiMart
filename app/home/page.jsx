@@ -157,7 +157,7 @@ const page = () => {
                     >
                       <input
                         type="text"
-                        placeholder="enter your Email"
+                        placeholder="Enter your Email"
                         className="w-full h-full border-none px-5! text-[12px] sm:text-sm md:text-lg 
                         outline-none"
                       />
