@@ -25,11 +25,10 @@ const navbar = () => {
     (some, item) => some + Number(item.quantity),
     0,
   );
- 
-  window.addEventListener("scroll", ()=> {
-    setShowSearch(false)
-  })
 
+  window.addEventListener("scroll", () => {
+    setShowSearch(false);
+  });
 
   return (
     <>
@@ -68,26 +67,29 @@ const navbar = () => {
             </div>
           </div>
           <div className="flex justify-center text-[12px] sm:text-sm items-center gap-2 ">
-            <div
+            <Link
+              href="/components/services/privacyPolicy"
               className="underline transition duration-500 hover:text-[#FFB524] 
             cursor-pointer capitalize"
             >
               privacy Policy
-            </div>
+            </Link>
             /
-            <div
+            <Link
+              href="/components/services/termsOfUse"
               className="underline transition duration-500 hover:text-[#FFB524]
              cursor-pointer capitalize"
             >
               Terms Of Use
-            </div>
+            </Link>
             /
-            <div
+            <Link
+              href="/components/services/salesAndRefunds"
               className="underline transition duration-500 hover:text-[#FFB524]
              cursor-pointer capitalize"
             >
               Sales and Refunds
-            </div>
+            </Link>
           </div>
         </div>
       </div>
@@ -279,20 +281,26 @@ const navbar = () => {
         <div
           className={`w-full h-screen    absolute top-14 right-0   justify-center items-start   gap-2 ${showSearch ? "flex " : "hidden"}`}
         >
-          <div onClick={()=> setShowSearch(false)} className="w-full h-full absolute top-0 left-0 bg-gray-800 opacity-40 "></div>
+          <div
+            onClick={() => setShowSearch(false)}
+            className="w-full h-full absolute top-0 left-0 bg-gray-800 opacity-40 "
+          ></div>
 
           <div className="flex flex-col h-[50%] shadow-xl shadow-gray-400 rounded-b-md z-5 w-full md:w-[80%] lg:w-[50%]  gap-2  bg-white  p-3!">
             <div className="h-12 border rounded-md  border-gray-200 flex justify-between items-center ">
-              <input type="text"
-              placeholder="Search Products"
-               className="px-2! w-full h-full outline-none "/>
-              <button className="h-full px-4! md:px-6! bg-[#FFB524] text-white text-lg md:text-xl rounded-r-md 
-              cursor-pointer hover:scale-102 transition-all duration-300"><FaSearch /></button>
+              <input
+                type="text"
+                placeholder="Search Products"
+                className="px-2! w-full h-full outline-none "
+              />
+              <button
+                className="h-full px-4! md:px-6! bg-[#FFB524] text-white text-lg md:text-xl rounded-r-md 
+              cursor-pointer hover:scale-102 transition-all duration-300"
+              >
+                <FaSearch />
+              </button>
             </div>
-            <div className="border w-full h-full border-gray-200 rounded-md ">
-
-
-            </div>
+            <div className="border w-full h-full border-gray-200 rounded-md "></div>
           </div>
         </div>
       </nav>
