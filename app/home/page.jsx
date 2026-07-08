@@ -124,7 +124,6 @@ const page = () => {
   mostPopularProduct();
   // console.log(product.map((i) => i.category));
   const { discount } = useSelector((state) => state.productFilter);
-  console.log(discount);
 
   return (
     <>

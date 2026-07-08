@@ -11,15 +11,19 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { MdShoppingCart } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProduct } from "@/app/lib/api/fetchProduct";
+import { setSearch } from "@/app/lib/redux/reduxSlice/productFilterSlice";
 
 const navbar = () => {
   const [isMenu, setIsMenu] = useState(false);
-  const [showSearch, setShowSearch] = useState(true);
+  const [showSearch, setShowSearch] = useState(false);
   const { cartList } = useSelector((state) => state.addToCart);
+  const dispatch = useDispatch();
 
   const wishId = useSelector((state) => state.wishSlice.wishId);
+  const { product } = useSelector((state) => state.product);
 
   const totalOrder = cartList.reduce(
     (some, item) => some + Number(item.quantity),
@@ -29,6 +33,46 @@ const navbar = () => {
   window.addEventListener("scroll", () => {
     setShowSearch(false);
   });
+
+  useEffect(() => {
+    fetchProduct(dispatch);
+  }, []);
+
+  // console.log(product);
+
+  const [searchValue, setSearchValue] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+  console.log(searchResult)
+
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value);
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchValue);
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [searchValue]);
+
+  useEffect(() => {
+    if (!debouncedSearch.trim()) {
+      setSearchResult([]);
+      return;
+    }
+
+    const search = product?.filter(
+      (item) =>
+        item.brand?.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        item.category?.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        item.title?.toLowerCase().includes(debouncedSearch.toLowerCase()),
+    );
+
+    setSearchResult(search);
+  }, [product, debouncedSearch]);
+
+  console.log(searchResult);
 
   return (
     <>
@@ -105,6 +149,7 @@ const navbar = () => {
 
             <div className="hidden w-full    md:flex justify-center items-center gap-5 md:gap-7 lg:gap-9">
               <Link
+              onClick={()=> setShowSearch(false)}
                 className="text-lg text-[#81C408] font-bold transition-all duration-300 hover:scale-115  hover:text-[#FFB524]"
                 href="/"
               >
@@ -113,18 +158,21 @@ const navbar = () => {
               <Link
                 className="text-lg text-[#81C408] font-bold transition-all duration-300 hover:scale-115  hover:text-[#FFB524]"
                 href="/about"
+                onClick={()=> setShowSearch(false)}
               >
                 About
               </Link>
               <Link
                 className="text-lg text-[#81C408] font-bold transition-all duration-300 hover:scale-115  hover:text-[#FFB524]"
                 href="/product"
+                onClick={()=> setShowSearch(false)}
               >
                 Product
               </Link>
               <Link
                 className="text-lg text-[#81C408] font-bold transition-all duration-300 hover:scale-115  hover:text-[#FFB524]"
                 href="/contact"
+                onClick={()=> setShowSearch(false)}
               >
                 Contact
               </Link>
@@ -207,7 +255,7 @@ const navbar = () => {
           >
             <div className=" ">
               <div className="text-xl border-b  w-full flex justify-between items-center px-4! py-5!  capitalize font-extrabold text-[#81C408]">
-                <Link href="/">Priti Shop</Link>
+                <Link onClick={()=> setShowSearch(false)} href="/">Priti Shop</Link>
                 <div
                   onClick={() => setIsMenu(false)}
                   className="text-2xl hover:bg-[#81C408] hover:text-[#FFB524] p-2! rounded-md hover:scale-115 transition duration-500"
@@ -220,7 +268,7 @@ const navbar = () => {
                 <Link
                   onClick={(e) => {
                     e.stopPropagation();
-
+                    setShowSearch(false)
                     setIsMenu(false);
                   }}
                   className="text-lg font-bold px-5! py-3! w-full transition duration-500 sm:text-left text-center border-b hover:bg-[#81C408] hover:text-[#FFB524] "
@@ -231,7 +279,7 @@ const navbar = () => {
                 <Link
                   onClick={(e) => {
                     e.stopPropagation();
-
+                    setShowSearch(false)
                     setIsMenu(false);
                   }}
                   className="text-lg font-bold px-5! py-3! sm:text-left transition duration-500 text-center border-b  w-full hover:bg-[#81C408] hover:text-[#FFB524]"
@@ -242,7 +290,7 @@ const navbar = () => {
                 <Link
                   onClick={(e) => {
                     e.stopPropagation();
-
+                    setShowSearch(false)
                     setIsMenu(false);
                   }}
                   className="text-lg font-bold px-5! py-3! sm:text-left transition duration-500 text-center border-b  w-full hover:bg-[#81C408] hover:text-[#FFB524]"
@@ -253,7 +301,7 @@ const navbar = () => {
                 <Link
                   onClick={(e) => {
                     e.stopPropagation();
-
+                    setShowSearch(false)
                     setIsMenu(false);
                   }}
                   className="text-lg font-bold px-5! py-3! sm:text-left transition duration-500 text-center border-b  w-full hover:bg-[#81C408] hover:text-[#FFB524]"
@@ -267,7 +315,7 @@ const navbar = () => {
                 <div
                   onClick={(e) => {
                     e.stopPropagation();
-
+                    setShowSearch(false)
                     setIsMenu(false);
                   }}
                   className="text-2xl  p-2! transition-all duration-500 hover:scale-115 border rounded-md hover:bg-[#81C408] hover:text-[#FFB524]"
@@ -289,18 +337,47 @@ const navbar = () => {
           <div className="flex flex-col h-[50%] shadow-xl shadow-gray-400 rounded-b-md z-5 w-full md:w-[80%] lg:w-[50%]  gap-2  bg-white  p-3!">
             <div className="h-12 border rounded-md  border-gray-200 flex justify-between items-center ">
               <input
+                onChange={(e) => handleSearch(e)}
                 type="text"
                 placeholder="Search Products"
                 className="px-2! w-full h-full outline-none "
+                value={searchValue}
               />
-              <button
-                className="h-full px-4! md:px-6! bg-[#FFB524] text-white text-lg md:text-xl rounded-r-md 
+              <Link
+                href="/product"
+                onClick={() => (
+                  setSearchValue(""),
+                  setShowSearch(false),
+                  dispatch(setSearch(searchValue))
+                )}
+                className="h-full w-14 md:w-20 border bg-[#FFB524] flex justify-center items-center text-white text-lg md:text-xl rounded-r-md 
               cursor-pointer hover:scale-102 transition-all duration-300"
               >
                 <FaSearch />
-              </button>
+              </Link>
             </div>
-            <div className="border w-full h-full border-gray-200 rounded-md "></div>
+            <div className="border z-500 w-full h-full border-gray-200 rounded-md overflow-scroll relative ">
+              {searchResult?.map((item , idx) => (
+                <div key={idx} className=" w-full  flex flex-col  gap-2 border-b border-gray-200 ">
+                  <Link
+                    href="/product"
+                    className="py-2! cursor-pointer hover:text-white hover:bg-[#FFB524]  px-2! text-[14px] md:text-[16px]"
+                  >
+                    <button
+                      className="border-none text-left outline-none w-full h-full"
+                      onClick={() => (
+                        setSearchValue(""),
+                        setShowSearch(false),
+                        dispatch(setSearch(item.title))
+                        
+                      )}
+                    >
+                      {item.title}
+                    </button>
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </nav>

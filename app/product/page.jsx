@@ -56,8 +56,17 @@ const page = () => {
 
   const [showBrand, setShowBrand] = useState(false);
 
-  const { category, brand, availability, discount, rating, priceRange } =
-    useSelector((state) => state.productFilter);
+  const {
+    category,
+    brand,
+    availability,
+    discount,
+    rating,
+    priceRange,
+    searchValue,
+  } = useSelector((state) => state.productFilter);
+
+  console.log(searchValue);
 
   const filteredProduct = product.filter((item) => {
     const matchCategory =
@@ -118,6 +127,12 @@ const page = () => {
 
     const matchBrand = brand.length == 0 || brand.includes(item.brand);
 
+    const searchResults =
+      searchValue.trim() === "" ||
+      item.brand?.toLowerCase().includes(searchValue.toLowerCase()) ||
+      item.category?.toLowerCase().includes(searchValue.toLowerCase()) ||
+      item.title?.toLowerCase().includes(searchValue.toLowerCase());
+
     return (
       matchBrand &&
       matchAvailability &&
@@ -125,11 +140,12 @@ const page = () => {
       matchDiscount &&
       matchPriceRange &&
       matchRating &&
-      matchTargetPrice
+      matchTargetPrice &&
+      searchResults
     );
   });
 
-  console.log(category);
+  console.log(filteredProduct);
 
   const [showFilters, setShowFilters] = useState(false);
 
@@ -267,7 +283,7 @@ const page = () => {
                 className=" border  
                  border-gray-400 flex  rounded-md flex-col gap-2"
               >
-                <div className="text-lg w-full font-semibold  rounded-md flex justify-between px-3! items-center">
+                <div className="text-[16px] w-full font-semibold  rounded-md flex justify-between px-3! items-center">
                   Price Range
                   <span className="text-xl ">
                     <IoIosArrowUp />
@@ -446,9 +462,7 @@ const page = () => {
                       <IoStarOutline />
                       <IoStarOutline />
 
-                      <div className="text-[12px]  px-1!">
-                        (2 & below)
-                      </div>
+                      <div className="text-[12px]  px-1!">(2 & below)</div>
                     </label>
                   </div>
                 </div>
@@ -494,7 +508,10 @@ const page = () => {
                       className="cursor-pointer"
                       value={20}
                     />
-                    <label htmlFor="discountTwo" className="text-sm cursor-pointer">
+                    <label
+                      htmlFor="discountTwo"
+                      className="text-sm cursor-pointer"
+                    >
                       20% and above
                     </label>
                   </div>
@@ -510,7 +527,10 @@ const page = () => {
                       className="cursor-pointer"
                       value={30}
                     />
-                    <label htmlFor="discountThree" className=" text-sm cursor-pointer">
+                    <label
+                      htmlFor="discountThree"
+                      className=" text-sm cursor-pointer"
+                    >
                       30% and above
                     </label>
                   </div>
@@ -526,7 +546,10 @@ const page = () => {
                       }}
                       className="cursor-pointer"
                     />
-                    <label htmlFor="discountFour" className=" text-sm cursor-pointer">
+                    <label
+                      htmlFor="discountFour"
+                      className=" text-sm cursor-pointer"
+                    >
                       40% and above
                     </label>
                   </div>

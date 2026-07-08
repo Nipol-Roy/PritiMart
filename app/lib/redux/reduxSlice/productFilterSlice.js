@@ -11,6 +11,7 @@ const initialState = {
   discount: [],
   availability: [],
   brand: [],
+  searchValue: "apple",
 };
 
 const productFilterSlice = createSlice({
@@ -31,14 +32,23 @@ const productFilterSlice = createSlice({
         state.category.push(value);
       }
     },
+
     setBrand(state, action) {
       const value = action.payload;
-      if (state.brand.includes(value)) {
-        state.brand = state.brand.filter((item) => item !== value);
+
+      const exist = state.brand.some(
+        (item) => item.toLowerCase() === value.toLowerCase(),
+      );
+
+      if (exist) {
+        state.brand = state.brand.filter(
+          (item) => item.toLowerCase() !== value.toLowerCase(),
+        );
       } else {
         state.brand.push(value);
       }
     },
+
     setPriceRange(state, action) {
       const { type, value } = action.payload;
       if (type === "target") {
@@ -89,6 +99,9 @@ const productFilterSlice = createSlice({
       state.availability = [];
       state.brand = [];
     },
+    setSearch(state, action) {
+      state.searchValue = action.payload;
+    },
   },
 });
 
@@ -100,6 +113,7 @@ export const {
   setPriceRange,
   setRating,
   setClearFilters,
+  setSearch,
 } = productFilterSlice.actions;
 
 export default productFilterSlice.reducer;

@@ -46,7 +46,7 @@ export default function ProductCard({ item }) {
           slidesPerView={1}
           speed={1000}
           pagination={{ clickable: true }}
-          loop="true"
+          
           className="mySwiper"
         >
           {item.images.map((images, idx) => {
