@@ -30,9 +30,17 @@ const navbar = () => {
     0,
   );
 
-  window.addEventListener("scroll", () => {
+  useEffect(() => {
+  const handleScroll = () => {
     setShowSearch(false);
-  });
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
 
   useEffect(() => {
     fetchProduct(dispatch);
