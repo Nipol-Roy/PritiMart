@@ -27,6 +27,7 @@ import {
   setPriceRange,
   setBrand,
   setClearFilters,
+  setSearch,
 } from "../lib/redux/reduxSlice/productFilterSlice";
 
 const page = () => {
@@ -198,7 +199,10 @@ const page = () => {
           {categoryProduct.map((item, idx) => (
             <button
               key={idx}
-              onClick={() => (setOnButton(item), dispatch(setCategorys([])))}
+              onClick={() => (
+                setOnButton(item),
+                dispatch(setCategorys([])),dispatch(setSearch(""))
+              )}
               className={`py-1! outline-none text-[#81c408] hover:bg-[#81c408]
            hover:text-white font-semibold cursor-pointer rounded-md text-[12px] md:text-sm transition-all duration-300
             px-3! border ${onButton == item ? "bg-[#ffb524] text-white hover:bg-[#ffb524] hover:text-white" : ""}`}
@@ -251,7 +255,8 @@ const page = () => {
                       <input
                         onChange={(e) => {
                           dispatch(setCategorys(e.target.value));
-                          setOnButton("AllButton");
+                          setOnButton("AllButton")
+                          dispatch(setSearch(""))
                         }}
                         type="checkbox"
                         checked={category.includes(item)}
@@ -299,7 +304,7 @@ const page = () => {
                             value: e.target.value,
                           }),
                         );
-
+                        dispatch(setSearch(""))
                         setOnButton("AllButton");
                       }}
                       type="range"
@@ -322,6 +327,7 @@ const page = () => {
                             }),
                           );
                           setOnButton("AllButton");
+                          dispatch(setSearch(""))
                         }}
                         placeholder="$0"
                         value={priceRange.min}
@@ -343,6 +349,7 @@ const page = () => {
                             }),
                           );
                           setOnButton("AllButton");
+                          dispatch(setSearch(""))
                         }}
                         placeholder="$0"
                         value={priceRange.max || priceRange.targetPrice}
@@ -371,6 +378,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setRating(e.target.value));
                         setOnButton("AllButton");
+                        dispatch(setSearch(""))
                       }}
                       id="fiveStar"
                       checked={rating.includes("4")}
@@ -395,6 +403,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setRating(e.target.value));
                         setOnButton("AllButton");
+                        dispatch(setSearch(""))
                       }}
                       type="checkbox"
                       checked={rating.includes("3")}
@@ -420,6 +429,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setRating(e.target.value));
                         setOnButton("AllButton");
+                        dispatch(setSearch(""))
                       }}
                       type="checkbox"
                       id="threeStar"
@@ -445,6 +455,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setRating(e.target.value));
                         setOnButton("AllButton");
+                        dispatch(setSearch(""))
                       }}
                       type="checkbox"
                       id="twoStar"
@@ -482,6 +493,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setDiscount(e.target.value));
                         setOnButton("AllButton");
+                        dispatch(setSearch(""))
                       }}
                       type="checkbox"
                       checked={discount.includes("10")}
@@ -504,6 +516,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setDiscount(e.target.value));
                         setOnButton("AllButton");
+                        dispatch(setSearch(""))
                       }}
                       className="cursor-pointer"
                       value={20}
@@ -523,6 +536,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setDiscount(e.target.value));
                         setOnButton("AllButton");
+                        dispatch(setSearch(""))
                       }}
                       className="cursor-pointer"
                       value={30}
@@ -543,6 +557,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setDiscount(e.target.value));
                         setOnButton("AllButton");
+                        dispatch(setSearch(""))
                       }}
                       className="cursor-pointer"
                     />
@@ -575,6 +590,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setAvailability(e.target.value));
                         setOnButton("AllButton");
+                        dispatch(setSearch(""))
                       }}
                       type="checkbox"
                       checked={availability.includes("In Stock")}
@@ -594,6 +610,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setAvailability(e.target.value));
                         setOnButton("AllButton");
+                        dispatch(setSearch(""))
                       }}
                       type="checkbox"
                       checked={availability.includes("Low Stock")}
@@ -614,6 +631,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setAvailability(e.target.value));
                         setOnButton("AllButton");
+                        dispatch(setSearch(""))
                       }}
                       type="checkbox"
                       id="outOfStock"
@@ -653,6 +671,7 @@ const page = () => {
                         onChange={(e) => {
                           dispatch(setBrand(e.target.value));
                           setOnButton("AllButton");
+                          dispatch(setSearch(""))
                         }}
                         name={item}
                         value={item}
