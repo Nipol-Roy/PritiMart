@@ -696,7 +696,7 @@ const page = () => {
                 </div>
               </div>
 
-              <div className="flex justify-center gap-2 items-center py-2!">
+              <div className="flex justify-center md:hidden gap-2 items-center py-2!">
                 <button
                   onClick={() => {
                     dispatch(setClearFilters());
