@@ -33,7 +33,10 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { setProduct } from "../lib/redux/reduxSlice/productSlice";
-import { setCategorys } from "../lib/redux/reduxSlice/productFilterSlice";
+import {
+  setCategorys,
+  setSearch,
+} from "../lib/redux/reduxSlice/productFilterSlice";
 
 import firstBG from "../../public/background-image/background-image.png";
 import groceriesCollection from "../../public/discount-banner/groceries.jpg";
@@ -195,15 +198,16 @@ const page = () => {
                           />
                           <Link href="/product" className="w-full h-full">
                             <button
-                              onClick={() =>
+                              onClick={() => (
                                 dispatch(
                                   setCategorys([
                                     "groceries",
                                     "kitchen-accessories",
                                     "sports-accessories",
                                   ]),
-                                )
-                              }
+                                ),
+                                dispatch(setSearch(""))
+                              )}
                               className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
                             >
@@ -221,15 +225,16 @@ const page = () => {
                           />
                           <Link href="/product" className="w-full h-full">
                             <button
-                              onClick={() =>
+                              onClick={() => (
                                 dispatch(
                                   setCategorys([
                                     "beauty",
                                     "fragrances",
                                     "skin-care",
                                   ]),
-                                )
-                              }
+                                ),
+                                dispatch(setSearch(""))
+                              )}
                               className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
                             >
@@ -247,7 +252,7 @@ const page = () => {
                           />
                           <Link href="/product" className="w-full h-full">
                             <button
-                              onClick={() =>
+                              onClick={() => (
                                 dispatch(
                                   setCategorys([
                                     "tops",
@@ -263,8 +268,9 @@ const page = () => {
                                     "mens-shirts",
                                     "fragrances",
                                   ]),
-                                )
-                              }
+                                ),
+                                dispatch(setSearch(""))
+                              )}
                               className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute  text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
                             >
@@ -282,7 +288,7 @@ const page = () => {
                           />
                           <Link href="/product" className="w-full h-full">
                             <button
-                              onClick={() =>
+                              onClick={() => (
                                 dispatch(
                                   setCategorys([
                                     "laptops",
@@ -293,8 +299,9 @@ const page = () => {
                                     "womens-watches",
                                     "tablets",
                                   ]),
-                                )
-                              }
+                                ),
+                                dispatch(setSearch(""))
+                              )}
                               className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer  translate-x-1/2 translate-y-1/2 font-bold"
                             >
@@ -312,14 +319,15 @@ const page = () => {
                           />
                           <Link href="/product" className="w-full h-full">
                             <button
-                              onClick={() =>
+                              onClick={() => (
                                 dispatch(
                                   setCategorys([
                                     "furniture",
                                     "home-decoration",
                                   ]),
-                                )
-                              }
+                                ),
+                                dispatch(setSearch(""))
+                              )}
                               className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
                             >
@@ -337,11 +345,12 @@ const page = () => {
                           />
                           <Link href="/product" className="w-full h-full">
                             <button
-                              onClick={() =>
+                              onClick={() => (
                                 dispatch(
                                   setCategorys(["motorcycle", "vehicle"]),
-                                )
-                              }
+                                ),
+                                dispatch(setSearch(""))
+                              )}
                               className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
                             >
@@ -590,7 +599,10 @@ const page = () => {
                       return (
                         <div
                           key={idx}
-                          onClick={() => setGetCategory(cate.value)}
+                          onClick={() => {
+                            (setGetCategory(cate.value),
+                              dispatch(setSearch("")));
+                          }}
                           className={`${getCategory === cate.value ? "bg-[#ffb524] text-white" : "bg-[#F4F6F8]"}   px-3!   py-1! cursor-pointer
                      text-gray-500 hover:text-gray-800 rounded-md capitalize`}
                         >
@@ -623,7 +635,10 @@ const page = () => {
 
                 <Link
                   href="/product"
-                  onClick={() => dispatch(setCategorys("vehicle"))}
+                  onClick={() => {
+                    (dispatch(setCategorys("vehicle")),
+                      dispatch(setSearch("")));
+                  }}
                   className="w-[70%] h-40 flex flex-col justify-center items-center bg-[#F4F6F8] rounded-md absolute bottom-2/4 translate-y-3/4 right-1/2 translate-x-1/2"
                 >
                   <div className="text-xl font-semibold text-[#81c408]">
@@ -647,7 +662,10 @@ const page = () => {
                 </div>
                 <Link
                   href="/product"
-                  onClick={() => dispatch(setCategorys("groceries"))}
+                  onClick={() => {
+                    (dispatch(setCategorys("groceries")),
+                      dispatch(setSearch("")));
+                  }}
                   className="w-[70%] flex flex-col justify-center items-center bg-[#ffb524] rounded-md  h-40  absolute bottom-2/4 translate-y-3/4 right-1/2 translate-x-1/2"
                 >
                   <div className="text-xl font-semibold text-white">
@@ -670,7 +688,7 @@ const page = () => {
                 </div>
                 <Link
                   href="/product"
-                  onClick={() =>
+                  onClick={() => (
                     dispatch(
                       setCategorys([
                         "tops",
@@ -686,8 +704,9 @@ const page = () => {
                         "mens-shirts",
                         "fragrances",
                       ]),
-                    )
-                  }
+                    ),
+                    dispatch(setSearch(""))
+                  )}
                   className="w-[70%] flex flex-col justify-center items-center bg-[#81c408] h-40 rounded-md absolute bottom-2/4 translate-y-3/4 right-1/2 translate-x-1/2"
                 >
                   <div className="text-xl font-semibold text-white">
@@ -778,7 +797,12 @@ const page = () => {
                     className="capitalize cursor-pointer bg-[#F4F6F8] text-gray-800 font-bold hover:border border-white hover:text-white
                    hover:bg-[#ffb524] transition duration-500 outline-none w-30 h-10  flex justify-center items-center rounded-md"
                   >
-                    Shop Now
+                    <Link
+                      href="/product"
+                      className="w-full h-full flex justify-center items-center rounded-md"
+                    >
+                      Shop Now
+                    </Link>
                   </button>
                 </div>
               </div>
