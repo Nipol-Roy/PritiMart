@@ -35,7 +35,8 @@ import { useEffect, useState } from "react";
 import { setProduct } from "../lib/redux/reduxSlice/productSlice";
 import {
   setCategorys,
-  setSearch,
+  setClearFilters,
+  setClearSearch,
 } from "../lib/redux/reduxSlice/productFilterSlice";
 
 import firstBG from "../../public/background-image/background-image.png";
@@ -206,7 +207,8 @@ const page = () => {
                                     "sports-accessories",
                                   ]),
                                 ),
-                                dispatch(setSearch(""))
+                                dispatch(setClearFilters()),
+                                dispatch(setClearSearch())
                               )}
                               className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
@@ -233,7 +235,8 @@ const page = () => {
                                     "skin-care",
                                   ]),
                                 ),
-                                dispatch(setSearch(""))
+                                dispatch(setClearFilters()),
+                                dispatch(setClearSearch())
                               )}
                               className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
@@ -269,7 +272,8 @@ const page = () => {
                                     "fragrances",
                                   ]),
                                 ),
-                                dispatch(setSearch(""))
+                                dispatch(setClearFilters()),
+                                dispatch(setClearSearch())
                               )}
                               className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute  text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
@@ -300,7 +304,8 @@ const page = () => {
                                     "tablets",
                                   ]),
                                 ),
-                                dispatch(setSearch(""))
+                                dispatch(setClearFilters()),
+                                dispatch(setClearSearch())
                               )}
                               className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer  translate-x-1/2 translate-y-1/2 font-bold"
@@ -326,7 +331,8 @@ const page = () => {
                                     "home-decoration",
                                   ]),
                                 ),
-                                dispatch(setSearch(""))
+                                dispatch(setClearFilters()),
+                                dispatch(setClearSearch())
                               )}
                               className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
@@ -349,7 +355,8 @@ const page = () => {
                                 dispatch(
                                   setCategorys(["motorcycle", "vehicle"]),
                                 ),
-                                dispatch(setSearch(""))
+                                dispatch(setClearFilters()),
+                                dispatch(setClearSearch())
                               )}
                               className="px-6! py-3! z-10 bg-[#ffb524] text-white rounded-md  absolute text-sm sm:text-lg md:text-xl
                          bottom-1/2 right-1/2 cursor-pointer translate-x-1/2 translate-y-1/2 font-bold"
@@ -450,7 +457,11 @@ const page = () => {
                     return (
                       <SwiperSlide key={idx} className="   relative  p-1!">
                         <div
-                          onClick={() => dispatch(setCategorys(item))}
+                          onClick={() => (
+                            dispatch(setCategorys(item)),
+                            dispatch(setClearFilters()),
+                            dispatch(setClearSearch())
+                          )}
                           className="w-auto hover:shadow-lg shadow-gray-500 transition-all
                          duration-500 cursor-pointer h-full relative rounded-md overflow-hidden"
                         >
@@ -599,10 +610,7 @@ const page = () => {
                       return (
                         <div
                           key={idx}
-                          onClick={() => {
-                            (setGetCategory(cate.value),
-                              dispatch(setSearch("")));
-                          }}
+                          onClick={() => setGetCategory(cate.value)}
                           className={`${getCategory === cate.value ? "bg-[#ffb524] text-white" : "bg-[#F4F6F8]"}   px-3!   py-1! cursor-pointer
                      text-gray-500 hover:text-gray-800 rounded-md capitalize`}
                         >
@@ -635,10 +643,11 @@ const page = () => {
 
                 <Link
                   href="/product"
-                  onClick={() => {
-                    (dispatch(setCategorys("vehicle")),
-                      dispatch(setSearch("")));
-                  }}
+                  onClick={() => (
+                    dispatch(setCategorys("vehicle")),
+                    dispatch(setClearFilters()),
+                    dispatch(setClearSearch())
+                  )}
                   className="w-[70%] h-40 flex flex-col justify-center items-center bg-[#F4F6F8] rounded-md absolute bottom-2/4 translate-y-3/4 right-1/2 translate-x-1/2"
                 >
                   <div className="text-xl font-semibold text-[#81c408]">
@@ -662,10 +671,11 @@ const page = () => {
                 </div>
                 <Link
                   href="/product"
-                  onClick={() => {
-                    (dispatch(setCategorys("groceries")),
-                      dispatch(setSearch("")));
-                  }}
+                  onClick={() => (
+                    dispatch(setCategorys("groceries")),
+                    dispatch(setClearFilters()),
+                    dispatch(setClearSearch())
+                  )}
                   className="w-[70%] flex flex-col justify-center items-center bg-[#ffb524] rounded-md  h-40  absolute bottom-2/4 translate-y-3/4 right-1/2 translate-x-1/2"
                 >
                   <div className="text-xl font-semibold text-white">
@@ -705,7 +715,8 @@ const page = () => {
                         "fragrances",
                       ]),
                     ),
-                    dispatch(setSearch(""))
+                    dispatch(setClearFilters()),
+                    dispatch(setClearSearch())
                   )}
                   className="w-[70%] flex flex-col justify-center items-center bg-[#81c408] h-40 rounded-md absolute bottom-2/4 translate-y-3/4 right-1/2 translate-x-1/2"
                 >
@@ -799,7 +810,7 @@ const page = () => {
                   >
                     <Link
                       href="/product"
-                      className="w-full h-full flex justify-center items-center rounded-md"
+                      className="w-full h-full flex justify-center items-center "
                     >
                       Shop Now
                     </Link>

@@ -14,7 +14,10 @@ import { CiSearch } from "react-icons/ci";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProduct } from "@/app/lib/api/fetchProduct";
-import { setSearch } from "@/app/lib/redux/reduxSlice/productFilterSlice";
+import {
+  setClearFilters,
+  setSearch,
+} from "@/app/lib/redux/reduxSlice/productFilterSlice";
 
 const navbar = () => {
   const [isMenu, setIsMenu] = useState(false);
@@ -31,27 +34,25 @@ const navbar = () => {
   );
 
   useEffect(() => {
-  const handleScroll = () => {
-    setShowSearch(false);
-  };
+    const handleScroll = () => {
+      setShowSearch(false);
+    };
 
-  window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
-  return () => {
-    window.removeEventListener("scroll", handleScroll);
-  };
-}, []);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     fetchProduct(dispatch);
   }, []);
 
-  // console.log(product);
-
   const [searchValue, setSearchValue] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
-  console.log(searchResult)
+  console.log(searchResult);
 
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
@@ -157,7 +158,7 @@ const navbar = () => {
 
             <div className="hidden w-full    md:flex justify-center items-center gap-5 md:gap-7 lg:gap-9">
               <Link
-              onClick={()=> setShowSearch(false)}
+                onClick={() => setShowSearch(false)}
                 className="text-lg text-[#81C408] font-bold transition-all duration-300 hover:scale-115  hover:text-[#FFB524]"
                 href="/"
               >
@@ -166,21 +167,21 @@ const navbar = () => {
               <Link
                 className="text-lg text-[#81C408] font-bold transition-all duration-300 hover:scale-115  hover:text-[#FFB524]"
                 href="/about"
-                onClick={()=> setShowSearch(false)}
+                onClick={() => setShowSearch(false)}
               >
                 About
               </Link>
               <Link
                 className="text-lg text-[#81C408] font-bold transition-all duration-300 hover:scale-115  hover:text-[#FFB524]"
                 href="/product"
-                onClick={()=> setShowSearch(false)}
+                onClick={() => setShowSearch(false)}
               >
                 Product
               </Link>
               <Link
                 className="text-lg text-[#81C408] font-bold transition-all duration-300 hover:scale-115  hover:text-[#FFB524]"
                 href="/contact"
-                onClick={()=> setShowSearch(false)}
+                onClick={() => setShowSearch(false)}
               >
                 Contact
               </Link>
@@ -263,7 +264,9 @@ const navbar = () => {
           >
             <div className=" ">
               <div className="text-xl border-b  w-full flex justify-between items-center px-4! py-5!  capitalize font-extrabold text-[#81C408]">
-                <Link onClick={()=> setShowSearch(false)} href="/">Priti Shop</Link>
+                <Link onClick={() => setShowSearch(false)} href="/">
+                  Priti Shop
+                </Link>
                 <div
                   onClick={() => setIsMenu(false)}
                   className="text-2xl hover:bg-[#81C408] hover:text-[#FFB524] p-2! rounded-md hover:scale-115 transition duration-500"
@@ -276,7 +279,7 @@ const navbar = () => {
                 <Link
                   onClick={(e) => {
                     e.stopPropagation();
-                    setShowSearch(false)
+                    setShowSearch(false);
                     setIsMenu(false);
                   }}
                   className="text-lg font-bold px-5! py-3! w-full transition duration-500 sm:text-left text-center border-b hover:bg-[#81C408] hover:text-[#FFB524] "
@@ -287,7 +290,7 @@ const navbar = () => {
                 <Link
                   onClick={(e) => {
                     e.stopPropagation();
-                    setShowSearch(false)
+                    setShowSearch(false);
                     setIsMenu(false);
                   }}
                   className="text-lg font-bold px-5! py-3! sm:text-left transition duration-500 text-center border-b  w-full hover:bg-[#81C408] hover:text-[#FFB524]"
@@ -298,7 +301,7 @@ const navbar = () => {
                 <Link
                   onClick={(e) => {
                     e.stopPropagation();
-                    setShowSearch(false)
+                    setShowSearch(false);
                     setIsMenu(false);
                   }}
                   className="text-lg font-bold px-5! py-3! sm:text-left transition duration-500 text-center border-b  w-full hover:bg-[#81C408] hover:text-[#FFB524]"
@@ -309,7 +312,7 @@ const navbar = () => {
                 <Link
                   onClick={(e) => {
                     e.stopPropagation();
-                    setShowSearch(false)
+                    setShowSearch(false);
                     setIsMenu(false);
                   }}
                   className="text-lg font-bold px-5! py-3! sm:text-left transition duration-500 text-center border-b  w-full hover:bg-[#81C408] hover:text-[#FFB524]"
@@ -323,7 +326,7 @@ const navbar = () => {
                 <div
                   onClick={(e) => {
                     e.stopPropagation();
-                    setShowSearch(false)
+                    setShowSearch(false);
                     setIsMenu(false);
                   }}
                   className="text-2xl  p-2! transition-all duration-500 hover:scale-115 border rounded-md hover:bg-[#81C408] hover:text-[#FFB524]"
@@ -354,9 +357,10 @@ const navbar = () => {
               <Link
                 href="/product"
                 onClick={() => (
+                  dispatch(setClearFilters()),
+                  dispatch(setSearch(searchValue)),
                   setSearchValue(""),
-                  setShowSearch(false),
-                  dispatch(setSearch(searchValue))
+                  setShowSearch(false)
                 )}
                 className="h-full w-14 md:w-20 border bg-[#FFB524] flex justify-center items-center text-white text-lg md:text-xl rounded-r-md 
               cursor-pointer hover:scale-102 transition-all duration-300"
@@ -365,8 +369,11 @@ const navbar = () => {
               </Link>
             </div>
             <div className="border z-500 w-full h-full border-gray-200 rounded-md overflow-scroll relative ">
-              {searchResult?.map((item , idx) => (
-                <div key={idx} className=" w-full  flex flex-col  gap-2 border-b border-gray-200 ">
+              {searchResult?.map((item, idx) => (
+                <div
+                  key={idx}
+                  className=" w-full  flex flex-col  gap-2 border-b border-gray-200 "
+                >
                   <Link
                     href="/product"
                     className="py-2! cursor-pointer hover:text-white hover:bg-[#FFB524]  px-2! text-[14px] md:text-[16px]"
@@ -374,10 +381,11 @@ const navbar = () => {
                     <button
                       className="border-none text-left outline-none w-full h-full"
                       onClick={() => (
-                        setSearchValue(""),
+                        dispatch(setSearch(item.title)),
+                        dispatch(setClearFilters()),
+                        dispatch(setSearch(searchValue)),
                         setShowSearch(false),
-                        dispatch(setSearch(item.title))
-                        
+                        setSearchValue("")
                       )}
                     >
                       {item.title}

@@ -11,7 +11,7 @@ const initialState = {
   discount: [],
   availability: [],
   brand: [],
-  searchValue: "apple",
+  searchValues: "",
 };
 
 const productFilterSlice = createSlice({
@@ -20,6 +20,7 @@ const productFilterSlice = createSlice({
   reducers: {
     setCategorys(state, action) {
       const value = action.payload;
+
 
       if (Array.isArray(value)) {
         state.category = value;
@@ -35,6 +36,7 @@ const productFilterSlice = createSlice({
 
     setBrand(state, action) {
       const value = action.payload;
+   
 
       const exist = state.brand.some(
         (item) => item.toLowerCase() === value.toLowerCase(),
@@ -50,6 +52,7 @@ const productFilterSlice = createSlice({
     },
 
     setPriceRange(state, action) {
+     
       const { type, value } = action.payload;
       if (type === "target") {
         state.priceRange.targetPrice = Number(value);
@@ -63,6 +66,7 @@ const productFilterSlice = createSlice({
     },
     setRating(state, action) {
       const value = action.payload;
+  
       if (state.rating.includes(value)) {
         state.rating = state.rating.filter((item) => item !== value);
       } else {
@@ -71,6 +75,7 @@ const productFilterSlice = createSlice({
     },
     setDiscount(state, action) {
       const value = action.payload;
+   
       if (state.discount.includes(value)) {
         state.discount = state.discount.filter((item) => item !== value);
       } else {
@@ -79,6 +84,7 @@ const productFilterSlice = createSlice({
     },
     setAvailability(state, action) {
       const value = action.payload;
+     
       if (state.availability.includes(value)) {
         state.availability = state.availability.filter(
           (item) => item !== value,
@@ -87,7 +93,7 @@ const productFilterSlice = createSlice({
         state.availability.push(value);
       }
     },
-    setClearFilters(state, action) {
+    setClearFilters(state) {
       state.category = [];
       state.priceRange = {
         min: 0,
@@ -98,10 +104,15 @@ const productFilterSlice = createSlice({
       state.discount = [];
       state.availability = [];
       state.brand = [];
+
     },
     setSearch(state, action) {
-      state.searchValue = action.payload;
+      state.searchValues = action.payload;
     },
+    setClearSearch(state){
+      state.searchValues = ""
+    }
+  
   },
 });
 
@@ -114,6 +125,7 @@ export const {
   setRating,
   setClearFilters,
   setSearch,
+  setClearSearch
 } = productFilterSlice.actions;
 
 export default productFilterSlice.reducer;

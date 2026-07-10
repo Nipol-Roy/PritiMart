@@ -28,6 +28,7 @@ import {
   setBrand,
   setClearFilters,
   setSearch,
+  setClearSearch,
 } from "../lib/redux/reduxSlice/productFilterSlice";
 
 const page = () => {
@@ -64,10 +65,18 @@ const page = () => {
     discount,
     rating,
     priceRange,
-    searchValue,
+    searchValues,
   } = useSelector((state) => state.productFilter);
 
-  console.log(searchValue);
+  console.log(
+    category,
+    brand,
+    availability,
+    discount,
+    rating,
+    priceRange,
+    searchValues,
+  );
 
   const filteredProduct = product.filter((item) => {
     const matchCategory =
@@ -97,19 +106,19 @@ const page = () => {
     const matchDiscount =
       discount.length == 0 ||
       discount.some((disc) => {
-        if (disc == "10") {
+        if (disc === "10") {
           return item.discountPercentage >= 0 && item.discountPercentage <= 10;
         }
 
-        if (disc == "20") {
+        if (disc === "20") {
           return item.discountPercentage >= 10 && item.discountPercentage <= 20;
         }
 
-        if (disc == "30") {
+        if (disc === "30") {
           return item.discountPercentage >= 20 && item.discountPercentage <= 30;
         }
 
-        if (disc == "40") {
+        if (disc === "40") {
           return item.discountPercentage >= 30;
         }
       });
@@ -124,15 +133,15 @@ const page = () => {
         : item.price >= priceRange.min && item.price <= priceRange.max;
 
     const matchTargetPrice =
-      priceRange.targetPrice == 0 || item.price <= priceRange.targetPrice;
+      priceRange.targetPrice === 0 || item.price <= priceRange.targetPrice;
 
-    const matchBrand = brand.length == 0 || brand.includes(item.brand);
+    const matchBrand = brand.length === 0 || brand.includes(item.brand);
 
     const searchResults =
-      searchValue.trim() === "" ||
-      item.brand?.toLowerCase().includes(searchValue.toLowerCase()) ||
-      item.category?.toLowerCase().includes(searchValue.toLowerCase()) ||
-      item.title?.toLowerCase().includes(searchValue.toLowerCase());
+      searchValues.trim() === "" ||
+      item.brand?.toLowerCase().includes(searchValues.toLowerCase()) ||
+      item.category?.toLowerCase().includes(searchValues.toLowerCase()) ||
+      item.title?.toLowerCase().includes(searchValues.toLowerCase());
 
     return (
       matchBrand &&
@@ -188,7 +197,12 @@ const page = () => {
 
         <div className="my-3! flex justify-start flex-wrap items-center gap-2 p-1!">
           <button
-            onClick={() => setOnButton("AllButton")}
+            onClick={() => (
+              setOnButton("AllButton"),
+              dispatch(setClearSearch()),
+              dispatch(setClearFilters())
+
+            )}
             className={`py-1! outline-none text-[#81c408] hover:bg-[#81c408] transition-all duration-300
            hover:text-white font-semibold cursor-pointer rounded-md text-[12px] md:text-sm
             px-3! border ${onButton == "AllButton" ? "bg-[#ffb524] text-white hover:bg-[#ffb524] hover:text-white" : ""}`}
@@ -201,7 +215,9 @@ const page = () => {
               key={idx}
               onClick={() => (
                 setOnButton(item),
-                dispatch(setCategorys([])),dispatch(setSearch(""))
+                dispatch(setCategorys([])),
+                dispatch(setClearFilters()),
+                dispatch(setClearSearch())
               )}
               className={`py-1! outline-none text-[#81c408] hover:bg-[#81c408]
            hover:text-white font-semibold cursor-pointer rounded-md text-[12px] md:text-sm transition-all duration-300
@@ -255,8 +271,8 @@ const page = () => {
                       <input
                         onChange={(e) => {
                           dispatch(setCategorys(e.target.value));
-                          setOnButton("AllButton")
-                          dispatch(setSearch(""))
+                          setOnButton("AllButton");
+                          dispatch(setSearch(""));
                         }}
                         type="checkbox"
                         checked={category.includes(item)}
@@ -304,7 +320,7 @@ const page = () => {
                             value: e.target.value,
                           }),
                         );
-                        dispatch(setSearch(""))
+                        dispatch(setSearch(""));
                         setOnButton("AllButton");
                       }}
                       type="range"
@@ -327,7 +343,7 @@ const page = () => {
                             }),
                           );
                           setOnButton("AllButton");
-                          dispatch(setSearch(""))
+                          dispatch(setSearch(""));
                         }}
                         placeholder="$0"
                         value={priceRange.min}
@@ -349,7 +365,7 @@ const page = () => {
                             }),
                           );
                           setOnButton("AllButton");
-                          dispatch(setSearch(""))
+                          dispatch(setSearch(""));
                         }}
                         placeholder="$0"
                         value={priceRange.max || priceRange.targetPrice}
@@ -378,7 +394,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setRating(e.target.value));
                         setOnButton("AllButton");
-                        dispatch(setSearch(""))
+                        dispatch(setSearch(""));
                       }}
                       id="fiveStar"
                       checked={rating.includes("4")}
@@ -403,7 +419,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setRating(e.target.value));
                         setOnButton("AllButton");
-                        dispatch(setSearch(""))
+                        dispatch(setSearch(""));
                       }}
                       type="checkbox"
                       checked={rating.includes("3")}
@@ -429,7 +445,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setRating(e.target.value));
                         setOnButton("AllButton");
-                        dispatch(setSearch(""))
+                        dispatch(setSearch(""));
                       }}
                       type="checkbox"
                       id="threeStar"
@@ -455,7 +471,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setRating(e.target.value));
                         setOnButton("AllButton");
-                        dispatch(setSearch(""))
+                        dispatch(setSearch(""));
                       }}
                       type="checkbox"
                       id="twoStar"
@@ -493,7 +509,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setDiscount(e.target.value));
                         setOnButton("AllButton");
-                        dispatch(setSearch(""))
+                        dispatch(setSearch(""));
                       }}
                       type="checkbox"
                       checked={discount.includes("10")}
@@ -516,7 +532,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setDiscount(e.target.value));
                         setOnButton("AllButton");
-                        dispatch(setSearch(""))
+                        dispatch(setSearch(""));
                       }}
                       className="cursor-pointer"
                       value={20}
@@ -536,7 +552,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setDiscount(e.target.value));
                         setOnButton("AllButton");
-                        dispatch(setSearch(""))
+                        dispatch(setSearch(""));
                       }}
                       className="cursor-pointer"
                       value={30}
@@ -557,7 +573,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setDiscount(e.target.value));
                         setOnButton("AllButton");
-                        dispatch(setSearch(""))
+                        dispatch(setSearch(""));
                       }}
                       className="cursor-pointer"
                     />
@@ -590,7 +606,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setAvailability(e.target.value));
                         setOnButton("AllButton");
-                        dispatch(setSearch(""))
+                        dispatch(setSearch(""));
                       }}
                       type="checkbox"
                       checked={availability.includes("In Stock")}
@@ -610,7 +626,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setAvailability(e.target.value));
                         setOnButton("AllButton");
-                        dispatch(setSearch(""))
+                        dispatch(setSearch(""));
                       }}
                       type="checkbox"
                       checked={availability.includes("Low Stock")}
@@ -631,7 +647,7 @@ const page = () => {
                       onChange={(e) => {
                         dispatch(setAvailability(e.target.value));
                         setOnButton("AllButton");
-                        dispatch(setSearch(""))
+                        dispatch(setSearch(""));
                       }}
                       type="checkbox"
                       id="outOfStock"
@@ -671,7 +687,7 @@ const page = () => {
                         onChange={(e) => {
                           dispatch(setBrand(e.target.value));
                           setOnButton("AllButton");
-                          dispatch(setSearch(""))
+                          dispatch(setSearch(""));
                         }}
                         name={item}
                         value={item}
