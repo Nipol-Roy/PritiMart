@@ -4,7 +4,7 @@ import Footer from "./components/footer/footer";
 import Providers from "./lib/redux/reduxUtels/reduxProvider";
 
 export const metadata = {
-  title: "Priti Shop",
+  title: "Priti-Shop",
   description: "a multi Productional store",
 };
 
